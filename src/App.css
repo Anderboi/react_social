@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+ul li {
+  list-style: none;
+  font-weight: 700;
+}
+
+ul li:hover {
+  color: red;
+  cursor: pointer;
+}
