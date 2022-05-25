@@ -1,0 +1,22 @@
+.nav_menu {
+  grid-area: nav;
+  background-color: var(--main-color);
+  color: var(--main-text-color);
+
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: flex-end;
+}
+
+.nav_item {
+  font-size: 1.1rem;
+  cursor: pointer;
+  align-self: stretch;
+  text-align: end;
+}
+
+.nav_item:hover {
+  font-weight: 500;
+}

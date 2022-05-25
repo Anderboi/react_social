@@ -1,0 +1,10 @@
+.container {
+  grid-area: cont;
+  padding-right: 1em;
+}
+
+.main_img {
+  width: 100%;
+  height: 21em;
+  object-fit: cover;
+}

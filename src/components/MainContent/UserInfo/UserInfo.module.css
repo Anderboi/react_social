@@ -1,0 +1,18 @@
+.info {
+  margin-top: 1em;
+  display: flex;
+  align-items: flex-end;
+}
+.info_description {
+  padding-left: 1em;
+}
+.user-info-description h2 {
+  margin-bottom: 0.5em;
+}
+
+.info_img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+
+}
