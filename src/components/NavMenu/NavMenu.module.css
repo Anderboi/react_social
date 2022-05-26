@@ -8,15 +8,24 @@
   flex-direction: column;
   gap: 0.5em;
   align-items: flex-end;
+
+  min-width: 160px;
 }
 
 .nav_item {
-  font-size: 1.1rem;
   cursor: pointer;
   align-self: stretch;
   text-align: end;
+  text-decoration: none;
+  color: rgba(251, 249, 249, 0.705);
 }
 
 .nav_item:hover {
   font-weight: 500;
+  color: white;
+}
+.active {
+  font-weight: 500;
+  color: white;
+  text-decoration: none;
 }

@@ -21,3 +21,8 @@
     "nav cont";
   gap: 1em;
 }
+
+.app-content {
+  grid-area: cont;
+  padding-right: 1em;
+}

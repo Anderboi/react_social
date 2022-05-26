@@ -1,7 +1,13 @@
+import React from "react";
 import "./App.css";
 import { Header } from "./components/Header/Header";
 import { NavMenu } from "./components/NavMenu/NavMenu";
 import { MainContent } from "./components/MainContent/MainContent";
+import { Dialogs } from "./components/Dailogs/Dialogs";
+import { Routes, Route } from "react-router-dom";
+import { News } from "./components/News/News";
+import { Music } from "./components/Music/Music";
+import { Settings } from "./components/Settings/Settings";
 
 function App() {
   return (
@@ -10,7 +16,15 @@ function App() {
       <div className="container grid">
         <Header />
         <NavMenu />
-        <MainContent />
+        <div className="app-content">
+          <Routes>
+            <Route path="/profile" element={<MainContent />} />
+            <Route path="/messeges" element={<Dialogs />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/music" element={<Music />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,9 @@
+.chat_list {
+  border-right: 1px solid var(--main-color);
+  margin-right: 1em;
+  /* padding-right: 1em; */
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1em;
+}

@@ -1,6 +1,7 @@
 import user from "./UserInfo.module.css";
 
-export function UserInfo() {
+export function UserInfo(props) {
+  const fullName = `${props.name} ${props.surname}`;
   return (
     <div className={user.info}>
       <img
@@ -9,7 +10,7 @@ export function UserInfo() {
         className={user.info_img}
       ></img>
       <div className={user.info_description}>
-        <h2>Name Surname</h2>
+        <h2>{fullName}</h2>
         <div>
           <div>Date of birth: 02 march</div>
           <div>City: Minsk</div>

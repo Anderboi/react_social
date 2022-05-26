@@ -8,7 +8,9 @@ export function PostItem(props) {
         alt="icon"
         className={post.icon}
       />
-      <p className={post.body}>{props.text}</p>
+      <p id={props.id} className={post.body}>
+        {props.text}
+      </p>
     </div>
   );
 }
