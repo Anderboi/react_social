@@ -16,7 +16,7 @@ export function MainContent(props) {
       {/* Info User Block  */}
       <PostForm />
       {/* New Post */}
-      <PostList posts={props.posts} />
+      <PostList posts={props.data.posts} />
       {/* Posts */}
     </div>
   );

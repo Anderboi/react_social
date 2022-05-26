@@ -1,6 +1,22 @@
+.messege_block {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+}
+
 .message_list {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  
+}
+
+.messege_input_block {
+  display: flex;
+  margin-bottom: 1em;
+  gap: 1em;
+}
+
+.messege_input_textarea {
+  width: 100%;
 }

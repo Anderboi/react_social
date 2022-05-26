@@ -1,5 +1,13 @@
-import  css  from "./MessegeItem.module.css";
+import css from "./MessegeItem.module.css";
 
 export function MessegeItem(props) {
-  return <div className={css.messege_item}>{props.text}</div>;
+  let isOwnMessege = props.isOwn;
+
+  return (
+    <div
+      className={isOwnMessege ? css.messege_item_own : css.messege_item_friend}
+    >
+      {props.text}
+    </div>
+  );
 }

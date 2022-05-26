@@ -3,9 +3,9 @@
 
   display: flex;
   justify-content: flex-start;
-  align-items: center;
-  gap: 1em;
-  padding: 1em 2em;
+  align-items: baseline;
+  gap: 2em;
+  padding: 1.4em 2em 1em 2em;
 
   color: var(--main-text-color);
 }
@@ -17,5 +17,5 @@
 }
 
 .logo_img {
-  height: 20px;
+  height: 18px;
 }

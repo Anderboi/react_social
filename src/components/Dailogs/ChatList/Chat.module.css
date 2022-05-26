@@ -5,5 +5,5 @@
   height: 90vh;
   display: flex;
   flex-direction: column;
-  gap: 0.1em;
+  /* gap: 0.1em; */
 }

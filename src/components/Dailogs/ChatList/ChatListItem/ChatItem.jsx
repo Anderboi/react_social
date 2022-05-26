@@ -3,15 +3,21 @@ import css from "./ChatItem.module.css";
 
 export function ChatItem(props) {
   return (
-    <div className={css.chat_item}>
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-        alt="avatar_icon"
-        className={css.avatar_icon}
-      />
-      <NavLink to={"/messeges/" + props.id} className={css.chat_item_name}>
-        {props.name}
+    <div>
+      <NavLink to={"/messeges/" + props.id} className={css.chat_item}>
+        <div>
+          <img src={props.icon} alt="avatar_icon" className={css.avatar_icon} />
+          <div className={css.green_circle}></div>
+        </div>
+        <div className={css.chat_item_text_wrap}>
+          <div className={css.chat_item_name}>{props.name}</div>
+          <div className={css.messege_text}>
+            Lorem ipsum dolor consectetur ...
+          </div>
+        </div>
+        <div className={css.messege_text}>10:04</div>
       </NavLink>
+      <hr></hr>
     </div>
   );
 }

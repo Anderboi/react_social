@@ -1,15 +1,19 @@
-.nav_menu {
+.main_nav_block {
   grid-area: nav;
   background-color: var(--main-color);
   color: var(--main-text-color);
-
-  padding: 2em;
+  padding: 1.5em;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+.nav_menu {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
   align-items: flex-end;
-
-  min-width: 160px;
+  margin-bottom: 5em;
 }
 
 .nav_item {
@@ -28,4 +32,25 @@
   font-weight: 500;
   color: white;
   text-decoration: none;
+}
+
+.friends_block {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.4em;
+
+  /* margin-bottom: 1.5em; */
+
+  font-size: 0.75em;
+}
+
+.friends_block_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friends_block_img {
+  width: 40px;
 }
