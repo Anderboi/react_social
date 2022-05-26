@@ -20,7 +20,12 @@ function App(props) {
           <Routes>
             <Route
               path="/profile"
-              element={<MainContent data={props.data.mainPage} />}
+              element={
+                <MainContent
+                  data={props.data.mainPage}
+                  addPost={props.addPost}
+                />
+              }
             />
             <Route
               path="/messeges"

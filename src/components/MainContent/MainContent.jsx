@@ -14,7 +14,7 @@ export function MainContent(props) {
       {/* Hero image */}
       <UserInfo name="Ivan" surname="Ivanov" />
       {/* Info User Block  */}
-      <PostForm />
+      <PostForm addPost={props.addPost} />
       {/* New Post */}
       <PostList posts={props.data.posts} />
       {/* Posts */}

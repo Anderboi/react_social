@@ -2,10 +2,11 @@ import form from "./PostForm.module.css";
 import base from "../../../Common.module.css";
 import React from "react";
 
-export function PostForm() {
+export function PostForm(props) {
   const postInput = React.createRef();
   const sendPost = () => {
-    console.log(postInput.current.value);
+    props.addPost(postInput.current.value);
+
     postInput.current.value = "";
   };
 
@@ -22,7 +23,7 @@ export function PostForm() {
         className={`${base.input} ${form.input}`}
       ></textarea>
       <button onClick={sendPost} type="submit" className={base.button}>
-        Send post
+        Send post 
       </button>
     </div>
   );

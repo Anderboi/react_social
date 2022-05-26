@@ -1,3 +1,5 @@
+import { renderEntireTree } from "./../render";
+
 const data = {
   sidebar: {},
   mainPage: {
@@ -58,6 +60,16 @@ const data = {
       },
     ],
   },
+};
+
+//! FUNCTIONS
+export const addPost = (postText) => {
+  const post = {
+    text: postText,
+    id: Math.random() * 10,
+  };
+  data.mainPage.posts.unshift(post);
+  renderEntireTree(data);
 };
 
 export default data;
