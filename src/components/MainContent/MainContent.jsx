@@ -3,7 +3,7 @@ import content from "./MainContent.module.css";
 import { PostForm } from "./PostForm/PostForm";
 import { PostList } from "./PostList/PostList";
 
-export function MainContent() {
+export function MainContent(props) {
   return (
     <div>
       <img
@@ -16,7 +16,7 @@ export function MainContent() {
       {/* Info User Block  */}
       <PostForm />
       {/* New Post */}
-      <PostList />
+      <PostList posts={props.posts} />
       {/* Posts */}
     </div>
   );

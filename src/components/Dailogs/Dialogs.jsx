@@ -2,11 +2,11 @@ import { Chat } from "./ChatList/Chat";
 import c from "./Dialogs.module.css";
 import { MessegeList } from "./Messeges/MessegeList";
 
-export function Dialogs() {
+export function Dialogs(props) {
   return (
     <div className={c.chat}>
-      <Chat />
-      <MessegeList />
+      <Chat users={props.data.users}/>
+      <MessegeList messeges={props.data.messeges}/>
     </div>
   );
 }

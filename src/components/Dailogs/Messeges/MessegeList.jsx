@@ -1,10 +1,9 @@
 import { MessegeItem } from "./MessegeItem/MessegeItem";
+import css from './MessegeList.module.css'
 
-export function MessegeList() {
-  return (
-    <div className="message-list">
-      <MessegeItem text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, modi, ipsam nemo doloribus earum voluptatem blanditiis" />
-      <MessegeItem text="Repudiandae dolore corrupti doloremque voluptate eaque incidunt nostrum quibusdam amet quae aperiam sint sed." />
-    </div>
-  );
+export function MessegeList(props) {
+  const messegeItems = props.messeges.map((t) => (
+    <MessegeItem text={t.text} id={t.id} />
+  ));
+  return <div className={css.message_list}>{messegeItems}</div>;
 }

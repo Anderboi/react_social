@@ -1,5 +1,5 @@
-import { css } from "./MessegeItem.module.css";
+import  css  from "./MessegeItem.module.css";
 
 export function MessegeItem(props) {
-  return <div className="messege-item">{props.text}</div>;
+  return <div className={css.messege_item}>{props.text}</div>;
 }
