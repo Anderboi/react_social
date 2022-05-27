@@ -15,12 +15,11 @@ export function MainContent(props) {
       <UserInfo name="Ivan" surname="Ivanov" />
       {/* Info User Block  */}
       <PostForm
-        postInput={props.data.newPostMessage}
-        addPost={props.addPost}
-        updateInput={props.updateInput}
+      store={props.store}
+        
       />
       {/* New Post */}
-      <PostList posts={props.data.mainPage.posts} />
+      <PostList posts={props.store.data.mainPage.posts} />
       {/* Posts */}
     </div>
   );

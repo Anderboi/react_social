@@ -6,11 +6,11 @@ export function PostForm(props) {
   const postInput = React.createRef();
 
   const sendPost = () => {
-    props.addPost();
+    props.store.addPost();
   };
 
   const updatePostInput = () => {
-    props.updateInput(postInput.current.value);
+    props.store.updateInput(postInput.current.value);
   };
 
   return (
@@ -19,7 +19,7 @@ export function PostForm(props) {
       <textarea
         ref={postInput}
         onChange={updatePostInput}
-        value={props.postInput}
+        value={props.store.getnewPostMessage()}
         name="post"
         id="post"
         cols="30"

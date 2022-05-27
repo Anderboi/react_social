@@ -22,9 +22,8 @@ function App(props) {
               path="/profile"
               element={
                 <MainContent
-                  data={props.data}
-                  addPost={props.addPost}
-                  updateInput={props.updateInput}
+                store={props.store}
+                  
                 />
               }
             />
@@ -32,9 +31,8 @@ function App(props) {
               path="/messeges"
               element={
                 <ChatPage
-                  data={props.data}
-                  updateInput={props.updateInput}
-                  addMessage={props.addMessage}
+                store={props.store}
+                 
                 />
               }
             />
