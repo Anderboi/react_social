@@ -22,14 +22,21 @@ function App(props) {
               path="/profile"
               element={
                 <MainContent
-                  data={props.data.mainPage}
+                  data={props.data}
                   addPost={props.addPost}
+                  updateInput={props.updateInput}
                 />
               }
             />
             <Route
               path="/messeges"
-              element={<ChatPage data={props.data.chatPage} />}
+              element={
+                <ChatPage
+                  data={props.data}
+                  updateInput={props.updateInput}
+                  addMessage={props.addMessage}
+                />
+              }
             />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />

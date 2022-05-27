@@ -5,8 +5,13 @@ import { MessegeList } from "./Messeges/MessegeList";
 export function ChatPage(props) {
   return (
     <div className={c.chat}>
-      <Chat users={props.data.users} />
-      <MessegeList messeges={props.data.messeges} />
+      <Chat users={props.data.chatPage.users} />
+      <MessegeList
+        messeges={props.data.chatPage.messeges}
+        updateInput={props.updateInput}
+        messageInput={props.data.newPostMessage}
+        addMessage={props.addMessage}
+      />
     </div>
   );
 }

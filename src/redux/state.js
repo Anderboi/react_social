@@ -1,7 +1,9 @@
-import { renderEntireTree } from "./../render";
+let renderEntireTree = () => {};
 
 const data = {
   sidebar: {},
+  newPostMessage: "",
+
   mainPage: {
     posts: [
       {
@@ -63,13 +65,38 @@ const data = {
 };
 
 //! FUNCTIONS
-export const addPost = (postText) => {
+export const addPost = () => {
   const post = {
-    text: postText,
+    text: data.newPostMessage,
     id: Math.random() * 10,
   };
-  data.mainPage.posts.unshift(post);
+  if (data.newPostMessage.length > 0) {
+    data.mainPage.posts.unshift(post);
+    renderEntireTree(data);
+    data.newPostMessage = "";
+  }
+};
+
+export const addMessage = () => {
+  const message = {
+    text: data.newPostMessage,
+    id: Math.random() * 10,
+    isOwn: true,
+  };
+  if (data.newPostMessage.length > 0) {
+    data.chatPage.messeges.push(message);
+    renderEntireTree(data);
+    data.newPostMessage = "";
+  }
+};
+
+export const updateInput = (text) => {
+  data.newPostMessage = text;
   renderEntireTree(data);
+};
+
+export const subscribe = (observer) => {
+  renderEntireTree = observer;
 };
 
 export default data;

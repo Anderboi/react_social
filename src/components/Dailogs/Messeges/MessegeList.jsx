@@ -9,10 +9,13 @@ export function MessegeList(props) {
   ));
 
   const messegeInput = React.createRef();
+  
   let sendMessege = () => {
-    console.log(messegeInput.current.value);
+    props.addMessage();
+  };
 
-    messegeInput.current.value = "";
+  const updateMessegeInput = () => {
+    props.updateInput(messegeInput.current.value);
   };
 
   return (
@@ -21,6 +24,8 @@ export function MessegeList(props) {
       <div className={css.messege_input_block}>
         <input
           ref={messegeInput}
+          onChange={updateMessegeInput}
+          value={props.messageInput}
           className={`${base.input} ${css.messege_input_textarea}`}
           type="text"
           name="messegeText"
