@@ -6,11 +6,11 @@ export function PostForm(props) {
   const postInput = React.createRef();
 
   const sendPost = () => {
-    props.store.addPost();
+    props.dispatch("ADD-POST");
   };
 
   const updatePostInput = () => {
-    props.store.updateInput(postInput.current.value);
+    props.dispatch("UPDATE-INPUT", postInput.current.value);
   };
 
   return (

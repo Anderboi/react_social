@@ -4,18 +4,19 @@ import css from "./MessegeList.module.css";
 import base from "../../../Common.module.css";
 
 export function MessegeList(props) {
-  const messegeItems = props.store.data.chatPage.messeges.map((t) => (
+  // const data = props.store.getData();
+  const messegeItems = props.data.chatPage.messeges.map((t) => (
     <MessegeItem text={t.text} id={t.id} key={t.id} isOwn={t.isOwn} />
   ));
 
   const messegeInput = React.createRef();
 
   let sendMessege = () => {
-    props.store.addMessage();
+    props.dispatch("ADD-MESSAGE");
   };
 
   const updateMessegeInput = () => {
-    props.store.updateInput(messegeInput.current.value);
+    props.dispatch("UPDATE-INPUT", messegeInput.current.value);
   };
 
   return (
@@ -25,7 +26,7 @@ export function MessegeList(props) {
         <input
           ref={messegeInput}
           onChange={updateMessegeInput}
-          value={props.store.getnewPostMessage()}
+          value={props.data.newPostMessage}
           className={`${base.input} ${css.messege_input_textarea}`}
           type="text"
           name="messegeText"

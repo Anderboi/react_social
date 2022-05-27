@@ -1,7 +1,5 @@
-let _renderEntireTree = () => {};
-
 let store = {
-  data: {
+  _data: {
     sidebar: {},
     newPostMessage: "",
 
@@ -64,44 +62,83 @@ let store = {
       ],
     },
   },
+  _renderEntireTree() {},
+
+  getData() {
+    return this._data;
+  },
+  subscribe(observer) {
+    this._renderEntireTree = observer;
+  },
+
+  dispatch(action, data) {
+   
+    switch (action) {
+      case "ADD-POST":
+        const post = {
+          text: this._data.newPostMessage,
+          id: Math.random() * 10,
+        };
+        if (this._data.newPostMessage.length > 0) {
+          this._data.mainPage.posts.unshift(post);
+          this._renderEntireTree();
+          this._data.newPostMessage = "";
+        }
+        break;
+      case "ADD-MESSAGE":
+        const message = {
+          text: this._data.newPostMessage,
+          id: Math.random() * 10,
+          isOwn: true,
+        };
+        if (this._data.newPostMessage.length > 0) {
+          this._data.chatPage.messeges.push(message);
+          this._renderEntireTree();
+          this._data.newPostMessage = "";
+        }
+        break;
+      case "UPDATE-INPUT":
+        this._data.newPostMessage = data;
+        this._renderEntireTree();
+        break;
+      default:
+        break;
+    }
+  },
 
   getnewPostMessage() {
-    return this.data.newPostMessage;
+    return this._data.newPostMessage;
   },
 
-  addPost() {
-    const post = {
-      text: this.data.newPostMessage,
-      id: Math.random() * 10,
-    };
-    if (this.data.newPostMessage.length > 0) {
-      this.data.mainPage.posts.unshift(post);
-      _renderEntireTree();
-      this.data.newPostMessage = "";
-    }
-  },
+  // addPost() {
+  //   const post = {
+  //     text: this._data.newPostMessage,
+  //     id: Math.random() * 10,
+  //   };
+  //   if (this._data.newPostMessage.length > 0) {
+  //     this._data.mainPage.posts.unshift(post);
+  //     this._renderEntireTree();
+  //     this._data.newPostMessage = "";
+  //   }
+  // },
 
-  addMessage() {
-    const message = {
-      text: this.data.newPostMessage,
-      id: Math.random() * 10,
-      isOwn: true,
-    };
-    if (this.data.newPostMessage.length > 0) {
-      this.data.chatPage.messeges.push(message);
-      _renderEntireTree();
-      this.data.newPostMessage = "";
-    }
-  },
+  // addMessage() {
+  //   const message = {
+  //     text: this._data.newPostMessage,
+  //     id: Math.random() * 10,
+  //     isOwn: true,
+  //   };
+  //   if (this._data.newPostMessage.length > 0) {
+  //     this._data.chatPage.messeges.push(message);
+  //     this._renderEntireTree();
+  //     this._data.newPostMessage = "";
+  //   }
+  // },
 
-  updateInput(text) {
-    this.data.newPostMessage = text;
-    _renderEntireTree();
-  },
-
-  subscribe(observer) {
-    _renderEntireTree = observer;
-  },
+  // updateInput(text) {
+  //   this._data.newPostMessage = text;
+  //   this._renderEntireTree();
+  // },
 };
 
 export default store;

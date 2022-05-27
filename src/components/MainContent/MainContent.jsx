@@ -14,12 +14,9 @@ export function MainContent(props) {
       {/* Hero image */}
       <UserInfo name="Ivan" surname="Ivanov" />
       {/* Info User Block  */}
-      <PostForm
-      store={props.store}
-        
-      />
+      <PostForm store={props.store} dispatch={props.dispatch} />
       {/* New Post */}
-      <PostList posts={props.store.data.mainPage.posts} />
+      <PostList data={props.store.getData()} />
       {/* Posts */}
     </div>
   );

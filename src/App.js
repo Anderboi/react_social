@@ -23,7 +23,7 @@ function App(props) {
               element={
                 <MainContent
                 store={props.store}
-                  
+                dispatch={props.dispatch}
                 />
               }
             />
@@ -32,7 +32,7 @@ function App(props) {
               element={
                 <ChatPage
                 store={props.store}
-                 
+                dispatch={props.dispatch}
                 />
               }
             />

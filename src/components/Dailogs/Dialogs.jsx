@@ -5,8 +5,8 @@ import { MessegeList } from "./Messeges/MessegeList";
 export function ChatPage(props) {
   return (
     <div className={c.chat}>
-      <Chat users={props.store.data.chatPage.users} />
-      <MessegeList store={props.store} />
+      <Chat data={props.store.getData()} />
+      <MessegeList data={props.store.getData()} dispatch={props.dispatch} />
     </div>
   );
 }
