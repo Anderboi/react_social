@@ -1,4 +1,4 @@
-.messege_block {
+.message_block {
   display: flex;
   flex-direction: column;
 
@@ -11,12 +11,12 @@
   gap: 1em;
 }
 
-.messege_input_block {
+.message_input_block {
   display: flex;
   margin-bottom: 1em;
   gap: 1em;
 }
 
-.messege_input_textarea {
+.message_input_textarea {
   width: 100%;
 }

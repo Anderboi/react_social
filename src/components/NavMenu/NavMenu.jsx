@@ -17,9 +17,9 @@ export function NavMenu() {
           className={(navData) =>
             navData.isActive ? nav.active : nav.nav_item
           }
-          to="/messeges"
+          to="/messages"
         >
-          Messeges
+          Messages
         </NavLink>
         <NavLink
           className={(navData) =>

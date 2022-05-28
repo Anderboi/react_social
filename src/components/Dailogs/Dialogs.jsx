@@ -1,12 +1,12 @@
 import { Chat } from "./ChatList/Chat";
 import c from "./Dialogs.module.css";
-import { MessegeList } from "./Messeges/MessegeList";
+import { MessageList } from "./Messages/MessageList";
 
 export function ChatPage(props) {
   return (
     <div className={c.chat}>
       <Chat data={props.store.getData()} />
-      <MessegeList data={props.store.getData()} dispatch={props.dispatch} />
+      <MessageList data={props.store.getData()} dispatch={props.dispatch} />
     </div>
   );
 }

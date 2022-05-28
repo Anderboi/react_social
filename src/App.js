@@ -28,7 +28,7 @@ function App(props) {
               }
             />
             <Route
-              path="/messeges"
+              path="/messages"
               element={
                 <ChatPage
                 store={props.store}

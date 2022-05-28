@@ -1,16 +1,22 @@
 import form from "./PostForm.module.css";
 import base from "../../../Common.module.css";
 import React from "react";
+import {
+  addPostActionCreator,
+  updatePostInputActionCreator,
+} from "./../../../redux/mainPageReducer";
 
 export function PostForm(props) {
   const postInput = React.createRef();
 
   const sendPost = () => {
-    props.dispatch("ADD-POST");
+    const addPost = addPostActionCreator();
+    props.dispatch(addPost);
   };
 
   const updatePostInput = () => {
-    props.dispatch("UPDATE-INPUT", postInput.current.value);
+    const updateInput = updatePostInputActionCreator(postInput.current.value);
+    props.dispatch(updateInput);
   };
 
   return (
@@ -19,7 +25,7 @@ export function PostForm(props) {
       <textarea
         ref={postInput}
         onChange={updatePostInput}
-        value={props.store.getnewPostMessage()}
+        value={props.store._data.mainPage.newPostMessage}
         name="post"
         id="post"
         cols="30"
