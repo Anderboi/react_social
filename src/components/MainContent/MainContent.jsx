@@ -4,6 +4,7 @@ import { PostForm } from "./PostForm/PostForm";
 import { PostList } from "./PostList/PostList";
 
 export function MainContent(props) {
+
   return (
     <div>
       <img
@@ -16,7 +17,7 @@ export function MainContent(props) {
       {/* Info User Block  */}
       <PostForm store={props.store} dispatch={props.dispatch} />
       {/* New Post */}
-      <PostList data={props.store.getData()} />
+      <PostList store={props.store} />
       {/* Posts */}
     </div>
   );

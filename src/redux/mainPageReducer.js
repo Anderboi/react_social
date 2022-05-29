@@ -1,25 +1,43 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_INPUT = "UPDATE-INPUT";
 
-const mainPageReducer = (data, action) => {
+let initState = {
+  posts: [
+    {
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates dignissimos minus vitae maxime omnis magnam, fugit iste ducimus veniam vero eius et alias deserunt est illo sequi aut enim ratione!",
+      id: "01",
+    },
+    {
+      text: "us et alias deserunt est illo sequi aut enim ratione!",
+      id: "02",
+    },
+    {
+      text: "mnis magnam, fugit iste ducimus veniam vero eius et alias deserunt est illo sequi aut enim ratione!",
+      id: "03",
+    },
+  ],
+  newPostMessage: "",
+};
+
+const mainPageReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_POST:
       const post = {
-        text: data.newPostMessage,
+        text: state.newPostMessage,
         id: Math.random() * 10,
       };
-      if (data.newPostMessage.length > 0) {
-        data.posts.unshift(post);
-        data.newPostMessage = "";
+      if (state.newPostMessage.length > 0) {
+        state.posts.unshift(post);
+        state.newPostMessage = "";
       }
-      return data;
+      return state;
     case UPDATE_INPUT:
-      data.newPostMessage = action.data;
+      state.newPostMessage = action.data;
 
-      return data;
+      return state;
 
     default:
-      return data;
+      return state;
   }
 };
 

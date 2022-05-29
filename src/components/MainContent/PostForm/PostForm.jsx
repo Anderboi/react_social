@@ -25,7 +25,7 @@ export function PostForm(props) {
       <textarea
         ref={postInput}
         onChange={updatePostInput}
-        value={props.store._data.mainPage.newPostMessage}
+        value={props.store.newPostMessage}
         name="post"
         id="post"
         cols="30"

@@ -22,8 +22,8 @@ function App(props) {
               path="/profile"
               element={
                 <MainContent
-                store={props.store}
-                dispatch={props.dispatch}
+                  store={props.state.profilePage}
+                  dispatch={props.dispatch}
                 />
               }
             />
@@ -31,8 +31,8 @@ function App(props) {
               path="/messages"
               element={
                 <ChatPage
-                store={props.store}
-                dispatch={props.dispatch}
+                  store={props.state.messagesPage}
+                  dispatch={props.dispatch}
                 />
               }
             />

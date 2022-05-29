@@ -8,7 +8,7 @@ import {
 } from "./../../../redux/messagesReducer";
 
 export function MessageList(props) {
-  const messageItems = props.data.chatPage.messages.map((t) => (
+  const messageItems = props.data.messages.map((t) => (
     <MessageItem text={t.text} id={t.id} key={t.id} isOwn={t.isOwn} />
   ));
 
@@ -35,7 +35,7 @@ export function MessageList(props) {
         <input
           ref={messageInput}
           onChange={updateMessageInput}
-          value={props.data.chatPage.newPostMessage}
+          value={props.data.newPostMessage}
           className={`${base.input} ${css.message_input_textarea}`}
           type="text"
           name="messageText"
