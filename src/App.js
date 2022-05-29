@@ -20,21 +20,11 @@ function App(props) {
           <Routes>
             <Route
               path="/profile"
-              element={
-                <MainContent
-                  store={props.state.profilePage}
-                  dispatch={props.dispatch}
-                />
-              }
+              element={<MainContent state={props.state} />}
             />
             <Route
               path="/messages"
-              element={
-                <ChatPage
-                  store={props.state.messagesPage}
-                  dispatch={props.dispatch}
-                />
-              }
+              element={<ChatPage store={props.state.messagesPage} />}
             />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />

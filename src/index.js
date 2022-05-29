@@ -12,7 +12,7 @@ export const renderEntireTree = (state) => {
   root.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App state={state} store={store} dispatch={store.dispatch.bind(store)} />
+        <App state={state} />
       </BrowserRouter>
     </React.StrictMode>
   );
@@ -24,6 +24,12 @@ store.subscribe(() => {
   let state = store.getState();
   renderEntireTree(state);
 });
+
+// store.subscribe(() => {
+//   debugger;
+//   let state = store.getState();
+//   renderEntireTree(state);
+// });
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

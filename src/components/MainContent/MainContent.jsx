@@ -1,10 +1,9 @@
 import { UserInfo } from "./UserInfo/UserInfo";
 import content from "./MainContent.module.css";
-import { PostForm } from "./PostForm/PostForm";
 import { PostList } from "./PostList/PostList";
+import { PostFormContainer } from "./PostForm/PostFormContainer";
 
 export function MainContent(props) {
-
   return (
     <div>
       <img
@@ -15,9 +14,9 @@ export function MainContent(props) {
       {/* Hero image */}
       <UserInfo name="Ivan" surname="Ivanov" />
       {/* Info User Block  */}
-      <PostForm store={props.store} dispatch={props.dispatch} />
+      <PostFormContainer state={props.state} />
       {/* New Post */}
-      <PostList store={props.store} />
+      <PostList store={props.state.profilePage} />
       {/* Posts */}
     </div>
   );

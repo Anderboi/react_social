@@ -1,13 +1,15 @@
-import { Chat } from "./ChatList/Chat";
+
 import c from "./Dialogs.module.css";
-import { MessageList } from "./Messages/MessageList";
+
+import { ChatContainer } from "./ChatList/ChatContainer";
+import { MessageListContainer } from "./Messages/MessageListContainer";
 
 export function ChatPage(props) {
-  
+  console.log(props);
   return (
     <div className={c.chat}>
-      <Chat data={props.store} />
-      <MessageList data={props.store} dispatch={props.dispatch} />
+      <ChatContainer store={props.store} />
+      <MessageListContainer store={props.store} />
     </div>
   );
 }
