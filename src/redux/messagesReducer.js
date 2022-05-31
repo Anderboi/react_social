@@ -44,25 +44,29 @@ let initState = {
   newPostMessage: "",
 };
 
-const messageReducer = (data = initState, action) => {
+const messageReducer = (state = initState, action) => {
   switch (action.type) {
-    case ADD_MESSAGE:
+    case ADD_MESSAGE: {
+      const newState = JSON.parse(JSON.stringify(state));
       const message = {
-        text: data.newPostMessage,
+        text: newState.newPostMessage,
         id: Math.random() * 10,
         isOwn: true,
       };
-      if (data.newPostMessage.length > 0) {
-        data.newPostMessage = "";
-        data.messages.push(message);
+      if (newState.newPostMessage.length > 0) {
+        newState.newPostMessage = "";
+        newState.messages.push(message);
       }
-      return data;
-    case UPDATE_MESSAGE_INPUT:
-      data.newPostMessage = action.data;
-      return data;
+      return newState;
+    }
+    case UPDATE_MESSAGE_INPUT: {
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.newPostMessage = action.data;
+      return newState;
+    }
 
     default:
-      return data;
+      return state;
   }
 };
 

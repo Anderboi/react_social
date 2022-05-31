@@ -3,6 +3,7 @@ import base from "../../../Common.module.css";
 import React from "react";
 
 export function PostForm(props) {
+  
   const postInput = React.createRef();
 
   const sendPost = () => {

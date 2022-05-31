@@ -9,7 +9,7 @@ import { News } from "./components/Pages/News/News";
 import { Music } from "./components/Pages//Music/Music";
 import { Settings } from "./components/Pages/Settings/Settings";
 
-function App(props) {
+function App() {
   return (
     <div className="App">
       <div className="header-line"></div>
@@ -18,14 +18,8 @@ function App(props) {
         <NavMenu />
         <div className="app-content">
           <Routes>
-            <Route
-              path="/profile"
-              element={<MainContent state={props.state} />}
-            />
-            <Route
-              path="/messages"
-              element={<ChatPage store={props.state.messagesPage} />}
-            />
+            <Route path="/profile" element={<MainContent />} />
+            <Route path="/messages" element={<ChatPage />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
             <Route path="/settings" element={<Settings />} />

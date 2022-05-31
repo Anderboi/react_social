@@ -1,28 +1,31 @@
-import React from "react";
 import { MessageList } from "./MessageList";
 import {
   addMessageActionCreator,
   updateMessageInputActionCreator,
 } from "../../../redux/messagesReducer";
-import store from "./../../../redux/reduxStore";
+import { connect } from "react-redux";
 
-export function MessageListContainer(props) {
-  let sendMessage = (e) => {
-    const addMessage = addMessageActionCreator();
-    store.dispatch(addMessage);
+const mapStateToProps = (state) => {
+  return {
+    messages: state.messagesPage.messages,
+    newPostMessage: state.messagesPage.newPostMessage,
   };
+};
 
-  const updateMessageInput = (text) => {
-    const updateInput = updateMessageInputActionCreator(text);
-    store.dispatch(updateInput);
+let mapDispatchToProps = (dispatch) => {
+  return {
+    sendMessage: () => {
+      dispatch(addMessageActionCreator());
+    },
+    updateMessageInput: (text) => {
+      dispatch(updateMessageInputActionCreator(text));
+    },
   };
+};
 
-  return (
-    <MessageList
-      messages={props.store.messages}
-      sendMessage={sendMessage}
-      updateMessageInput={updateMessageInput}
-      newPostMessage={props.store.newPostMessage}
-    />
-  );
-}
+const MessageListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MessageList);
+
+export default MessageListContainer;
