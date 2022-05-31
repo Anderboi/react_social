@@ -22,23 +22,26 @@ let initState = {
 const mainPageReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_POST: {
-      const newState = JSON.parse(JSON.stringify(state));
-
-      const post = {
-        text: newState.newPostMessage,
-        id: Math.random() * 10,
-      };
-      if (newState.newPostMessage.length > 0) {
-        newState.posts.unshift(post);
-        newState.newPostMessage = "";
+      if (state.newPostMessage.length > 0) {
+        return {
+          ...state,
+          posts: [
+            {
+              text: state.newPostMessage,
+              id: Math.random() * 10,
+            },
+            ...state.posts,
+          ],
+          newPostMessage: "",
+        };
       }
-      return newState;
+      break;
     }
     case UPDATE_INPUT: {
-      const newState = JSON.parse(JSON.stringify(state));
-      newState.newPostMessage = action.data;
-
-      return newState;
+      return {
+        ...state,
+        newPostMessage: action.data,
+      };
     }
 
     default:
