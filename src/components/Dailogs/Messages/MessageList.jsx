@@ -4,6 +4,7 @@ import css from "./MessageList.module.css";
 import base from "../../../Common.module.css";
 
 export function MessageList(props) {
+  
   const messageItems = props.messages.map((t) => (
     <MessageItem text={t.text} id={t.id} key={t.id} isOwn={t.isOwn} />
   ));

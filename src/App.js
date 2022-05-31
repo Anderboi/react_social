@@ -1,13 +1,14 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { Header } from "./components/Header/Header";
-import { NavMenu } from "./components/NavMenu/NavMenu";
-import { MainContent } from "./components/MainContent/MainContent";
 import { ChatPage } from "./components/Dailogs/Dialogs";
-import { Routes, Route } from "react-router-dom";
-import { News } from "./components/Pages/News/News";
+import { Header } from "./components/Header/Header";
+import { MainContent } from "./components/MainContent/MainContent";
+import { NavMenu } from "./components/NavMenu/NavMenu";
 import { Music } from "./components/Pages//Music/Music";
+import { News } from "./components/Pages/News/News";
 import { Settings } from "./components/Pages/Settings/Settings";
+import { UsersPage } from './components/Users/UsersPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/messages" element={<ChatPage />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
+            <Route path="Users" element={<UsersPage />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>

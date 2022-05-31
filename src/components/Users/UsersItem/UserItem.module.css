@@ -1,0 +1,43 @@
+.userItem {
+  display: flex;
+  gap: 1em;
+  background-color: white;
+  padding: 1em;
+  border: 1px solid var(--main-color);
+}
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.userIcon {
+  height: 5em;
+  width: 5em;
+}
+
+.followButton {
+  padding: 0.2em 1em;
+  min-width: 12ch;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.userInfoDescription {
+  text-overflow: ellipsis;
+}
+
+.userAddress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--main-color);
+  font-weight: 700;
+  font-size: 14px;
+}

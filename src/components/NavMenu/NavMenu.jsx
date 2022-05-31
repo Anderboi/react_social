@@ -35,8 +35,20 @@ export function NavMenu() {
           }
           to="/music"
         >
+          {" "}
           Music
         </NavLink>
+        <br></br>
+
+        <NavLink
+          className={(navData) =>
+            navData.isActive ? nav.active : nav.nav_item
+          }
+          to="/Users"
+        >
+          Users
+        </NavLink>
+        <br></br>
         <NavLink
           className={(navData) =>
             navData.isActive ? nav.active : nav.nav_item
@@ -58,8 +70,6 @@ export function NavMenu() {
     </div>
   );
 }
-
-
 
 function FriendItem() {
   return (
