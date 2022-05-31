@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import { News } from "./components/Pages/News/News";
 import { Music } from "./components/Pages//Music/Music";
 import { Settings } from "./components/Pages/Settings/Settings";
+import { UsersContainer } from "./components/Users/UsersContainer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/messages" element={<ChatPage />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />
+            <Route path="Users" element={<UsersContainer />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
         </div>
