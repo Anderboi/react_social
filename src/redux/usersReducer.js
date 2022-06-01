@@ -45,7 +45,6 @@ export const usersReducer = (state = initState, action) => {
     }
 
     case SET_PAGE: {
-      debugger;
       return {
         ...state,
         selectedPage: action.page,
