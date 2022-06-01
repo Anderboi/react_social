@@ -17,7 +17,7 @@ export function ChatItem(props) {
         </div>
         <div className={css.messege_text}>10:04</div>
       </NavLink>
-      <hr></hr>
+      <hr className={css.divider}></hr>
     </div>
   );
 }

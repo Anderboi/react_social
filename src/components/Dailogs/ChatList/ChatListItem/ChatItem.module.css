@@ -48,3 +48,12 @@
   font-size: 12px;
   color: #8c8e8f;
 }
+
+.divider {
+  width: 70%;
+  margin-right: 0;
+  margin-left: auto;
+  height: 1px;
+  border-width: 0px;
+  background-color: var(--main-color);
+}

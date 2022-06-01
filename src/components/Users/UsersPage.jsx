@@ -5,10 +5,11 @@ import common from "../../Common.module.css";
 
 export function UsersPage() {
   return (
-    <div className={css.buttonContainer}>
+    <div className={css.userPageContainer}>
       <UsersContainer />
       <div>
-        <button className={`${common.button} ${css.showMoreButton}`}>
+             
+           <button className={`${common.button} ${css.showMoreButton}`}>
           SHOW MORE
         </button>
       </div>

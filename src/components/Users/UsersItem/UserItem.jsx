@@ -3,9 +3,9 @@ import css from "./UserItem.module.css";
 import common from "../../../Common.module.css";
 
 export function UserItem(props) {
-
   const toggleFollow = () => {
-     if (props.isFollowed === false) {
+    // debugger;
+    if (props.isFollowed === false) {
       props.follow(props.id);
     } else {
       props.unfollow(props.id);
@@ -20,18 +20,16 @@ export function UserItem(props) {
           onClick={toggleFollow}
           className={`${common.button} ${css.followButton}`}
         >
-          {props.isFollowed ? "Follow" : "Unfollow"}
+          {props.isFollowed ? "Unfollow" : "Follow"}
         </button>
       </div>
       <div className={css.userInfo}>
-        <h3>
-          {props.name} {props.surname}
-        </h3>
-        <p className={css.userInfoDescription}>{props.description}</p>
+        <h3>{props.name}</h3>
+        <p className={css.userInfoDescription}>{props.status}</p>
       </div>
       <div className={css.userAddress}>
-        <div className="country">{props.country}</div>
-        <div className="city">{props.city}</div>
+        <div className="country">{props.country || "Belarus"}</div>
+        <div className="city">{props.city || "Minsk"}</div>
       </div>
     </div>
   );
