@@ -1,23 +1,31 @@
 import user from "./UserInfo.module.css";
+import avatar from "../../../assets/images/avatar.png";
+import job from "../../../assets/images/job-search.png";
+import noJob from "../../../assets/images/unemployment.png";
 
 export function UserInfo(props) {
-  const fullName = `${props.name} ${props.surname}`;
+  console.log(props);
   return (
     <div className={user.info}>
       <img
-        src="https://i.insider.com/5484ecba69bedda54703ed52?width=700&format=jpeg&auto=webp"
+        src={props.photo ? props.photo : avatar}
         alt="avatar"
         className={user.info_img}
       ></img>
       <div className={user.info_description}>
-        <h2>{fullName}</h2>
+        <h2>{props.fullName}</h2>
         <div>
-          <div>Date of birth: 02 march</div>
-          <div>City: Minsk</div>
+          <div>About me: {props.aboutMe}</div>
+
           <div>Education: BSU'07</div>
-          <div>Web Site: web.com</div>
+          <div>Web Site: {props.contacts.website}</div>
         </div>
       </div>
+      <img
+        src={props.lookingForAJob ? job : noJob}
+        alt=""
+        className={user.job_icon}
+      />
     </div>
   );
 }

@@ -59,24 +59,25 @@ export const usersReducer = (state = initState, action) => {
         isLoading: action.isLoading,
       };
     }
+    
 
     default:
       return state;
   }
 };
 
-export const followUserActionCreator = (id) => {
+export const followUser = (id) => {
   return { type: FOLLOW, id: id };
 };
-export const unfollowUserActionCreator = (id) => {
+export const unfollowUser = (id) => {
   return { type: UNFOLLOW, id: id };
 };
-export const setUsersActionCreator = (users, total) => {
+export const setUsers = (users, total) => {
   return { type: SET_USERS, users, total };
 };
-export const setPageAC = (page) => {
+export const setPage = (page) => {
   return { type: SET_PAGE, page };
 };
-export const isLoadingAC = (isLoading) => {
+export const toggleLoading = (isLoading) => {
   return { type: IS_LOADING, isLoading };
 };

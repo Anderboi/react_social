@@ -3,23 +3,24 @@ import { connect } from "react-redux";
 import * as axios from "axios";
 import { Users } from "./Users";
 import {
-  followUserActionCreator,
-  unfollowUserActionCreator,
-  setUsersActionCreator,
-  setPageAC,
-  isLoadingAC,
+  followUser,
+  unfollowUser,
+  setUsers,
+  setPage,
+  toggleLoading,
 } from "./../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
-    this.props.toggleIsLoading(true);
+    
+    this.props.toggleLoading(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.selectedPage}&count=${this.props.pageSize}`
       )
       .then((response) => {
-        this.props.toggleIsLoading(false);
+        this.props.toggleLoading(false);
 
         this.props.setUsers(response.data.items, response.data.totalCount);
       });
@@ -28,7 +29,7 @@ class UsersAPIContainer extends React.Component {
   //* Here because of API get response
 
   onPageChanged = (page) => {
-    this.props.toggleIsLoading(true);
+    this.props.toggleLoading(true);
     this.props.setPage(page);
     axios
       .get(
@@ -36,7 +37,7 @@ class UsersAPIContainer extends React.Component {
       )
       .then((response) => {
         this.props.setUsers(response.data.items, response.data.totalCount);
-        this.props.toggleIsLoading(false);
+        this.props.toggleLoading(false);
       });
   };
 
@@ -49,12 +50,12 @@ class UsersAPIContainer extends React.Component {
           usersTotalCount={this.props.usersTotalCount}
           pageSize={this.props.pageSize}
           selectedPage={this.props.selectedPage}
-          follow={this.props.follow}
-          unfollow={this.props.unfollow}
+          follow={this.props.followUser}
+          unfollow={this.props.unfollowUser}
           setUsers={this.props.setUsers}
           setPage={this.props.setPage}
           onPageChanged={this.onPageChanged}
-          isLoading={this.props.isLoading}
+          // isLoading={this.props.isLoading}
         />
       </>
     );
@@ -73,24 +74,31 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (id) => {
-      dispatch(followUserActionCreator(id));
-    },
-    unfollow: (id) => {
-      dispatch(unfollowUserActionCreator(id));
-    },
-    setUsers: (users, total) => {
-      dispatch(setUsersActionCreator(users, total));
-    },
-    setPage: (page) => {
-      dispatch(setPageAC(page));
-    },
-    toggleIsLoading: (isLoading) => {
-      dispatch(isLoadingAC(isLoading));
-    },
-  };
-};
+//! Можно избавиться от mapDispatchToProps и заменить обычным объектом, передающим ActionCreators
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     follow: (id) => {
+//       dispatch(followUserActionCreator(id));
+//     },
+//     unfollow: (id) => {
+//       dispatch(unfollowUserActionCreator(id));
+//     },
+//     setUsers: (users, total) => {
+//       dispatch(setUsersActionCreator(users, total));
+//     },
+//     setPage: (page) => {
+//       dispatch(setPageAC(page));
+//     },
+//     toggleIsLoading: (isLoading) => {
+//       dispatch(isLoadingAC(isLoading));
+//     },
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer);
+export default connect(mapStateToProps, {
+  followUser,
+  unfollowUser,
+  setUsers,
+  setPage,
+  toggleLoading,
+})(UsersAPIContainer);

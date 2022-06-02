@@ -1,18 +1,29 @@
 .info {
   margin-top: 1em;
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
+  align-content: space-between;
 }
 .info_description {
   padding-left: 1em;
 }
-.user-info-description h2 {
-  margin-bottom: 0.5em;
+.info_description {
+  /* margin-bottom: 0.5em; */
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
 
 .info_img {
   width: 120px;
   height: 120px;
   object-fit: cover;
+  border-radius: 50%;
+}
 
+.job_icon {
+  width: 64px;
+  height: 64px;
 }

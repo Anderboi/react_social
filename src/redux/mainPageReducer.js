@@ -1,5 +1,6 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_INPUT = "UPDATE-INPUT";
+const SET_USER_INFO = "SET_USER_INFO";
 
 let initState = {
   posts: [
@@ -17,6 +18,7 @@ let initState = {
     },
   ],
   newPostMessage: "",
+  userInfo: null,
 };
 
 const mainPageReducer = (state = initState, action) => {
@@ -43,6 +45,13 @@ const mainPageReducer = (state = initState, action) => {
         newPostMessage: action.data,
       };
     }
+    case SET_USER_INFO: {
+      
+      return {
+        ...state,
+        userInfo: action.userInfo,
+      };
+    }
 
     default:
       return state;
@@ -56,4 +65,7 @@ export const addPostActionCreator = () => {
 };
 export const updatePostInputActionCreator = (data) => {
   return { type: UPDATE_INPUT, data: data };
+};
+export const setUserInfo = (userInfo) => {
+  return { type: SET_USER_INFO, userInfo };
 };

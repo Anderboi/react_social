@@ -10,6 +10,7 @@ import { News } from "./components/Pages/News/News";
 import { Settings } from "./components/Pages/Settings/Settings";
 
 import { UsersPage } from './components/Users/UsersPage';
+import ProfileContainer from './components/MainContent/ProfileContainer';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <NavMenu />
         <div className="app-content">
           <Routes>
-            <Route path="/profile" element={<MainContent />} />
+            <Route path="/profile" element={<ProfileContainer />} />
             <Route path="/messages" element={<ChatPage />} />
             <Route path="/news" element={<News />} />
             <Route path="/music" element={<Music />} />

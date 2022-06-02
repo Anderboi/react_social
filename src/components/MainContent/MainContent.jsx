@@ -2,8 +2,13 @@ import { UserInfo } from "./UserInfo/UserInfo";
 import content from "./MainContent.module.css";
 import PostFormContainer from "./PostForm/PostFormContainer";
 import { PostListContainer } from "./PostList/PostListContainer";
+import { Preloader } from "./../common/Preloader";
 
-export function MainContent() {
+export function MainContent(props) {
+  if (!props.userInfo) {
+    return <Preloader />;
+  }
+  
   return (
     <div>
       <img
@@ -12,7 +17,15 @@ export function MainContent() {
         className={content.main_img}
       ></img>
       {/* Hero image */}
-      <UserInfo name="Ivan" surname="Ivanov" />
+      <UserInfo
+        fullName={props.userInfo.fullName}
+        aboutMe={props.userInfo.aboutMe}
+        contacts={props.userInfo.contacts}
+        lookingForAJob={props.userInfo.lookingForAJob}
+        lookingForAJobDescription={props.userInfo.lookingForAJobDescription}
+        userId={props.userInfo.userId}
+        photo={props.userInfo.photos.small}
+      />
       {/* Info User Block  */}
       <PostFormContainer />
       {/* New Post */}
