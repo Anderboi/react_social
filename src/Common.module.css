@@ -13,3 +13,8 @@
   border: 1px solid var(--main-color);
   padding: 0.5em;
 }
+
+.spinner {
+  position: absolute;
+  top: 40vh;
+}

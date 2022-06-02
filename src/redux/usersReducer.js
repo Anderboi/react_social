@@ -2,12 +2,14 @@ const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 const SET_PAGE = "SET-PAGE";
+const IS_LOADING = "IS_LOADING";
 
 const initState = {
   users: [],
   pageSize: 5,
   usersTotalCount: 100,
   selectedPage: 1,
+  isLoading: false,
 };
 
 export const usersReducer = (state = initState, action) => {
@@ -51,6 +53,13 @@ export const usersReducer = (state = initState, action) => {
       };
     }
 
+    case IS_LOADING: {
+      return {
+        ...state,
+        isLoading: action.isLoading,
+      };
+    }
+
     default:
       return state;
   }
@@ -67,4 +76,7 @@ export const setUsersActionCreator = (users, total) => {
 };
 export const setPageAC = (page) => {
   return { type: SET_PAGE, page };
+};
+export const isLoadingAC = (isLoading) => {
+  return { type: IS_LOADING, isLoading };
 };

@@ -7,15 +7,20 @@ import {
   unfollowUserActionCreator,
   setUsersActionCreator,
   setPageAC,
+  isLoadingAC,
 } from "./../../redux/usersReducer";
+import { Preloader } from "../common/Preloader";
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
+    this.props.toggleIsLoading(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.selectedPage}&count=${this.props.pageSize}`
       )
       .then((response) => {
+        this.props.toggleIsLoading(false);
+
         this.props.setUsers(response.data.items, response.data.totalCount);
       });
   }
@@ -23,6 +28,7 @@ class UsersAPIContainer extends React.Component {
   //* Here because of API get response
 
   onPageChanged = (page) => {
+    this.props.toggleIsLoading(true);
     this.props.setPage(page);
     axios
       .get(
@@ -30,22 +36,27 @@ class UsersAPIContainer extends React.Component {
       )
       .then((response) => {
         this.props.setUsers(response.data.items, response.data.totalCount);
+        this.props.toggleIsLoading(false);
       });
   };
 
   render() {
     return (
-      <Users
-        users={this.props.users}
-        usersTotalCount={this.props.usersTotalCount}
-        pageSize={this.props.pageSize}
-        selectedPage={this.props.selectedPage}
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
-        setUsers={this.props.setUsers}
-        setPage={this.props.setPage}
-        onPageChanged={this.onPageChanged}
-      />
+      <>
+        {this.props.isLoading ? <Preloader /> : null}
+        <Users
+          users={this.props.users}
+          usersTotalCount={this.props.usersTotalCount}
+          pageSize={this.props.pageSize}
+          selectedPage={this.props.selectedPage}
+          follow={this.props.follow}
+          unfollow={this.props.unfollow}
+          setUsers={this.props.setUsers}
+          setPage={this.props.setPage}
+          onPageChanged={this.onPageChanged}
+          isLoading={this.props.isLoading}
+        />
+      </>
     );
   }
 }
@@ -58,6 +69,7 @@ const mapStateToProps = (state) => {
     usersTotalCount: state.usersPage.usersTotalCount,
     pageSize: state.usersPage.pageSize,
     selectedPage: state.usersPage.selectedPage,
+    isLoading: state.usersPage.isLoading,
   };
 };
 
@@ -74,6 +86,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setPage: (page) => {
       dispatch(setPageAC(page));
+    },
+    toggleIsLoading: (isLoading) => {
+      dispatch(isLoadingAC(isLoading));
     },
   };
 };

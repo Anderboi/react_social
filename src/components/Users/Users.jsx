@@ -4,6 +4,8 @@ import { UserItem } from "./UsersItem/UserItem";
 import userIcon from "../../assets/images/avatar.png";
 
 export const Users = (props) => {
+  console.log(props.isLoading);
+
   const pages = Math.ceil(props.usersTotalCount / props.pageSize);
 
   const pageNumbers = [];
@@ -69,6 +71,7 @@ export const Users = (props) => {
         >
           ...{pages}
         </a>
+       
       </div>
     </div>
   );
