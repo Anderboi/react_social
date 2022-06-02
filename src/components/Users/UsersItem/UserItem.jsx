@@ -17,7 +17,7 @@ export function UserItem(props) {
   return (
     <div className={css.userItem}>
       <div className={css.iconContainer}>
-        <NavLink to={`/profile?id=${props.id}`}>
+        <NavLink to={`/profile/${props.id}`}>
           <img src={props.icon} alt="userIcon" className={css.userIcon} />
         </NavLink>
         <button
@@ -27,7 +27,7 @@ export function UserItem(props) {
           {props.isFollowed ? "Unfollow" : "Follow"}
         </button>
       </div>
-      <NavLink to={`/profile?id=${props.id}`} className={css.userInfo}>
+      <NavLink to={`/profile/${props.id}`} className={css.userInfo}>
         <div>
           <h3>{props.name}</h3>
           <p className={css.userInfoDescription}>{props.status}</p>

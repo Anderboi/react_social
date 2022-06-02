@@ -4,7 +4,7 @@ import job from "../../../assets/images/job-search.png";
 import noJob from "../../../assets/images/unemployment.png";
 
 export function UserInfo(props) {
-  console.log(props);
+  
   return (
     <div className={user.info}>
       <img

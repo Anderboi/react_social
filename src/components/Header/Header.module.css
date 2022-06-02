@@ -2,8 +2,8 @@
   grid-area: header;
 
   display: flex;
-  justify-content: flex-start;
-  align-items: baseline;
+  justify-content: space-between;
+  align-items: center;
   gap: 2em;
   padding: 1.4em 2em 1em 2em;
 
@@ -14,8 +14,29 @@
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: 0.5em;
+  flex-grow: 1;
 }
 
 .logo_img {
   height: 18px;
+}
+
+.login_block {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.hide {
+  display: none;
+}
+
+.avatar {
+  height: 32px;
+  width: 32px;
 }
