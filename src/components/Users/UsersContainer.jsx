@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as axios from "axios";
 import { Users } from "./Users";
 import {
   followUser,
@@ -10,20 +9,16 @@ import {
   toggleLoading,
 } from "./../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
+import { getUsers } from "../../api/api";
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
-    
     this.props.toggleLoading(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.selectedPage}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.toggleLoading(false);
+    getUsers(this.props.selectedPage, this.props.pageSize).then((data) => {
+      this.props.toggleLoading(false);
 
-        this.props.setUsers(response.data.items, response.data.totalCount);
-      });
+      this.props.setUsers(data.items, data.totalCount);
+    });
   }
 
   //* Here because of API get response
@@ -31,14 +26,10 @@ class UsersAPIContainer extends React.Component {
   onPageChanged = (page) => {
     this.props.toggleLoading(true);
     this.props.setPage(page);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items, response.data.totalCount);
-        this.props.toggleLoading(false);
-      });
+    getUsers(page, this.props.pageSize).then((data) => {
+      this.props.setUsers(data.items, data.totalCount);
+      this.props.toggleLoading(false);
+    });
   };
 
   render() {
@@ -55,14 +46,12 @@ class UsersAPIContainer extends React.Component {
           setUsers={this.props.setUsers}
           setPage={this.props.setPage}
           onPageChanged={this.onPageChanged}
-          // isLoading={this.props.isLoading}
+          isAuth={this.props.isAuth}
         />
       </>
     );
   }
 }
-
-// export default UsersAPIContainer;
 
 const mapStateToProps = (state) => {
   return {
@@ -71,29 +60,9 @@ const mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     selectedPage: state.usersPage.selectedPage,
     isLoading: state.usersPage.isLoading,
+    isAuth: state.auth.isAuthorised,
   };
 };
-
-//! Можно избавиться от mapDispatchToProps и заменить обычным объектом, передающим ActionCreators
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     follow: (id) => {
-//       dispatch(followUserActionCreator(id));
-//     },
-//     unfollow: (id) => {
-//       dispatch(unfollowUserActionCreator(id));
-//     },
-//     setUsers: (users, total) => {
-//       dispatch(setUsersActionCreator(users, total));
-//     },
-//     setPage: (page) => {
-//       dispatch(setPageAC(page));
-//     },
-//     toggleIsLoading: (isLoading) => {
-//       dispatch(isLoadingAC(isLoading));
-//     },
-//   };
-// };
 
 export default connect(mapStateToProps, {
   followUser,

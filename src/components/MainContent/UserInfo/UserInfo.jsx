@@ -4,7 +4,6 @@ import job from "../../../assets/images/job-search.png";
 import noJob from "../../../assets/images/unemployment.png";
 
 export function UserInfo(props) {
-  
   return (
     <div className={user.info}>
       <img
@@ -15,10 +14,16 @@ export function UserInfo(props) {
       <div className={user.info_description}>
         <h2>{props.fullName}</h2>
         <div>
-          <div>About me: {props.aboutMe}</div>
+          <div>
+            <b>About me:</b> {props.aboutMe}
+          </div>
 
-          <div>Education: BSU'07</div>
-          <div>Web Site: {props.contacts.website}</div>
+          <div>
+            <b>Skills:</b> {props.lookingForAJobDescription}
+          </div>
+          <div>
+            <b>Web Site:</b> {props.contacts.website}
+          </div>
         </div>
       </div>
       <img

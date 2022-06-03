@@ -24,15 +24,16 @@
 .login_block {
   display: flex;
   gap: 1em;
-  align-items: center;
+  
 }
 
 .link {
   text-decoration: none;
   color: white;
+  line-height: 32px;
 }
 
-.hide {
+.display_none {
   display: none;
 }
 

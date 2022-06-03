@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import * as axios from "axios";
 import { MainContent } from "./MainContent";
 import { setUserInfo } from "./../../redux/mainPageReducer";
+import { getAuthUser } from "../../api/api";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -11,13 +11,9 @@ class ProfileContainer extends React.Component {
       ? this.props.router.params.userId
       : this.props.authId;
 
-    console.log(userId);
-
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then((response) => {
-        this.props.setUserInfo(response.data);
-      });
+    getAuthUser(userId).then((data) => {
+      this.props.setUserInfo(data);
+    });
   }
 
   render() {
@@ -31,6 +27,7 @@ const mapStateToProps = (state) => {
   return {
     userInfo: state.profilePage.userInfo,
     authId: state.auth.id,
+    isAuth: state.auth.isAuthorised,
   };
 };
 

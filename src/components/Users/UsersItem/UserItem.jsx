@@ -2,15 +2,22 @@ import React from "react";
 import css from "./UserItem.module.css";
 import common from "../../../Common.module.css";
 import { NavLink } from "react-router-dom";
+import { followUser, unfollowUser } from "./../../../api/api";
 
 export function UserItem(props) {
   const toggleFollow = (e) => {
-    // e.stopPropagation();
-
     if (props.isFollowed === false) {
-      props.follow(props.id);
+      followUser(props.id).then((data) => {
+        if (data.resultCode === 0) {
+          props.follow(props.id);
+        }
+      });
     } else {
-      props.unfollow(props.id);
+      unfollowUser(props.id).then((data) => {
+        if (data.resultCode === 0) {
+          props.unfollow(props.id);
+        }
+      });
     }
   };
 
@@ -20,12 +27,24 @@ export function UserItem(props) {
         <NavLink to={`/profile/${props.id}`}>
           <img src={props.icon} alt="userIcon" className={css.userIcon} />
         </NavLink>
-        <button
-          onClick={toggleFollow}
-          className={`${common.button} ${css.followButton}`}
-        >
-          {props.isFollowed ? "Unfollow" : "Follow"}
-        </button>
+        <div>
+          {props.isAuth ? (
+            <button
+              onClick={toggleFollow}
+              className={`${common.button} ${css.followButton}`}
+            >
+              {props.isFollowed ? "Unfollow" : "Follow"}
+            </button>
+          ) : (
+            <button
+              onClick={toggleFollow}
+              style={{ "background-color": "grey", border: "none" }}
+              className={`${common.button} ${css.followButton}`}
+            >
+              Sign in
+            </button>
+          )}
+        </div>
       </div>
       <NavLink to={`/profile/${props.id}`} className={css.userInfo}>
         <div>

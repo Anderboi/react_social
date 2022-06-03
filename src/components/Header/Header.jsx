@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import avatar from "../../assets/images/avatar.png";
 
 export function Header(props) {
-  console.log(props);
+  
   return (
     <header className={head.header}>
       <Link to="/profile">
@@ -14,13 +14,13 @@ export function Header(props) {
       <div className={head.logo_text}>MINIMAL</div>
 
       <div className={props.id !== null ? head.login_block : head.hide}>
-        <h5>{props.email}</h5>
+        <h5 className={head.link}>{props.email}</h5>
         <NavLink to={"/profile"}>
           <img src={avatar} alt="" className={head.avatar} />
         </NavLink>
       </div>
 
-      <div className={props.id === null ? head.login_block : head.hide}>
+      <div className={props.id === null ? head.login_block : head.display_none}>
         {/* <div className={head.login_block}> */}
         <NavLink to={"/login"} className={head.link}>
           <span>LogIn</span>

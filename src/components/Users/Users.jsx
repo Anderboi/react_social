@@ -27,6 +27,7 @@ export const Users = (props) => {
           id={user.id}
           follow={props.follow}
           unfollow={props.unfollow}
+          isAuth={props.isAuth}
           key={user.id}
         />
       ))}
