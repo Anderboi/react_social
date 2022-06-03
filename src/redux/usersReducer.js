@@ -3,6 +3,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 const SET_PAGE = "SET-PAGE";
 const IS_LOADING = "IS_LOADING";
+const IN_PROGRESS = "IN_PROGRESS";
 
 const initState = {
   users: [],
@@ -10,6 +11,7 @@ const initState = {
   usersTotalCount: 100,
   selectedPage: 1,
   isLoading: false,
+  inProgressArray: [],
 };
 
 export const usersReducer = (state = initState, action) => {
@@ -59,7 +61,14 @@ export const usersReducer = (state = initState, action) => {
         isLoading: action.isLoading,
       };
     }
-    
+    case IN_PROGRESS: {
+      return {
+        ...state,
+        inProgressArray: action.inProgress
+          ? [...state.inProgressArray, action.id]
+          : state.inProgressArray.filter((id) => id !== action.id),
+      };
+    }
 
     default:
       return state;
@@ -80,4 +89,7 @@ export const setPage = (page) => {
 };
 export const toggleLoading = (isLoading) => {
   return { type: IS_LOADING, isLoading };
+};
+export const requestInProgress = (inProgress, id) => {
+  return { type: IN_PROGRESS, inProgress, id };
 };

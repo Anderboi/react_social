@@ -5,7 +5,6 @@ import userIcon from "../../assets/images/avatar.png";
 
 export const Users = (props) => {
   
-
   const pages = Math.ceil(props.usersTotalCount / props.pageSize);
 
   const pageNumbers = [];
@@ -22,13 +21,14 @@ export const Users = (props) => {
           status={user.status}
           isFollowed={user.isFollowed || false}
           icon={user.photos.small != null ? user.photos.small : userIcon}
-          // country={user.address.country || 'Belarus'}
-          // city={user.address.city || 'Minsk'}
+       
           id={user.id}
           follow={props.follow}
           unfollow={props.unfollow}
           isAuth={props.isAuth}
           key={user.id}
+          inProgressArray={props.inProgressArray}
+          requestInProgress={props.requestInProgress}
         />
       ))}
       <div className={css.pagination}>
@@ -72,7 +72,6 @@ export const Users = (props) => {
         >
           ...{pages}
         </a>
-       
       </div>
     </div>
   );

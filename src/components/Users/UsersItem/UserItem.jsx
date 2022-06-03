@@ -5,18 +5,25 @@ import { NavLink } from "react-router-dom";
 import { followUser, unfollowUser } from "./../../../api/api";
 
 export function UserItem(props) {
+  debugger
   const toggleFollow = (e) => {
+    props.requestInProgress(true, props.id);
+
     if (props.isFollowed === false) {
       followUser(props.id).then((data) => {
         if (data.resultCode === 0) {
           props.follow(props.id);
         }
+
+        props.requestInProgress(false, props.id);
       });
     } else {
       unfollowUser(props.id).then((data) => {
         if (data.resultCode === 0) {
           props.unfollow(props.id);
         }
+
+        props.requestInProgress(false, props.id);
       });
     }
   };
@@ -28,7 +35,9 @@ export function UserItem(props) {
           <img src={props.icon} alt="userIcon" className={css.userIcon} />
         </NavLink>
         <div>
-          {props.isAuth ? (
+          {/* //! IN PROGRESS BOOL */}
+          {!props.inProgressArray.some((id) => id === props.id) &&
+          props.isAuth ? (
             <button
               onClick={toggleFollow}
               className={`${common.button} ${css.followButton}`}
@@ -37,11 +46,10 @@ export function UserItem(props) {
             </button>
           ) : (
             <button
-              onClick={toggleFollow}
               style={{ "background-color": "grey", border: "none" }}
               className={`${common.button} ${css.followButton}`}
             >
-              Sign in
+              Disabled
             </button>
           )}
         </div>

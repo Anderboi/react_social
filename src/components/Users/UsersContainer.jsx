@@ -7,6 +7,7 @@ import {
   setUsers,
   setPage,
   toggleLoading,
+  requestInProgress,
 } from "./../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
 import { getUsers } from "../../api/api";
@@ -47,6 +48,8 @@ class UsersAPIContainer extends React.Component {
           setPage={this.props.setPage}
           onPageChanged={this.onPageChanged}
           isAuth={this.props.isAuth}
+          inProgressArray={this.props.inProgressArray}
+          requestInProgress={this.props.requestInProgress}
         />
       </>
     );
@@ -54,6 +57,7 @@ class UsersAPIContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+ 
   return {
     users: state.usersPage.users,
     usersTotalCount: state.usersPage.usersTotalCount,
@@ -61,6 +65,7 @@ const mapStateToProps = (state) => {
     selectedPage: state.usersPage.selectedPage,
     isLoading: state.usersPage.isLoading,
     isAuth: state.auth.isAuthorised,
+    inProgressArray: state.usersPage.inProgressArray,
   };
 };
 
@@ -70,4 +75,5 @@ export default connect(mapStateToProps, {
   setUsers,
   setPage,
   toggleLoading,
+  requestInProgress,
 })(UsersAPIContainer);
