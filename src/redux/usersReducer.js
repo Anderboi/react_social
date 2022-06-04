@@ -1,3 +1,5 @@
+import { getUsers, followUserApi, unfollowUserApi } from "./../api/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
@@ -21,7 +23,7 @@ export const usersReducer = (state = initState, action) => {
         ...state,
         users: state.users.map((u) => {
           if (u.id === action.id) {
-            return { ...u, isFollowed: true };
+            return { ...u, followed: true };
           }
           return u;
         }),
@@ -33,7 +35,7 @@ export const usersReducer = (state = initState, action) => {
         ...state,
         users: state.users.map((u) => {
           if (u.id === action.id) {
-            return { ...u, isFollowed: false };
+            return { ...u, followed: false };
           }
           return u;
         }),
@@ -92,4 +94,39 @@ export const toggleLoading = (isLoading) => {
 };
 export const requestInProgress = (inProgress, id) => {
   return { type: IN_PROGRESS, inProgress, id };
+};
+
+export const getUsersThunkConstructor = (selectedPage, pageSize) => {
+  return (dispatch) => {
+    dispatch(toggleLoading(true));
+    getUsers(selectedPage, pageSize).then((data) => {
+      dispatch(toggleLoading(false));
+
+      dispatch(setUsers(data.items, data.totalCount));
+    });
+  };
+};
+
+export const followUserTC = (id) => {
+  return (dispatch) => {
+    dispatch(requestInProgress(true, id));
+    followUserApi(id).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(followUser(id));
+      }
+      dispatch(requestInProgress(false, id));
+    });
+  };
+};
+
+export const unfollowUserTC = (id) => {
+  return (dispatch) => {
+    dispatch(requestInProgress(true, id));
+    unfollowUserApi(id).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(unfollowUser(id));
+      }
+      dispatch(requestInProgress(false, id));
+    });
+  };
 };

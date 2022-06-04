@@ -4,33 +4,25 @@ import { Users } from "./Users";
 import {
   followUser,
   unfollowUser,
-  setUsers,
   setPage,
-  toggleLoading,
   requestInProgress,
+  getUsersThunkConstructor,
+  followUserTC,
+  unfollowUserTC,
 } from "./../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
-import { getUsers } from "../../api/api";
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
-    this.props.toggleLoading(true);
-    getUsers(this.props.selectedPage, this.props.pageSize).then((data) => {
-      this.props.toggleLoading(false);
-
-      this.props.setUsers(data.items, data.totalCount);
-    });
+    this.props.getUsersThunkConstructor(
+      this.props.selectedPage,
+      this.props.pageSize
+    );
   }
 
-  //* Here because of API get response
-
   onPageChanged = (page) => {
-    this.props.toggleLoading(true);
+    this.props.getUsersThunkConstructor(page, this.props.pageSize);
     this.props.setPage(page);
-    getUsers(page, this.props.pageSize).then((data) => {
-      this.props.setUsers(data.items, data.totalCount);
-      this.props.toggleLoading(false);
-    });
   };
 
   render() {
@@ -50,6 +42,8 @@ class UsersAPIContainer extends React.Component {
           isAuth={this.props.isAuth}
           inProgressArray={this.props.inProgressArray}
           requestInProgress={this.props.requestInProgress}
+          followUserTC={this.props.followUserTC}
+          unfollowUserTC={this.props.unfollowUserTC}
         />
       </>
     );
@@ -57,7 +51,6 @@ class UsersAPIContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
- 
   return {
     users: state.usersPage.users,
     usersTotalCount: state.usersPage.usersTotalCount,
@@ -72,8 +65,9 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   followUser,
   unfollowUser,
-  setUsers,
   setPage,
-  toggleLoading,
   requestInProgress,
+  getUsersThunkConstructor,
+  followUserTC,
+  unfollowUserTC,
 })(UsersAPIContainer);

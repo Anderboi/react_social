@@ -2,29 +2,14 @@ import React from "react";
 import css from "./UserItem.module.css";
 import common from "../../../Common.module.css";
 import { NavLink } from "react-router-dom";
-import { followUser, unfollowUser } from "./../../../api/api";
 
 export function UserItem(props) {
-  debugger
   const toggleFollow = (e) => {
-    props.requestInProgress(true, props.id);
-
-    if (props.isFollowed === false) {
-      followUser(props.id).then((data) => {
-        if (data.resultCode === 0) {
-          props.follow(props.id);
-        }
-
-        props.requestInProgress(false, props.id);
-      });
+    
+    if (props.followed === false) {
+      props.followUserTC(props.id);
     } else {
-      unfollowUser(props.id).then((data) => {
-        if (data.resultCode === 0) {
-          props.unfollow(props.id);
-        }
-
-        props.requestInProgress(false, props.id);
-      });
+      props.unfollowUserTC(props.id);
     }
   };
 
@@ -42,11 +27,11 @@ export function UserItem(props) {
               onClick={toggleFollow}
               className={`${common.button} ${css.followButton}`}
             >
-              {props.isFollowed ? "Unfollow" : "Follow"}
+              {props.followed ? "Unfollow" : "Follow"}
             </button>
           ) : (
             <button
-              style={{ "background-color": "grey", border: "none" }}
+              style={{ backgroundColor: "grey", border: "none" }}
               className={`${common.button} ${css.followButton}`}
             >
               Disabled

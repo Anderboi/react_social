@@ -19,7 +19,7 @@ export const Users = (props) => {
         <UserItem
           name={user.name}
           status={user.status}
-          isFollowed={user.isFollowed || false}
+          followed={user.followed || false}
           icon={user.photos.small != null ? user.photos.small : userIcon}
        
           id={user.id}
@@ -29,6 +29,8 @@ export const Users = (props) => {
           key={user.id}
           inProgressArray={props.inProgressArray}
           requestInProgress={props.requestInProgress}
+          followUserTC={props.followUserTC}
+          unfollowUserTC={props.unfollowUserTC}
         />
       ))}
       <div className={css.pagination}>

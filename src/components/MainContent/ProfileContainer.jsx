@@ -2,8 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainContent } from "./MainContent";
-import { setUserInfo } from "./../../redux/mainPageReducer";
-import { getAuthUser } from "../../api/api";
+import { setUserInfoTC } from "./../../redux/mainPageReducer";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -11,9 +10,7 @@ class ProfileContainer extends React.Component {
       ? this.props.router.params.userId
       : this.props.authId;
 
-    getAuthUser(userId).then((data) => {
-      this.props.setUserInfo(data);
-    });
+    this.props.setUserInfoTC(userId);
   }
 
   render() {
@@ -42,6 +39,6 @@ function withRouter(Component) {
   return ComponentWithRouterProp;
 }
 
-export default connect(mapStateToProps, { setUserInfo })(
+export default connect(mapStateToProps, { setUserInfoTC })(
   withRouter(ProfileContainer)
 );

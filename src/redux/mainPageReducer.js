@@ -1,3 +1,5 @@
+import { getAuthUser } from "../api/api";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_INPUT = "UPDATE-INPUT";
 const SET_USER_INFO = "SET_USER_INFO";
@@ -46,7 +48,6 @@ const mainPageReducer = (state = initState, action) => {
       };
     }
     case SET_USER_INFO: {
-      
       return {
         ...state,
         userInfo: action.userInfo,
@@ -68,4 +69,12 @@ export const updatePostInputActionCreator = (data) => {
 };
 export const setUserInfo = (userInfo) => {
   return { type: SET_USER_INFO, userInfo };
+};
+
+export const setUserInfoTC = (userId) => {
+  return (dispatch) => {
+    getAuthUser(userId).then((data) => {
+      dispatch(setUserInfo(data));
+    });
+  };
 };
