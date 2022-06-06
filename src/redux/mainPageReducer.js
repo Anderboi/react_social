@@ -1,4 +1,4 @@
-import { getAuthUser } from "../api/api";
+import  {usersAPI}  from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_INPUT = "UPDATE-INPUT";
@@ -73,7 +73,7 @@ export const setUserInfo = (userInfo) => {
 
 export const setUserInfoTC = (userId) => {
   return (dispatch) => {
-    getAuthUser(userId).then((data) => {
+    usersAPI.getAuthUser(userId).then((data) => {
       dispatch(setUserInfo(data));
     });
   };

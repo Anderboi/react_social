@@ -1,4 +1,4 @@
-import { getUsers, followUserApi, unfollowUserApi } from "./../api/api";
+import { usersAPI } from "./../api/api";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -96,37 +96,31 @@ export const requestInProgress = (inProgress, id) => {
   return { type: IN_PROGRESS, inProgress, id };
 };
 
-export const getUsersThunkConstructor = (selectedPage, pageSize) => {
-  return (dispatch) => {
+export const getUsersThunkConstructor =
+  (selectedPage, pageSize) => (dispatch) => {
     dispatch(toggleLoading(true));
-    getUsers(selectedPage, pageSize).then((data) => {
-      dispatch(toggleLoading(false));
-
+    usersAPI.getUsers(selectedPage, pageSize).then((data) => {
       dispatch(setUsers(data.items, data.totalCount));
+      dispatch(toggleLoading(false));
     });
   };
+
+export const followUserTC = (id) => (dispatch) => {
+  dispatch(requestInProgress(true, id));
+  usersAPI.followUserApi(id).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(followUser(id));
+    }
+    dispatch(requestInProgress(false, id));
+  });
 };
 
-export const followUserTC = (id) => {
-  return (dispatch) => {
-    dispatch(requestInProgress(true, id));
-    followUserApi(id).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(followUser(id));
-      }
-      dispatch(requestInProgress(false, id));
-    });
-  };
-};
-
-export const unfollowUserTC = (id) => {
-  return (dispatch) => {
-    dispatch(requestInProgress(true, id));
-    unfollowUserApi(id).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(unfollowUser(id));
-      }
-      dispatch(requestInProgress(false, id));
-    });
-  };
+export const unfollowUserTC = (id) => (dispatch) => {
+  dispatch(requestInProgress(true, id));
+  usersAPI.unfollowUserApi(id).then((data) => {
+    if (data.resultCode === 0) {
+      dispatch(unfollowUser(id));
+    }
+    dispatch(requestInProgress(false, id));
+  });
 };

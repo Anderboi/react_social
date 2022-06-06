@@ -1,4 +1,4 @@
-import { authInfo } from "../api/api";
+import { authAPI } from "../api/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
 const WRONG_AUTH_DATA = "WRONG_AUTH_DATA";
@@ -37,7 +37,7 @@ export const setUserData = ({ id, login, email }) => {
 
 export const authData = () => {
   return (dispatch) => {
-    authInfo().then((data) => {
+    authAPI.authInfo().then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserData(data.data));
       }

@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
   return {
     messages: state.messagesPage.messages,
     newPostMessage: state.messagesPage.newPostMessage,
+    
   };
 };
 
