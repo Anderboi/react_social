@@ -3,6 +3,7 @@ import common from "../../Common.module.css";
 import { NavLink } from "react-router-dom";
 
 export function NavMenu(props) {
+  
   return (
     <div className={nav.main_nav_block}>
       <nav className={nav.nav_menu}>
@@ -61,7 +62,7 @@ export function NavMenu(props) {
         {/* <Outlet /> */}
       </nav>
       {/* //TODO Add isAuth prop n logic */}
-      <div className={!props.isAuth ? nav.nav_menu : common.display_none}>
+      <div className={props.isAuth ? nav.nav_menu : common.display_none}>
         <h3>Friends</h3>
         <div className={nav.friends_block}>
           <FriendItem />

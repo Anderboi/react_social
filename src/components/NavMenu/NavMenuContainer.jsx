@@ -1,10 +1,14 @@
 import React from "react";
-import connect from "./../Users/UsersContainer";
+import { connect } from "react-redux";
 import { NavMenu } from "./NavMenu";
 
 class NavMenuContainer extends React.Component {
+  
   render() {
-    return <NavMenu isAuth={this.props.isAuth} />;
+    
+    return (<>
+    <NavMenu isAuth={this.props.isAuth} />
+    </>)
   }
 }
 

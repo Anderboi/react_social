@@ -11,6 +11,8 @@ import {
   unfollowUserTC,
 } from "./../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
+import { withAuthRedirect } from "./../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
@@ -57,17 +59,20 @@ const mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     selectedPage: state.usersPage.selectedPage,
     isLoading: state.usersPage.isLoading,
-    isAuth: state.auth.isAuthorised,
+
     inProgressArray: state.usersPage.inProgressArray,
   };
 };
 
-export default connect(mapStateToProps, {
-  followUser,
-  unfollowUser,
-  setPage,
-  requestInProgress,
-  getUsersThunkConstructor,
-  followUserTC,
-  unfollowUserTC,
-})(UsersAPIContainer);
+export default compose(
+  connect(mapStateToProps, {
+    followUser,
+    unfollowUser,
+    setPage,
+    requestInProgress,
+    getUsersThunkConstructor,
+    followUserTC,
+    unfollowUserTC,
+  }),
+  withAuthRedirect
+)(UsersAPIContainer);

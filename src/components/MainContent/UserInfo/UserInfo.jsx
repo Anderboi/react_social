@@ -1,7 +1,9 @@
+import { React } from "react";
 import user from "./UserInfo.module.css";
 import avatar from "../../../assets/images/avatar.png";
 import job from "../../../assets/images/job-search.png";
 import noJob from "../../../assets/images/unemployment.png";
+import StatusComponent from "./StatusComponent";
 
 export function UserInfo(props) {
   return (
@@ -14,10 +16,8 @@ export function UserInfo(props) {
       <div className={user.info_description}>
         <h2>{props.fullName}</h2>
         <div>
-          <div>
-            <b>About me:</b> {props.aboutMe}
-          </div>
-
+          <StatusComponent aboutMe={props.aboutMe}/>
+         
           <div>
             <b>Skills:</b> {props.lookingForAJobDescription}
           </div>

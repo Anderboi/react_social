@@ -10,7 +10,7 @@ import { Settings } from "./components/Pages/Settings/Settings";
 import { UsersPage } from "./components/Users/UsersPage";
 import ProfileContainerWithRouter from "./components/MainContent/ProfileContainer";
 import { Login } from './components/Login/Login';
-// import NavMenuContainer from './components/NavMenu/NavMenuContainer';
+import NavMenuContainer from './components/NavMenu/NavMenuContainer';
 
 function App() {
   return (
@@ -18,13 +18,13 @@ function App() {
       <div className="header-line"></div>
       <div className="container grid">
         <HeaderContainer />
-        <NavMenu />
+        <NavMenuContainer />
         <div className="app-content">
           <Routes>
             {/* <Route path="/profile">
               <Redirect push to="/profile/2222" />
             </Route> */}
-            <Route path="/" element={<ProfileContainerWithRouter />} />
+            {/* <Route path="/" element={<ProfileContainerWithRouter />} /> */}
             <Route path="/profile" element={<ProfileContainerWithRouter />}>
               <Route path=":userId" element={<ProfileContainerWithRouter />} />
             </Route>
