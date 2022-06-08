@@ -1,11 +1,9 @@
 .userItem {
-  
   display: flex;
   gap: 1em;
   background-color: white;
   padding: 1em;
   border: 1px solid var(--main-color);
-  
 }
 .iconContainer {
   display: flex;
@@ -30,6 +28,8 @@
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+  text-decoration: none;
+  color: black;
 }
 
 .userInfoDescription {
@@ -43,5 +43,4 @@
   color: var(--main-color);
   font-weight: 700;
   font-size: 14px;
-  
 }

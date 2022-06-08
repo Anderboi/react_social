@@ -1,8 +1,9 @@
-import  {usersAPI}  from "../api/api";
+import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
 const UPDATE_INPUT = "UPDATE-INPUT";
 const SET_USER_INFO = "SET_USER_INFO";
+const SET_USER_STATUS = "SET_USER_STATUS";
 
 let initState = {
   posts: [
@@ -21,6 +22,7 @@ let initState = {
   ],
   newPostMessage: "",
   userInfo: null,
+  profileStatus: "First",
 };
 
 const mainPageReducer = (state = initState, action) => {
@@ -54,6 +56,11 @@ const mainPageReducer = (state = initState, action) => {
       };
     }
 
+    case SET_USER_STATUS: {
+      
+      return { ...state, profileStatus: action.data };
+    }
+
     default:
       return state;
   }
@@ -71,10 +78,30 @@ export const setUserInfo = (userInfo) => {
   return { type: SET_USER_INFO, userInfo };
 };
 
+export const setUserStatus = (data) => {
+  return { type: SET_USER_STATUS, data };
+};
+
 export const setUserInfoTC = (userId) => {
   return (dispatch) => {
-    usersAPI.getAuthUser(userId).then((data) => {
+    profileAPI.getAuthUser(userId).then((data) => {
       dispatch(setUserInfo(data));
     });
   };
+};
+
+export const getUserStatusTC = (userId) => (dispatch) => {
+  profileAPI.getUserStatus(userId).then((response) => {
+    
+    dispatch(setUserStatus(response.data));
+  });
+};
+
+export const setUserStatusTC = (text) => (dispatch) => {
+  profileAPI.setUserStatusApi(text).then((response) => {
+   
+    if (response.data.resultCode === 0) {
+      dispatch(setUserStatus(text));
+    }
+  });
 };

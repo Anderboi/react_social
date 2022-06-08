@@ -5,6 +5,10 @@ import { MainContent } from "./MainContent";
 import { setUserInfoTC } from "./../../redux/mainPageReducer";
 import { withAuthRedirect } from "./../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import {
+  setUserStatusTC,
+  getUserStatusTC,
+} from "./../../redux/mainPageReducer";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -13,12 +17,20 @@ class ProfileContainer extends React.Component {
       : this.props.authId;
 
     this.props.setUserInfoTC(userId);
+    this.props.getUserStatusTC(userId);
   }
 
   render() {
     if (this.props.userInfo === null) {
     }
-    return <MainContent {...this.props} userInfo={this.props.userInfo} />;
+    return (
+      <MainContent
+        {...this.props}
+        userInfo={this.props.userInfo}
+        profileStatus={this.props.profileStatus}
+        setUserStatusTC={this.props.setUserStatusTC}
+      />
+    );
   }
 }
 
@@ -26,6 +38,7 @@ const mapStateToProps = (state) => {
   return {
     userInfo: state.profilePage.userInfo,
     authId: state.auth.id,
+    profileStatus: state.profilePage.profileStatus,
   };
 };
 
@@ -41,7 +54,7 @@ function withRouter(Component) {
 }
 
 export default compose(
-  connect(mapStateToProps, { setUserInfoTC }),
+  connect(mapStateToProps, { setUserInfoTC, setUserStatusTC, getUserStatusTC }),
   withRouter,
   withAuthRedirect
 )(ProfileContainer);

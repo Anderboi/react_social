@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { ChatPage } from "./components/Dailogs/ChatPage";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import { NavMenu } from "./components/NavMenu/NavMenu";
+
 import { Music } from "./components/Pages//Music/Music";
 import { News } from "./components/Pages/News/News";
 import { Settings } from "./components/Pages/Settings/Settings";

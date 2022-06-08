@@ -13,9 +13,7 @@ export const usersAPI = {
       .get(`/users?page=${selectedPage}&count=${pageSize}`)
       .then((response) => response.data);
   },
-  getAuthUser(userId) {
-    return instance.get(`/profile/${userId}`).then((response) => response.data);
-  },
+
   followUserApi(userId) {
     return instance.post(`/follow/${userId}`).then((response) => response.data);
   },
@@ -29,5 +27,25 @@ export const usersAPI = {
 export const authAPI = {
   authInfo() {
     return instance.get("/auth/me").then((response) => response.data);
+  },
+  authLogin(data) {
+    return instance.post("auth/login", {
+      email: data.email,
+      password: data.password,
+      rememberMe: data.rememberMe,
+    });
+  },
+};
+
+export const profileAPI = {
+  getUserStatus(userId) {
+    return instance.get("profile/status/" + userId);
+  },
+
+  setUserStatusApi(text) {
+    return instance.put("/profile/status", { status: text });
+  },
+  getAuthUser(userId) {
+    return instance.get(`/profile/${userId}`).then((response) => response.data);
   },
 };

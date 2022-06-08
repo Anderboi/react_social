@@ -1,41 +1,70 @@
 import React from "react";
+import common from "../../../Common.module.css";
 
 class StatusComponent extends React.Component {
   state = {
     editMode: false,
+    statusInput: this.props.profileStatus,
   };
 
-  activateEditMode() {
-    this.setState({
-      editMode: true,
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.profileStatus !== this.props.profileStatus) {
+      this.setState({
+        statusInput: this.props.profileStatus,
+      });
+    }
   }
-  deactivateEditMode() {
+
+  activateEditMode = () => {
+    if (this.props.userId === this.props.authId) {
+      this.setState({
+        editMode: true,
+      });
+    }
+  };
+  deactivateEditMode = () => {
     this.setState({
       editMode: false,
     });
-  }
+  };
+
+  setProfileStatus = () => {
+    this.setState({
+      editMode: false,
+    });
+    this.props.setUserStatusTC(this.state.statusInput);
+  };
+
+  updateStatusBar = (text) => {
+    this.setState({
+      statusInput: text.currentTarget.value,
+    });
+  };
 
   render() {
     return (
       <div>
-        {this.state.editMode ? (
+        {this.state.editMode && (
           <div>
             <input
               autoFocus
-              value={this.props.aboutMe}
-              placeholder="Enter some status"
-              onBlur={this.deactivateEditMode.bind(this)}
+              onChange={this.updateStatusBar}
+              value={this.state.statusInput}
+              placeholder="Enter your status"
+              onBlur={this.setProfileStatus}
+              className={common.input}
             />
             <input
+              className={common.button}
               type="button"
               value="Save"
-              onClick={this.deactivateEditMode.bind(this)} //TODO Add status saving logic
+              onClick={this.setProfileStatus}
             />
           </div>
-        ) : (
-          <div onDoubleClick={this.activateEditMode.bind(this)}>
-            <b>About me:</b> {this.props.aboutMe}
+        )}
+        {!this.state.editMode && (
+          <div onDoubleClick={this.activateEditMode}>
+            <b>About me:</b> {this.props.profileStatus || "Nothing"}
           </div>
         )}
       </div>

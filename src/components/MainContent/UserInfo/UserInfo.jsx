@@ -16,8 +16,14 @@ export function UserInfo(props) {
       <div className={user.info_description}>
         <h2>{props.fullName}</h2>
         <div>
-          <StatusComponent aboutMe={props.aboutMe}/>
-         
+          <StatusComponent
+            aboutMe={props.aboutMe}
+            userId={props.userId}
+            authId={props.authId}
+            setUserStatusTC={props.setUserStatusTC}
+            profileStatus={props.profileStatus}
+          />
+
           <div>
             <b>Skills:</b> {props.lookingForAJobDescription}
           </div>

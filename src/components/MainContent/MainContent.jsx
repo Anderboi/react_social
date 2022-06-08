@@ -25,6 +25,9 @@ export function MainContent(props) {
         lookingForAJobDescription={props.userInfo.lookingForAJobDescription}
         userId={props.userInfo.userId}
         photo={props.userInfo.photos.small}
+        authId={props.authId}
+        setUserStatusTC={props.setUserStatusTC}
+        profileStatus={props.profileStatus}
       />
       {/* Info User Block  */}
       <PostFormContainer />

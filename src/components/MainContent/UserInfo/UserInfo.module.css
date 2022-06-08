@@ -6,15 +6,18 @@
 }
 .info_description {
   padding-left: 1em;
+  
 }
 .info_description {
-  /* margin-bottom: 0.5em; */
-  /* height: 100%; */
+ 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
+  
 }
+
+
 
 .info_img {
   width: 120px;
