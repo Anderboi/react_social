@@ -1,6 +1,6 @@
 import {
   addPostActionCreator,
-  updatePostInputActionCreator,
+  
 } from "../../../redux/mainPageReducer";
 import { PostForm } from "./PostForm";
 import { connect } from "react-redux";
@@ -11,12 +11,10 @@ const mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    sendPost: () => {
-      dispatch(addPostActionCreator());
+    sendPost: (data) => {
+      dispatch(addPostActionCreator(data));
     },
-    updatePostInput: (text) => {
-      dispatch(updatePostInputActionCreator(text));
-    },
+   
   };
 };
 

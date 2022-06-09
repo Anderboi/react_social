@@ -28,12 +28,19 @@ export const authAPI = {
   authInfo() {
     return instance.get("/auth/me").then((response) => response.data);
   },
+
   authLogin(data) {
-    return instance.post("auth/login", {
-      email: data.email,
-      password: data.password,
-      rememberMe: data.rememberMe,
-    });
+    return instance
+      .post("auth/login", {
+        email: data.email,
+        password: data.password,
+        rememberMe: data.rememberMe,
+      })
+      .then((response) => response.data);
+  },
+
+  authLogout() {
+    return instance.post("auth/logout");
   },
 };
 

@@ -24,7 +24,6 @@
 .login_block {
   display: flex;
   gap: 1em;
-  
 }
 
 .link {
@@ -40,4 +39,8 @@
 .avatar {
   height: 32px;
   width: 32px;
+}
+
+.hide {
+  display: none;
 }

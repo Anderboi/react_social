@@ -1,5 +1,5 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_MESSAGE_INPUT = "UPDATE-MESSAGE-INPUT";
+
 
 let initState = {
   users: [
@@ -41,36 +41,32 @@ let initState = {
       isOwn: true,
     },
   ],
-  newPostMessage: "",
+  
 };
 
 const messageReducer = (state = initState, action) => {
-  const newState = { ...state };
+  
 
   switch (action.type) {
     case ADD_MESSAGE: {
-      if (newState.newPostMessage.length > 0) {
-        return {
-          ...state,
-          messages: [
-            ...state.messages,
-            {
-              text: newState.newPostMessage,
-              id: Math.random() * 10,
-              isOwn: true,
-            },
-          ],
-          newPostMessage: "",
-        };
-      }
-      break;
-    }
-    case UPDATE_MESSAGE_INPUT: {
+      console.log(action.data);
+      // if (newState.newPostMessage.length > 0) {
       return {
         ...state,
-        newPostMessage: action.data,
+        messages: [
+          ...state.messages,
+          {
+            text: action.data,
+            id: Math.random() * 10,
+            isOwn: true,
+          },
+        ],
+        // newPostMessage: "",
       };
+      // }
+      // break;
     }
+    
     default:
       return state;
   }
@@ -78,9 +74,6 @@ const messageReducer = (state = initState, action) => {
 
 export default messageReducer;
 
-export const addMessageActionCreator = () => {
-  return { type: ADD_MESSAGE };
-};
-export const updateMessageInputActionCreator = (data) => {
-  return { type: UPDATE_MESSAGE_INPUT, data: data };
+export const addMessageActionCreator = (data) => {
+  return { type: ADD_MESSAGE, data };
 };

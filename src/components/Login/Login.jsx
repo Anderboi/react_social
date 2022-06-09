@@ -2,69 +2,80 @@ import React from "react";
 import common from "../../Common.module.css";
 import css from "./Login.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { authAPI } from "../../api/api";
+import {
+  validateEmail,
+  required,
+} from "./../../utilities/validators/validators";
+import { connect } from "react-redux";
+import { loginTC } from "./../../redux/authReducer";
+import { Navigate } from 'react-router-dom';
 
-export const Login = (props) => {
-  return (
-    <div>
-      <LoginForm onSubmit={onSubmit} />
-    </div>
-  );
+const Login = (props) => {
+  if (props.isAuth) {
+    return <Navigate to={'/profile'} />;
+  } else {
+    return (
+      <div>
+        <LoginForm {...props} />
+      </div>
+    );
+  }
 };
 
-const onSubmit = (data) => {
-  authAPI.authLogin(data).then((response) => {
-    console.log(response);
-  });
-};
-
-const LoginForm = () => {
+const LoginForm = (props) => {
+  const onSubmit = (data) => {
+    props.loginTC(data);
+  };
   return (
     <div>
       <Formik
-        initialValues={{ email: "", password: "", rememberMe: false }}
-        // validate={(values) => {
-        //   const errors = {};
-        //   if (!values.userName) {
-        //     errors.userName = "Required";
-        //   }
-        //   return errors;
-        // }}
+        initialValues={{
+          email: "",
+          password: "",
+          rememberMe: false,
+        }}
         //TODO Insert Submit Logic
-        onSubmit={async (values, { setSubmitting }) => {
-          await setTimeout(() => {
-            console.log(values);
-            authAPI.authLogin(values).then((response) => {
-              console.log(response);
-            });
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+        onSubmit={(values, { setSubmitting }) => {
+          onSubmit(values);
+          setSubmitting(false);
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, errors, touched, handleChange, handleBlur }) => (
           <Form className={css.form}>
             <h1>Login</h1>
             <Field
               className={common.input}
-              type="text"
+              type="email"
               name="email"
-              // id="userName"
+              id="email"
               placeholder="Email"
-              // onChange={handleChange}
-              // onBlur={handleBlur}
-              // value={values.userName}
+              validate={validateEmail}
+              onChange={handleChange}
+              onBlur={handleBlur}
+             
             />
-            <ErrorMessage name="userName" component="div" />
+            {errors.email && touched.email}
+            <ErrorMessage
+              className={common.error_message}
+              name="email"
+              component="div"
+            />
             <Field
               type="password"
               name="password"
               className={common.input}
               placeholder="Password"
+              validate={required}
             />
-            <ErrorMessage name="password" component="div" />
+            {errors.password && touched.password}
+            <ErrorMessage
+              className={common.error_message}
+              name="password"
+              component="div"
+            />
             <div>
-              <Field type="checkbox" name="rememberMe" /> remember me
+              <Field type="checkbox" name="rememberMe" id="rememberMe" />
+              <label htmlFor="rememberMe"> remember me</label>
             </div>
             <button
               type="submit"
@@ -79,47 +90,11 @@ const LoginForm = () => {
     </div>
   );
 };
-// const LoginForm = () => {
-//   return (
-//     <div>
-//       <Formik initialValues={{ userName: "", password: "" }}>
-//         {({
-//           values,
-//           errors,
-//           touched,
-//           handleChange,
-//           handleBlur,
-//           handleSubmit,
-//           isSubmitting,
-//           /* and other goodies */
-//         }) => (
-//           <form action="" className={css.form} onSubmit={handleSubmit}>
-//             <h1>Login</h1>
-//             <input
-//               className={common.input}
-//               type="text"
-//               name="userName"
-//               id="userName"
-//               placeholder="Login"
-//               onChange={handleChange}
-//               onBlur={handleBlur}
-//               value={values.userName}
-//             />
-//             <input
-//               className={common.input}
-//               type="password"
-//               name="password"
-//               id="password"
-//               placeholder="Password"
-//             />
-//             <div>
-//               <input type="checkbox" name="remember" id="remember" /> remember
-//               me
-//             </div>
-//             <input className={common.button} type="button" value="Login" disabled={isSubmitting}/>
-//           </form>
-//         )}
-//       </Formik>
-//     </div>
-//   );
-// };
+
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.auth.isAuthorised,
+  };
+};
+
+export default connect(mapStateToProps, { loginTC })(Login);

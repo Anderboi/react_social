@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setUserData, authData } from "../../redux/authReducer";
+import { setUserData, authData, logoutTC } from "../../redux/authReducer";
 import { Header } from "./Header";
 
 class HeaderContainer extends React.Component {
@@ -9,14 +9,14 @@ class HeaderContainer extends React.Component {
   }
 
   render() {
-    if (this.props.id !== null) {
+    // if (this.props.id !== null) {
       return (
         <>
           {/* {this.props.isLoading ? <Preloader /> : null} */}
           <Header {...this.props} />
         </>
       );
-    }
+    // }
   }
 }
 
@@ -32,4 +32,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   setUserData,
   authData,
+  logoutTC,
 })(HeaderContainer);

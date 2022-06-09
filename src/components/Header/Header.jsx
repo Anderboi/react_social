@@ -5,6 +5,10 @@ import avatar from "../../assets/images/avatar.png";
 
 export function Header(props) {
   
+  const logout = () => {
+    props.logoutTC();
+  };
+
   return (
     <header className={head.header}>
       <Link to="/profile">
@@ -18,12 +22,15 @@ export function Header(props) {
         <NavLink to={"/profile"}>
           <img src={avatar} alt="" className={head.avatar} />
         </NavLink>
+        <a href="/" onClick={logout}>
+          Logout
+        </a>
       </div>
 
       <div className={props.id === null ? head.login_block : head.display_none}>
         {/* <div className={head.login_block}> */}
         <NavLink to={"/login"} className={head.link}>
-          <span>LogIn</span>
+          <span>Log In</span>
         </NavLink>
         <span> | </span>
         <NavLink to={"/register"} className={head.link}>

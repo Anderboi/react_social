@@ -1,7 +1,7 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
-const UPDATE_INPUT = "UPDATE-INPUT";
+
 const SET_USER_INFO = "SET_USER_INFO";
 const SET_USER_STATUS = "SET_USER_STATUS";
 
@@ -20,7 +20,7 @@ let initState = {
       id: "03",
     },
   ],
-  newPostMessage: "",
+  
   userInfo: null,
   profileStatus: "First",
 };
@@ -28,27 +28,22 @@ let initState = {
 const mainPageReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_POST: {
-      if (state.newPostMessage.length > 0) {
+      
+      // if (state.newPostMessage.length > 0) {
         return {
           ...state,
           posts: [
             {
-              text: state.newPostMessage,
+              text: action.data,
               id: Math.random() * 10,
             },
             ...state.posts,
           ],
-          newPostMessage: "",
+          
         };
-      }
-      break;
+      
     }
-    case UPDATE_INPUT: {
-      return {
-        ...state,
-        newPostMessage: action.data,
-      };
-    }
+   
     case SET_USER_INFO: {
       return {
         ...state,
@@ -57,7 +52,6 @@ const mainPageReducer = (state = initState, action) => {
     }
 
     case SET_USER_STATUS: {
-      
       return { ...state, profileStatus: action.data };
     }
 
@@ -68,12 +62,10 @@ const mainPageReducer = (state = initState, action) => {
 
 export default mainPageReducer;
 
-export const addPostActionCreator = () => {
-  return { type: ADD_POST };
+export const addPostActionCreator = (data) => {
+  return { type: ADD_POST, data };
 };
-export const updatePostInputActionCreator = (data) => {
-  return { type: UPDATE_INPUT, data: data };
-};
+
 export const setUserInfo = (userInfo) => {
   return { type: SET_USER_INFO, userInfo };
 };
@@ -92,14 +84,12 @@ export const setUserInfoTC = (userId) => {
 
 export const getUserStatusTC = (userId) => (dispatch) => {
   profileAPI.getUserStatus(userId).then((response) => {
-    
     dispatch(setUserStatus(response.data));
   });
 };
 
 export const setUserStatusTC = (text) => (dispatch) => {
   profileAPI.setUserStatusApi(text).then((response) => {
-   
     if (response.data.resultCode === 0) {
       dispatch(setUserStatus(text));
     }

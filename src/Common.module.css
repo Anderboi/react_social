@@ -13,6 +13,11 @@
   border: 1px solid var(--main-color);
   padding: 0.5em;
 }
+.input:focus-visible {
+  border-color: var(--main-color);
+  border: 2px solid var(--main-color) !important;
+  
+}
 
 .spinner {
   position: absolute;
@@ -21,4 +26,9 @@
 
 .display_none {
   display: none;
+}
+
+.error_message {
+  color: red;
+  font-size: 12px;
 }

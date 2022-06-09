@@ -1,6 +1,6 @@
 .post_form {
   padding-top: 1.5em;
-
+  height: 8em;
   display: flex;
   flex-direction: column;
   /* gap: 1em; */
@@ -9,6 +9,11 @@
 .input {
   margin-bottom: 1em;
   margin-top: 0.5em;
+  width: 100%;
+}
+
+.button {
+  float: right;
 }
 
 .button:hover {
