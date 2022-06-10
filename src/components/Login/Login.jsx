@@ -1,18 +1,14 @@
 import React from "react";
 import common from "../../Common.module.css";
 import css from "./Login.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import {
-  validateEmail,
-  required,
-} from "./../../utilities/validators/validators";
 import { connect } from "react-redux";
 import { loginTC } from "./../../redux/authReducer";
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Login = (props) => {
   if (props.isAuth) {
-    return <Navigate to={'/profile'} />;
+    return <Navigate to={"/profile"} />;
   } else {
     return (
       <div>
@@ -23,70 +19,78 @@ const Login = (props) => {
 };
 
 const LoginForm = (props) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onChange",
+  });
+
   const onSubmit = (data) => {
     props.loginTC(data);
+    reset();
   };
+
+  // const errorsCallback = (error) => {
+  //   console.log(error);
+  //   if (error.resultCode === 10) {
+  //     //TODO Add logic for captcha insertion
+  //   }
+  //   setError("password", { type: "custom", message: error.messages[0] });
+  // };
+
   return (
     <div>
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-          rememberMe: false,
-        }}
-        //TODO Insert Submit Logic
-        onSubmit={(values, { setSubmitting }) => {
-          onSubmit(values);
-          setSubmitting(false);
-        }}
-      >
-        {({ isSubmitting, errors, touched, handleChange, handleBlur }) => (
-          <Form className={css.form}>
-            <h1>Login</h1>
-            <Field
-              className={common.input}
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              validate={validateEmail}
-              onChange={handleChange}
-              onBlur={handleBlur}
-             
-            />
-            {errors.email && touched.email}
-            <ErrorMessage
-              className={common.error_message}
-              name="email"
-              component="div"
-            />
-            <Field
-              type="password"
-              name="password"
-              className={common.input}
-              placeholder="Password"
-              validate={required}
-            />
-            {errors.password && touched.password}
-            <ErrorMessage
-              className={common.error_message}
-              name="password"
-              component="div"
-            />
-            <div>
-              <Field type="checkbox" name="rememberMe" id="rememberMe" />
-              <label htmlFor="rememberMe"> remember me</label>
-            </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={common.button}
-            >
-              Login
-            </button>
-          </Form>
-        )}
-      </Formik>
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
+        <h1>Login</h1>
+        <input
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
+              message: "Enter correct email",
+            },
+          })}
+          className={common.input}
+          type="email"
+          placeholder="Email"
+        />
+        <p className={common.error_message}>{errors.email?.message}</p>
+
+        <input
+          {...register("password", {
+            required: "Password is required",
+            maxLength: { value: 20, message: "Max length must be 20 symbols" },
+            minLength: { value: 6, message: "Max length must be 6 symbols" },
+          })}
+          type="password"
+          className={common.input}
+          placeholder="Password"
+        />
+        {props.authMessage ? ( //TODO Add message clearance after input change
+          <p className={common.error_message}>
+            {props.authMessage ? props.authMessage : null}
+          </p>
+        ) : (
+          <p className={common.error_message}>{errors.password?.message}</p>
+        )} 
+
+        <div>
+          <input type="checkbox" name="rememberMe" id="rememberMe" />
+          <label htmlFor="rememberMe"> remember me</label>
+        </div>
+        <button type="submit" className={common.button}>
+          Login
+        </button>
+      </form>
+      {errors.callback && <div>Error</div>}
     </div>
   );
 };
@@ -94,6 +98,7 @@ const LoginForm = (props) => {
 const mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuthorised,
+    authMessage: state.auth.authMessage,
   };
 };
 

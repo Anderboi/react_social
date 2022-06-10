@@ -21,17 +21,14 @@
   align-self: stretch;
   text-align: end;
   text-decoration: none;
-  color: rgba(251, 249, 249, 0.705);
 }
 
-.nav_item:hover {
-  font-weight: 500;
-  color: white;
-}
 .active {
-  font-weight: 500;
+  align-self: stretch;
+  text-align: end;
   color: white;
   text-decoration: none;
+  padding-right: 0.5em;
 }
 
 .friends_block {

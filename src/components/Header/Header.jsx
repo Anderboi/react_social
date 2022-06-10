@@ -22,7 +22,7 @@ export function Header(props) {
         <NavLink to={"/profile"}>
           <img src={avatar} alt="" className={head.avatar} />
         </NavLink>
-        <a href="/" onClick={logout}>
+        <a href="/" onClick={logout} className={head.link}>
           Logout
         </a>
       </div>

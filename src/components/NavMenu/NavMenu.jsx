@@ -3,38 +3,33 @@ import common from "../../Common.module.css";
 import { NavLink } from "react-router-dom";
 
 export function NavMenu(props) {
+
+  const linkClass = (navData) =>
+  `${navData.isActive ? nav.active : nav.nav_item} ${common.hover}`
   
   return (
     <div className={nav.main_nav_block}>
       <nav className={nav.nav_menu}>
         <NavLink
-          className={(navData) =>
-            navData.isActive ? nav.active : nav.nav_item
-          }
+          className={linkClass}
           to="/profile"
         >
           Profile
         </NavLink>
         <NavLink
-          className={(navData) =>
-            navData.isActive ? nav.active : nav.nav_item
-          }
+          className={linkClass}
           to="/messages"
         >
           Messages
         </NavLink>
         <NavLink
-          className={(navData) =>
-            navData.isActive ? nav.active : nav.nav_item
-          }
+          className={linkClass}
           to="/news"
         >
           News
         </NavLink>
         <NavLink
-          className={(navData) =>
-            navData.isActive ? nav.active : nav.nav_item
-          }
+          className={linkClass}
           to="/music"
         >
           {" "}
@@ -43,18 +38,14 @@ export function NavMenu(props) {
         <br></br>
 
         <NavLink
-          className={(navData) =>
-            navData.isActive ? nav.active : nav.nav_item
-          }
+          className={linkClass}
           to="/Users"
         >
           Users
         </NavLink>
         <br></br>
         <NavLink
-          className={(navData) =>
-            navData.isActive ? nav.active : nav.nav_item
-          }
+          className={linkClass}
           to="/settings"
         >
           Settings

@@ -10,46 +10,57 @@ import { UsersPage } from "./components/Users/UsersPage";
 import ProfileContainerWithRouter from "./components/MainContent/ProfileContainer";
 import Login from "./components/Login/Login";
 import NavMenuContainer from "./components/NavMenu/NavMenuContainer";
+import { connect } from "react-redux";
+import { authData } from "./redux/authReducer";
 
-function App() {
-  return (
-    <div className="App">
-      <div className="header-line"></div>
-      <div className="container grid">
-        <HeaderContainer />
-        <NavMenuContainer />
-        <div className="app-content">
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/profile" element={<ProfileContainerWithRouter />}>
-              <Route path=":userId" element={<ProfileContainerWithRouter />} />
-            </Route>
+class App extends React.Component {
+  componentDidMount() {
+    this.props.authData();
+  }
 
-            <Route path="/messages" element={<ChatPage />} />
+  render() {
+    return (
+      <div className="App">
+        <div className="header-line"></div>
+        <div className="container grid">
+          <HeaderContainer />
+          <NavMenuContainer />
+          <div className="app-content">
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/profile" element={<ProfileContainerWithRouter />}>
+                <Route
+                  path=":userId"
+                  element={<ProfileContainerWithRouter />}
+                />
+              </Route>
 
-            <Route path="/news" element={<News />} />
+              <Route path="/messages" element={<ChatPage />} />
 
-            <Route path="/music" element={<Music />} />
+              <Route path="/news" element={<News />} />
 
-            <Route path="/users" element={<UsersPage />} />
+              <Route path="/music" element={<Music />} />
 
-            <Route path="/settings" element={<Settings />} />
+              <Route path="/users" element={<UsersPage />} />
 
-            <Route path="/login" element={<Login />} />
+              <Route path="/settings" element={<Settings />} />
 
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
-          </Routes>
+              <Route path="/login" element={<Login />} />
+
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>There's nothing here!</p>
+                  </main>
+                }
+              />
+            </Routes>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export default App;
+export default connect(null, { authData })(App);

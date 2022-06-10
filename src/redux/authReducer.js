@@ -10,6 +10,7 @@ let initState = {
   login: null,
   email: null,
   isAuthorised: false,
+  authMessage: null,
 };
 
 const authReducer = (state = initState, action) => {
@@ -22,11 +23,12 @@ const authReducer = (state = initState, action) => {
       };
     }
 
-    // case LOGIN_USER: {
-    //   return {
-    //     ...state,
-    //   };
-    // }
+    case LOGIN_USER: {
+      return {
+        ...state,
+        authMessage: action.message,
+      };
+    }
     case LOGOUT_USER: {
       return {
         ...state,
@@ -52,8 +54,8 @@ export const setUserData = ({ id, login, email }) => {
   return { type: SET_USER_DATA, data: { id, login, email } };
 };
 
-export const loginUser = () => {
-  return { type: LOGIN_USER };
+export const loginUser = (message) => {
+  return { type: LOGIN_USER, message };
 };
 
 export const logoutUser = () => {
@@ -70,11 +72,15 @@ export const authData = () => {
   };
 };
 
-export const loginTC = (values) => {
+export const loginTC = (values, cb) => {
   return (dispatch) => {
     authAPI.authLogin(values).then((data) => {
       if (data.resultCode === 0) {
+        dispatch(loginUser("Success"));
         dispatch(authData());
+      } else {
+        dispatch(loginUser(data.messages[0]));
+        // cb(data);
       }
     });
   };

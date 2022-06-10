@@ -4,19 +4,13 @@ import { setUserData, authData, logoutTC } from "../../redux/authReducer";
 import { Header } from "./Header";
 
 class HeaderContainer extends React.Component {
-  componentDidMount() {
-    this.props.authData();
-  }
 
   render() {
-    // if (this.props.id !== null) {
-      return (
-        <>
-          {/* {this.props.isLoading ? <Preloader /> : null} */}
-          <Header {...this.props} />
-        </>
-      );
-    // }
+    return (
+      <>
+        <Header {...this.props} />
+      </>
+    );
   }
 }
 

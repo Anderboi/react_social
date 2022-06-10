@@ -8,6 +8,8 @@ export const required = (value) => {
   return error;
 };
 
+
+
 export const validateEmail = (value) => {
   let error;
   if (!value) {
