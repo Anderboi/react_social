@@ -12,6 +12,15 @@ import {
 } from "./../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
 import { compose } from "redux";
+import {
+  getUsers,
+  getUsersTotalCount,
+  getPageSize,
+  getSelectedPage,
+  getIsLoading,
+  getInProgressArray,
+} from "../../utilities/selectors/usersSelector";
+import {getIsAuthorised} from '../../utilities/selectors/authSelector'
 
 class UsersAPIContainer extends React.Component {
   componentDidMount() {
@@ -53,13 +62,13 @@ class UsersAPIContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    usersTotalCount: state.usersPage.usersTotalCount,
-    pageSize: state.usersPage.pageSize,
-    selectedPage: state.usersPage.selectedPage,
-    isLoading: state.usersPage.isLoading,
-    isAuth: state.auth.isAuthorised,
-    inProgressArray: state.usersPage.inProgressArray,
+    users: getUsers(state),
+    usersTotalCount: getUsersTotalCount(state),
+    pageSize: getPageSize(state),
+    selectedPage: getSelectedPage(state),
+    isLoading:getIsLoading(state),
+    inProgressArray: getInProgressArray(state),
+    isAuth: getIsAuthorised(state),
   };
 };
 

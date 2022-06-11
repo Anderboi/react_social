@@ -1,25 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import { NavMenu } from "./NavMenu";
+import { getIsAuthorised } from "../../utilities/selectors/authSelector";
 
 class NavMenuContainer extends React.Component {
-  
   render() {
-    
-    return (<>
-    <NavMenu isAuth={this.props.isAuth} />
-    </>)
+    return (
+      <>
+        <NavMenu isAuth={this.props.isAuth} />
+      </>
+    );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.auth.isAuthorised,
+    isAuth: getIsAuthorised(state),
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavMenuContainer);
+export default connect(mapStateToProps, null)(NavMenuContainer);

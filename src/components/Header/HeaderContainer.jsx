@@ -2,9 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { setUserData, authData, logoutTC } from "../../redux/authReducer";
 import { Header } from "./Header";
+import { getIsLoading } from './../../utilities/selectors/usersSelector';
+import {
+  getAuthId,
+  getAuthLogin,
+  getAuthEmail,
+} from "./../../utilities/selectors/authSelector";
 
 class HeaderContainer extends React.Component {
-
   render() {
     return (
       <>
@@ -16,10 +21,10 @@ class HeaderContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    id: state.auth.id,
-    login: state.auth.login,
-    email: state.auth.email,
-    isLoading: state.usersPage.isLoading,
+    id: getAuthId(state),
+    login: getAuthLogin(state),
+    email: getAuthEmail(state),
+    isLoading: getIsLoading(state),
   };
 };
 

@@ -1,13 +1,9 @@
 import {
   addPostActionCreator,
-  
 } from "../../../redux/mainPageReducer";
 import { PostForm } from "./PostForm";
 import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
-  return { newPostMessage: state.profilePage.newPostMessage };
-};
 
 let mapDispatchToProps = (dispatch) => {
   return {
@@ -19,7 +15,7 @@ let mapDispatchToProps = (dispatch) => {
 };
 
 const PostFormContainer = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(PostForm);
 

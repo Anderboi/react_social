@@ -1,15 +1,11 @@
 import { MessageList } from "./MessageList";
-import {
-  addMessageActionCreator,
-  
-} from "../../../redux/messagesReducer";
+import { addMessageActionCreator } from "../../../redux/messagesReducer";
 import { connect } from "react-redux";
+import { getMessages } from "./../../../utilities/selectors/messagesSelector";
 
 const mapStateToProps = (state) => {
   return {
-    messages: state.messagesPage.messages,
-    newPostMessage: state.messagesPage.newPostMessage,
-    
+    messages: getMessages(state),
   };
 };
 
@@ -18,7 +14,6 @@ let mapDispatchToProps = (dispatch) => {
     sendMessage: (data) => {
       dispatch(addMessageActionCreator(data));
     },
-    
   };
 };
 

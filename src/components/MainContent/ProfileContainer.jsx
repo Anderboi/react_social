@@ -9,6 +9,11 @@ import {
   setUserStatusTC,
   getUserStatusTC,
 } from "./../../redux/mainPageReducer";
+import {
+  getUserInfo,
+  getProfileStatus,
+} from "../../utilities/selectors/profileSelector";
+import { getAuthId } from "../../utilities/selectors/authSelector";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -36,9 +41,9 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    userInfo: state.profilePage.userInfo,
-    authId: state.auth.id,
-    profileStatus: state.profilePage.profileStatus,
+    userInfo: getUserInfo(state),
+    authId: getAuthId(state),
+    profileStatus: getProfileStatus(state),
   };
 };
 

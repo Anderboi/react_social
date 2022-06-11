@@ -2,6 +2,7 @@ import { Chat } from "./Chat";
 import { connect } from "react-redux";
 import { withAuthRedirect } from "./../../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import { getMessagesUsers } from "../../../utilities/selectors/messagesSelector";
 
 const ChatContainer = (props) => {
   return <Chat {...props} />;
@@ -9,7 +10,7 @@ const ChatContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.messagesPage.users,
+    users: getMessagesUsers(state),
   };
 };
 

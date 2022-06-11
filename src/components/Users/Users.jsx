@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import css from "./Users.module.css";
 import { UserItem } from "./UsersItem/UserItem";

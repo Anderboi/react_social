@@ -64,7 +64,7 @@ let store = {
           isOwn: true,
         },
       ],
-      newPostMessage: "",
+      // newPostMessage: "",
     },
   },
   _renderEntireTree() {},

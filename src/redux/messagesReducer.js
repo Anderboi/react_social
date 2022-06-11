@@ -50,7 +50,6 @@ const messageReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_MESSAGE: {
       console.log(action.data);
-      // if (newState.newPostMessage.length > 0) {
       return {
         ...state,
         messages: [
@@ -61,10 +60,7 @@ const messageReducer = (state = initState, action) => {
             isOwn: true,
           },
         ],
-        // newPostMessage: "",
       };
-      // }
-      // break;
     }
     
     default:

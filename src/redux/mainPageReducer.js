@@ -1,7 +1,6 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
-
 const SET_USER_INFO = "SET_USER_INFO";
 const SET_USER_STATUS = "SET_USER_STATUS";
 

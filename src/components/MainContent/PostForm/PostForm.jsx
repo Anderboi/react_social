@@ -32,14 +32,9 @@ export function PostForm(props) {
       >
         <Form>
           <Field
-            // ref={postInput}
-            // onChange={updatePostInput}
             type="text"
-            // value={props.newPostMessage}
             name="post"
             id="post"
-            // cols="30"
-            // rows="2"
             placeholder="Type your text here..."
             className={`${base.input} ${form.input}`}
             validate={maxLength100}
