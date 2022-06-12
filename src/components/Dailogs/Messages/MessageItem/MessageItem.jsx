@@ -1,6 +1,6 @@
 import css from "./MessageItem.module.css";
 
-export function MessageItem(props) {
+export const MessageItem = (props) => {
   let isOwnMessage = props.isOwn;
 
   return (
@@ -10,4 +10,4 @@ export function MessageItem(props) {
       {props.text}
     </div>
   );
-}
+};

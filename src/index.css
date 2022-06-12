@@ -19,7 +19,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: var(--background-color);
-  
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 code {

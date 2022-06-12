@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import css from "./ChatItem.module.css";
 
-export function ChatItem(props) {
+export const ChatItem = (props) => {
   return (
     <div>
       <NavLink to={"/messeges/" + props.id} className={css.chat_item}>
@@ -20,4 +20,4 @@ export function ChatItem(props) {
       <hr className={css.divider}></hr>
     </div>
   );
-}
+};

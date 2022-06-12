@@ -1,75 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import common from "../../../Common.module.css";
 
-class StatusComponent extends React.Component {
-  state = {
-    editMode: false,
-    statusInput: this.props.profileStatus,
+const StatusComponent = (props) => {
+  const [editMode, setEditMode] = useState(false);
+  const [statusInput, setStatusInput] = useState(props.profileStatus);
+
+  useEffect(() => {
+    setStatusInput(props.profileStatus);
+  }, [props.profileStatus]);
+    
+  const setProfileStatus = () => {
+    setEditMode(false);
+    props.setUserStatusTC(statusInput);
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.profileStatus !== this.props.profileStatus) {
-      this.setState({
-        statusInput: this.props.profileStatus,
-      });
-    }
-  }
-
-  activateEditMode = () => {
-    if (this.props.userId === this.props.authId) {
-      this.setState({
-        editMode: true,
-      });
+  const handleEditMode = () => {
+    if (props.authId === props.userId) {
+      setEditMode(true);
     }
   };
-  deactivateEditMode = () => {
-    this.setState({
-      editMode: false,
-    });
-  };
 
-  setProfileStatus = () => {
-    this.setState({
-      editMode: false,
-    });
-    this.props.setUserStatusTC(this.state.statusInput);
-  };
-
-  updateStatusBar = (text) => {
-    this.setState({
-      statusInput: text.currentTarget.value,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        {this.state.editMode && (
-          <div>
-            <input
-              autoFocus
-              onChange={this.updateStatusBar}
-              value={this.state.statusInput}
-              placeholder="Enter your status"
-              onBlur={this.setProfileStatus}
-              className={common.input}
-            />
-            <input
-              className={common.button}
-              type="button"
-              value="Save"
-              onClick={this.setProfileStatus}
-            />
-          </div>
-        )}
-        {!this.state.editMode && (
-          <div onDoubleClick={this.activateEditMode}>
-            <b>About me:</b> {this.props.profileStatus || "Nothing"}
-          </div>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {editMode && (
+        <div>
+          <input
+            autoFocus
+            value={statusInput}
+            onChange={(e) => setStatusInput(e.currentTarget.value)}
+            placeholder="Enter your status"
+            onBlur={setProfileStatus}
+            className={common.input}
+          />
+          <input
+            className={common.button}
+            type="button"
+            value="Save"
+            onClick={() => {
+              setEditMode(false);
+            }}
+          />
+        </div>
+      )}
+      {!editMode && (
+        <div onDoubleClick={handleEditMode}>
+          <b>About me:</b> {props.profileStatus || "Nothing"}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default StatusComponent;

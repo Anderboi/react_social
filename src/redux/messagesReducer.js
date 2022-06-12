@@ -1,6 +1,5 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
 
-
 let initState = {
   users: [
     {
@@ -41,12 +40,9 @@ let initState = {
       isOwn: true,
     },
   ],
-  
 };
 
 const messageReducer = (state = initState, action) => {
-  
-
   switch (action.type) {
     case ADD_MESSAGE: {
       console.log(action.data);
@@ -62,7 +58,7 @@ const messageReducer = (state = initState, action) => {
         ],
       };
     }
-    
+
     default:
       return state;
   }
@@ -70,6 +66,10 @@ const messageReducer = (state = initState, action) => {
 
 export default messageReducer;
 
-export const addMessageActionCreator = (data) => {
+export const addMessage = (data) => {
   return { type: ADD_MESSAGE, data };
+};
+
+export const sendMessage = (text) => (dispatch) => {
+  text && dispatch(addMessage(text));
 };

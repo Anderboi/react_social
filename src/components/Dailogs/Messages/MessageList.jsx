@@ -4,8 +4,12 @@ import css from "./MessageList.module.css";
 import base from "../../../Common.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { maxLengthCreator } from "../../../utilities/validators/validators";
+import { getMessages } from "./../../../utilities/selectors/messagesSelector";
+import { sendMessage } from "./../../../redux/messagesReducer";
+import { connect } from "react-redux";
 
 export const MessageList = (props) => {
+  
   const messageItems = props.messages.map((t) => (
     <MessageItem text={t.text} id={t.id} key={t.id} isOwn={t.isOwn} />
   ));
@@ -20,7 +24,7 @@ export const MessageList = (props) => {
           initialValues={{ message: "" }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             props.sendMessage(values.message);
-            
+
             setSubmitting(false);
             resetForm({ values: "" });
           }}
@@ -58,3 +62,13 @@ export const MessageList = (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    messages: getMessages(state),
+  };
+};
+const MessageListContainer = connect(mapStateToProps, { sendMessage })(
+  MessageList
+);
+export default MessageListContainer;

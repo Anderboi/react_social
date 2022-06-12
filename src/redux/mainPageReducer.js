@@ -51,6 +51,8 @@ const mainPageReducer = (state = initState, action) => {
     }
 
     case SET_USER_STATUS: {
+
+
       return { ...state, profileStatus: action.data };
     }
 

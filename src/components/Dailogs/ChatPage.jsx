@@ -1,6 +1,6 @@
 import c from "./Dialogs.module.css";
 import ChatContainer from "./ChatList/ChatContainer";
-import MessageListContainer from "./Messages/MessageListContainer";
+import MessageListContainer from "./Messages/MessageList";
 
 export function ChatPage() {
   return (
