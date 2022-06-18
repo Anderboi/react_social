@@ -3,6 +3,8 @@ import { profileAPI } from "../api/api";
 const ADD_POST = "ADD-POST";
 const SET_USER_INFO = "SET_USER_INFO";
 const SET_USER_STATUS = "SET_USER_STATUS";
+const DELETE_POST = "DELETE_POST";
+const EDIT_POST = "EDIT_POST";
 
 let initState = {
   posts: [
@@ -19,7 +21,7 @@ let initState = {
       id: "03",
     },
   ],
-  
+
   userInfo: null,
   profileStatus: "First",
 };
@@ -27,22 +29,37 @@ let initState = {
 const mainPageReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_POST: {
-      
       // if (state.newPostMessage.length > 0) {
-        return {
-          ...state,
-          posts: [
-            {
-              text: action.data,
-              id: Math.random() * 10,
-            },
-            ...state.posts,
-          ],
-          
-        };
-      
+      return {
+        ...state,
+        posts: [
+          {
+            text: action.data,
+            id: Math.random() * 100,
+          },
+          ...state.posts,
+        ],
+      };
     }
-   
+
+    case DELETE_POST: {
+      return {
+        ...state,
+        posts: [...state.posts.filter((t) => t.id !== action.postId)],
+      };
+    }
+
+    case EDIT_POST: {
+      return {
+        ...state,
+        posts: [
+          ...state.posts.map((t) =>
+            t.id === action.postId ? (t.text = action.postText) : t
+          ),
+        ],
+      };
+    }
+
     case SET_USER_INFO: {
       return {
         ...state,
@@ -51,8 +68,6 @@ const mainPageReducer = (state = initState, action) => {
     }
 
     case SET_USER_STATUS: {
-
-
       return { ...state, profileStatus: action.data };
     }
 
@@ -65,6 +80,12 @@ export default mainPageReducer;
 
 export const addPostActionCreator = (data) => {
   return { type: ADD_POST, data };
+};
+export const deletePost = (postId) => {
+  return { type: DELETE_POST, postId };
+};
+export const editPost = ([postId, newPost]) => {
+  return { type: EDIT_POST, postId, newPost };
 };
 
 export const setUserInfo = (userInfo) => {

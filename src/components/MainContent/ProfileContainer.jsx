@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MainContent } from "./MainContent";
@@ -15,31 +15,27 @@ import {
 } from "../../utilities/selectors/profileSelector";
 import { getAuthId } from "../../utilities/selectors/authSelector";
 
-class ProfileContainer extends React.Component {
-  componentDidMount() {
-    const userId = this.props.router.params.userId
-      ? this.props.router.params.userId
-      : this.props.authId;
+const ProfileContainer = (props) => {
 
-    this.props.setUserInfoTC(userId);
-    this.props.getUserStatusTC(userId);
+  useEffect(() => {
+    const userId = props.router.params.userId
+      ? props.router.params.userId
+      : props.authId;
+    props.setUserInfoTC(userId);
+    props.getUserStatusTC(userId);
+  }, [props.router.params.userId]);
+
+  if (props.userInfo === null) {
   }
-
-  
-
-  render() {
-    if (this.props.userInfo === null) {
-    }
-    return (
-      <MainContent
-        {...this.props}
-        userInfo={this.props.userInfo}
-        profileStatus={this.props.profileStatus}
-        setUserStatusTC={this.props.setUserStatusTC}
-      />
-    );
-  }
-}
+  return (
+    <MainContent
+      {...props}
+      userInfo={props.userInfo}
+      profileStatus={props.profileStatus}
+      setUserStatusTC={props.setUserStatusTC}
+    />
+  );
+};
 
 const mapStateToProps = (state) => {
   return {

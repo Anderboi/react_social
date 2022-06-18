@@ -12,6 +12,7 @@
   border: none;
   border: 1px solid var(--main-color);
   padding: 0.5em;
+  width: 100%;
 }
 .input:focus-visible {
   border-color: var(--main-color);

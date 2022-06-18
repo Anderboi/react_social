@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Users } from "./Users";
 import {
@@ -20,45 +20,41 @@ import {
   getIsLoading,
   getInProgressArray,
 } from "../../utilities/selectors/usersSelector";
-import {getIsAuthorised} from '../../utilities/selectors/authSelector'
+import { getIsAuthorised } from "../../utilities/selectors/authSelector";
 
-class UsersAPIContainer extends React.Component {
-  componentDidMount() {
-    this.props.getUsersThunkConstructor(
-      this.props.selectedPage,
-      this.props.pageSize
-    );
-  }
+const UsersContainer = (props) => {
+  
+  useEffect(() => {
+    props.getUsersThunkConstructor(props.selectedPage, props.pageSize);
+  }, [props.selectedPage]);
 
-  onPageChanged = (page) => {
-    this.props.getUsersThunkConstructor(page, this.props.pageSize);
-    this.props.setPage(page);
+  const onPageChanged = (page) => {
+    props.getUsersThunkConstructor(page, props.pageSize);
+    props.setPage(page);
   };
 
-  render() {
-    return (
-      <>
-        {this.props.isLoading ? <Preloader /> : null}
-        <Users
-          users={this.props.users}
-          usersTotalCount={this.props.usersTotalCount}
-          pageSize={this.props.pageSize}
-          selectedPage={this.props.selectedPage}
-          follow={this.props.followUser}
-          unfollow={this.props.unfollowUser}
-          setUsers={this.props.setUsers}
-          setPage={this.props.setPage}
-          onPageChanged={this.onPageChanged}
-          isAuth={this.props.isAuth}
-          inProgressArray={this.props.inProgressArray}
-          requestInProgress={this.props.requestInProgress}
-          followUserTC={this.props.followUserTC}
-          unfollowUserTC={this.props.unfollowUserTC}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {props.isLoading ? <Preloader /> : null}
+      <Users
+        users={props.users}
+        usersTotalCount={props.usersTotalCount}
+        pageSize={props.pageSize}
+        selectedPage={props.selectedPage}
+        follow={props.followUser}
+        unfollow={props.unfollowUser}
+        setUsers={props.setUsers}
+        setPage={props.setPage}
+        onPageChanged={onPageChanged}
+        isAuth={props.isAuth}
+        inProgressArray={props.inProgressArray}
+        requestInProgress={props.requestInProgress}
+        followUserTC={props.followUserTC}
+        unfollowUserTC={props.unfollowUserTC}
+      />
+    </>
+  );
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -66,7 +62,7 @@ const mapStateToProps = (state) => {
     usersTotalCount: getUsersTotalCount(state),
     pageSize: getPageSize(state),
     selectedPage: getSelectedPage(state),
-    isLoading:getIsLoading(state),
+    isLoading: getIsLoading(state),
     inProgressArray: getInProgressArray(state),
     isAuth: getIsAuthorised(state),
   };
@@ -82,4 +78,4 @@ export default compose(
     followUserTC,
     unfollowUserTC,
   })
-)(UsersAPIContainer);
+)(UsersContainer);

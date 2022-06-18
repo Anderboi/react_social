@@ -24,7 +24,6 @@ export function PostForm(props) {
       <Formik
         initialValues={{ post: "" }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log(values.post);
           props.sendPost(values.post);
           setSubmitting(false);
           resetForm({ values: "" }); //! Resets input field

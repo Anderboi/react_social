@@ -32,14 +32,14 @@ const StatusComponent = (props) => {
             onBlur={setProfileStatus}
             className={common.input}
           />
-          <input
+          {/* <input
             className={common.button}
             type="button"
             value="Save"
             onClick={() => {
               setEditMode(false);
             }}
-          />
+          /> */}
         </div>
       )}
       {!editMode && (

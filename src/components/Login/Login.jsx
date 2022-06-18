@@ -39,7 +39,7 @@ const LoginForm = (props) => {
   };
 
   // const errorsCallback = (error) => {
-  //   console.log(error);
+  
   //   if (error.resultCode === 10) {
   //     //TODO Add logic for captcha insertion
   //   }

@@ -45,7 +45,6 @@ let initState = {
 const messageReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_MESSAGE: {
-      console.log(action.data);
       return {
         ...state,
         messages: [
