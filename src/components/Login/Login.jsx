@@ -23,7 +23,6 @@ const LoginForm = (props) => {
     register,
     handleSubmit,
     reset,
-    
     formState: { errors },
   } = useForm({
     defaultValues: {

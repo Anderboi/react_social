@@ -1,11 +1,11 @@
 import { usersAPI } from "./../api/api";
 
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET-USERS";
-const SET_PAGE = "SET-PAGE";
-const IS_LOADING = "IS_LOADING";
-const IN_PROGRESS = "IN_PROGRESS";
+const FOLLOW = "users/FOLLOW";
+const UNFOLLOW = "users/UNFOLLOW";
+const SET_USERS = "users/SET-USERS";
+const SET_PAGE = "users/SET-PAGE";
+const IS_LOADING = "users/IS_LOADING";
+const IN_PROGRESS = "users/IN_PROGRESS";
 
 const initState = {
   users: [],

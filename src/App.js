@@ -14,10 +14,11 @@ import { connect } from "react-redux";
 import { authData } from "./redux/authReducer";
 
 const App = (props) => {
+
   useEffect(() => {
     props.authData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.authData]);
-
 
   return (
     <div className="App">

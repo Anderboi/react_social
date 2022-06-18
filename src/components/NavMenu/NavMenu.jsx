@@ -2,52 +2,32 @@ import nav from "./NavMenu.module.css";
 import common from "../../Common.module.css";
 import { NavLink } from "react-router-dom";
 
-export function NavMenu(props) {
-
+export const NavMenu = (props) => {
   const linkClass = (navData) =>
-  `${navData.isActive ? nav.active : nav.nav_item} ${common.hover}`
-  
+    `${navData.isActive ? nav.active : nav.nav_item} ${common.hover}`;
+
   return (
     <div className={nav.main_nav_block}>
       <nav className={nav.nav_menu}>
-        <NavLink
-          className={linkClass}
-          to="/profile"
-        >
+        <NavLink className={linkClass} to="/profile">
           Profile
         </NavLink>
-        <NavLink
-          className={linkClass}
-          to="/messages"
-        >
+        <NavLink className={linkClass} to="/messages">
           Messages
         </NavLink>
-        <NavLink
-          className={linkClass}
-          to="/news"
-        >
+        <NavLink className={linkClass} to="/news">
           News
         </NavLink>
-        <NavLink
-          className={linkClass}
-          to="/music"
-        >
-          {" "}
+        <NavLink className={linkClass} to="/music">
           Music
         </NavLink>
         <br></br>
 
-        <NavLink
-          className={linkClass}
-          to="/Users"
-        >
+        <NavLink className={linkClass} to="/Users">
           Users
         </NavLink>
         <br></br>
-        <NavLink
-          className={linkClass}
-          to="/settings"
-        >
+        <NavLink className={linkClass} to="/settings">
           Settings
         </NavLink>
         {/* <Outlet /> */}
@@ -63,9 +43,9 @@ export function NavMenu(props) {
       </div>
     </div>
   );
-}
+};
 
-function FriendItem() {
+const FriendItem = () => {
   return (
     <div className={nav.friends_block_item}>
       <img
@@ -76,4 +56,4 @@ function FriendItem() {
       <span>Andrei</span>
     </div>
   );
-}
+};

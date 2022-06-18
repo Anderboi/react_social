@@ -23,6 +23,7 @@ const ProfileContainer = (props) => {
       : props.authId;
     props.setUserInfoTC(userId);
     props.getUserStatusTC(userId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.router.params.userId]);
 
   if (props.userInfo === null) {

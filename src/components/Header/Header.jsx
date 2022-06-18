@@ -3,8 +3,7 @@ import logo from "../../Asset 13MLogo.png";
 import { Link, NavLink } from "react-router-dom";
 import avatar from "../../assets/images/avatar.png";
 
-export function Header(props) {
-  
+export const Header = (props) => {
   const logout = () => {
     props.logoutTC();
   };
@@ -17,7 +16,7 @@ export function Header(props) {
 
       <div className={head.logo_text}>MINIMAL</div>
 
-      <div className={props.id !== null ? head.login_block : head.hide}>
+      <div className={props.id  ? head.login_block : head.hide}>
         <h5 className={head.link}>{props.email}</h5>
         <NavLink to={"/profile"}>
           <img src={avatar} alt="" className={head.avatar} />
@@ -27,8 +26,8 @@ export function Header(props) {
         </a>
       </div>
 
-      <div className={props.id === null ? head.login_block : head.display_none}>
-        {/* <div className={head.login_block}> */}
+      <div className={!props.id ? head.login_block : head.display_none}>
+        
         <NavLink to={"/login"} className={head.link}>
           <span>Log In</span>
         </NavLink>
@@ -39,4 +38,4 @@ export function Header(props) {
       </div>
     </header>
   );
-}
+};

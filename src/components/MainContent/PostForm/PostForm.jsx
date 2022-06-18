@@ -1,53 +1,44 @@
 import form from "./PostForm.module.css";
 import base from "../../../Common.module.css";
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { maxLengthCreator } from "../../../utilities/validators/validators";
+import { useForm } from "react-hook-form";
 
-export function PostForm(props) {
-  // const postInput = React.createRef();
+export const PostForm = (props) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ defaultValues: { post: "" } });
 
-  // const sendPost = (text) => {
-  //   props.sendPost(text);
-  // };
-
-  // const updatePostInput = () => {
-  //   let text = postInput.current.value;
-  //   props.updatePostInput(text);
-  // };
-
-  const maxLength100 = maxLengthCreator(100);
+  const onSubmit = (data) => {
+    props.sendPost(data.post);
+    reset();
+  };
 
   return (
     <div className={form.post_form}>
       <h4>Make new post</h4>
-      <Formik
-        initialValues={{ post: "" }}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          props.sendPost(values.post);
-          setSubmitting(false);
-          resetForm({ values: "" }); //! Resets input field
-        }}
-      >
-        <Form>
-          <Field
-            type="text"
-            name="post"
-            id="post"
-            placeholder="Type your text here..."
-            className={`${base.input} ${form.input}`}
-            validate={maxLength100}
-          />
-          <ErrorMessage
-            className={base.error_message}
-            name="post"
-            component="span"
-          />
-          <button type="submit" className={`${base.button} ${form.button}`}>
-            Send post
-          </button>
-        </Form>
-      </Formik>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          {...register("post", {
+            maxLength: {
+              value: 100,
+              message: "Max length must be 100 symbols",
+            },
+          })}
+          type="text"
+          name="post"
+          id="post"
+          placeholder="Type your text here..."
+          className={`${base.input} ${form.input}`}
+        />
+
+        <button type="submit" className={`${base.button} ${form.button}`}>
+          Send post
+        </button>
+      </form>
+      {errors.callback && <div>Error</div>}
     </div>
   );
-}
+};

@@ -1,9 +1,9 @@
 import { authAPI } from "../api/api";
 
-const SET_USER_DATA = "SET_USER_DATA";
-const WRONG_AUTH_DATA = "WRONG_AUTH_DATA";
-const LOGIN_USER = "LOGIN_USER";
-const LOGOUT_USER = "LOGOUT_USER";
+const SET_USER_DATA = "auth/SET_USER_DATA";
+const WRONG_AUTH_DATA = "auth/WRONG_AUTH_DATA";
+const LOGIN_USER = "auth/LOGIN_USER";
+const LOGOUT_USER = "auth/LOGOUT_USER";
 
 let initState = {
   id: null,
