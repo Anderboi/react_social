@@ -20,7 +20,6 @@ export const MessageList = (props) => {
   } = useForm({ defaultValues: { message: "" } });
 
   const onSubmit = (data) => {
-    console.log(data.message);
     props.sendMessage(data.message);
     reset();
   };

@@ -4,8 +4,7 @@ import common from "../../../Common.module.css";
 import { NavLink } from "react-router-dom";
 
 export function UserItem(props) {
-  const toggleFollow = (e) => {
-    
+  const toggleFollow = () => {
     if (props.followed === false) {
       props.followUserTC(props.id);
     } else {
@@ -20,7 +19,6 @@ export function UserItem(props) {
           <img src={props.icon} alt="userIcon" className={css.userIcon} />
         </NavLink>
         <div>
-          {/* //! IN PROGRESS BOOL */}
           {!props.inProgressArray.some((id) => id === props.id) &&
           props.isAuth ? (
             <button

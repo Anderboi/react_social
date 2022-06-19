@@ -63,35 +63,31 @@ export const logoutUser = () => {
 };
 
 export const authData = () => {
-  return (dispatch) => {
-    authAPI.authInfo().then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setUserData(data.data));
-      }
-    });
+  return async (dispatch) => {
+    const response = await authAPI.authInfo();
+    if (response.resultCode === 0) {
+      dispatch(setUserData(response.data));
+    }
   };
 };
 
 export const loginTC = (values, cb) => {
-  return (dispatch) => {
-    authAPI.authLogin(values).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(loginUser("Success"));
-        dispatch(authData());
-      } else {
-        dispatch(loginUser(data.messages[0]));
-        // cb(data);
-      }
-    });
+  return async (dispatch) => {
+    const response = await authAPI.authLogin(values);
+    if (response.resultCode === 0) {
+      dispatch(loginUser("Success"));
+      dispatch(authData());
+    } else {
+      dispatch(loginUser(response.messages[0]));
+    }
   };
 };
 
 export const logoutTC = () => {
-  return (dispatch) => {
-    authAPI.authLogout().then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(logoutUser());
-      }
-    });
+  return async (dispatch) => {
+    const response = await authAPI.authLogout();
+    if (response.data.resultCode === 0) {
+      dispatch(logoutUser());
+    }
   };
 };

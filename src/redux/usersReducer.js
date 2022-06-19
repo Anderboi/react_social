@@ -97,30 +97,27 @@ export const requestInProgress = (inProgress, id) => {
 };
 
 export const getUsersThunkConstructor =
-  (selectedPage, pageSize) => (dispatch) => {
+  (selectedPage, pageSize) => async (dispatch) => {
     dispatch(toggleLoading(true));
-    usersAPI.getUsers(selectedPage, pageSize).then((data) => {
-      dispatch(setUsers(data.items, data.totalCount));
-      dispatch(toggleLoading(false));
-    });
+    const response = await usersAPI.getUsers(selectedPage, pageSize);
+    dispatch(setUsers(response.items, response.totalCount));
+    dispatch(toggleLoading(false));
   };
 
-export const followUserTC = (id) => (dispatch) => {
+export const followUserTC = (id) => async (dispatch) => {
   dispatch(requestInProgress(true, id));
-  usersAPI.followUserApi(id).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(followUser(id));
-    }
-    dispatch(requestInProgress(false, id));
-  });
+  const response = await usersAPI.followUserApi(id);
+  if (response.resultCode === 0) {
+    dispatch(followUser(id));
+  }
+  dispatch(requestInProgress(false, id));
 };
 
-export const unfollowUserTC = (id) => (dispatch) => {
+export const unfollowUserTC = (id) => async (dispatch) => {
   dispatch(requestInProgress(true, id));
-  usersAPI.unfollowUserApi(id).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(unfollowUser(id));
-    }
-    dispatch(requestInProgress(false, id));
-  });
+  const response = await usersAPI.unfollowUserApi(id);
+  if (response.resultCode === 0) {
+    dispatch(unfollowUser(id));
+  }
+  dispatch(requestInProgress(false, id));
 };
