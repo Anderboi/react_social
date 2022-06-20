@@ -9,25 +9,25 @@ export const NavMenu = (props) => {
   return (
     <div className={nav.main_nav_block}>
       <nav className={nav.nav_menu}>
-        <NavLink className={linkClass} to="/profile">
+        <NavLink className={linkClass} to="/profile" data-testid='profile-link'>
           Profile
         </NavLink>
-        <NavLink className={linkClass} to="/messages">
+        <NavLink className={linkClass} to="/messages" data-testid='messages-link'>
           Messages
         </NavLink>
-        <NavLink className={linkClass} to="/news">
+        <NavLink className={linkClass} to="/news" data-testid='news-link'>
           News
         </NavLink>
-        <NavLink className={linkClass} to="/music">
+        <NavLink className={linkClass} to="/music" data-testid='music-link'>
           Music
         </NavLink>
         <br></br>
 
-        <NavLink className={linkClass} to="/Users">
+        <NavLink className={linkClass} to="/Users" data-testid='users-link'>
           Users
         </NavLink>
         <br></br>
-        <NavLink className={linkClass} to="/settings">
+        <NavLink className={linkClass} to="/settings" data-testid='settings-link'>
           Settings
         </NavLink>
         {/* <Outlet /> */}

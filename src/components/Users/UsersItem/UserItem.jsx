@@ -3,7 +3,7 @@ import css from "./UserItem.module.css";
 import common from "../../../Common.module.css";
 import { NavLink } from "react-router-dom";
 
-export function UserItem(props) {
+export const UserItem = (props) => {
   const toggleFollow = () => {
     if (props.followed === false) {
       props.followUserTC(props.id);
@@ -24,6 +24,7 @@ export function UserItem(props) {
             <button
               onClick={toggleFollow}
               className={`${common.button} ${css.followButton}`}
+              data-testid='follow-btn'
             >
               {props.followed ? "Unfollow" : "Follow"}
             </button>
@@ -49,4 +50,4 @@ export function UserItem(props) {
       </div>
     </div>
   );
-}
+};

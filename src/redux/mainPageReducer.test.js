@@ -21,32 +21,36 @@ let initState = {
   ],
 };
 
-it("post added", () => {
-  let addPost = addPostActionCreator("data");
+describe("Profile reducer test", () => {
+  it("post added", () => {
+    let addPost = addPostActionCreator("data");
 
-  let newState = mainPageReducer(initState, addPost);
+    let newState = mainPageReducer(initState, addPost);
 
-  expect(newState.posts.length).toBe(4);
-  expect(addPost).toBeDefined();
-});
+    expect(newState.posts.length).toBe(4);
+    expect(addPost).toBeDefined();
+  });
 
-it("post deleted", () => {
-  const postId = "01";
+  it("post deleted", () => {
+    const postId = "01";
 
-  let deletePostAction = deletePost(postId);
+    let deletePostAction = deletePost(postId);
 
-  let newState = mainPageReducer(initState, deletePostAction);
+    let newState = mainPageReducer(initState, deletePostAction);
 
-  expect(newState.posts.length).toBe(2);
-});
+    expect(newState.posts.length).toBe(2);
+  });
 
-it("post was editted", () => {
-  const newPostText = "New Post Text";
-  const postId = "01";
+  it("post was editted", () => {
+    const newPostText = "New Post Text";
+    const postId = "01";
 
-  let editPostAction = editPost(postId, newPostText);
+    let editPostAction = editPost(postId, newPostText);
 
-  let newState = mainPageReducer(initState, editPostAction);
+    let newState = mainPageReducer(initState, editPostAction);
 
-  expect(newState.posts.some((t) => t.text === "New Post Text")).toBeDefined();
+    expect(
+      newState.posts.some((t) => t.text === "New Post Text")
+    ).toBeDefined();
+  });
 });

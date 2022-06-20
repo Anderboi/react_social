@@ -31,19 +31,12 @@ const StatusComponent = (props) => {
             placeholder="Enter your status"
             onBlur={setProfileStatus}
             className={common.input}
+            data-testid='status-input'
           />
-          {/* <input
-            className={common.button}
-            type="button"
-            value="Save"
-            onClick={() => {
-              setEditMode(false);
-            }}
-          /> */}
         </div>
       )}
       {!editMode && (
-        <div onDoubleClick={handleEditMode}>
+        <div onDoubleClick={handleEditMode} data-testid='status-div'>
           <b>About me:</b> {props.profileStatus || "Nothing"}
         </div>
       )}

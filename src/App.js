@@ -12,12 +12,15 @@ import Login from "./components/Login/Login";
 import NavMenuContainer from "./components/NavMenu/NavMenuContainer";
 import { connect } from "react-redux";
 import { authData } from "./redux/authReducer";
+import { BrowserRouter } from "react-router-dom";
+import store from "./redux/reduxStore";
+import { Provider } from "react-redux";
 
 const App = (props) => {
-
+ 
   useEffect(() => {
     props.authData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.authData]);
 
   return (
@@ -60,4 +63,18 @@ const App = (props) => {
   );
 };
 
-export default connect(null, { authData })(App);
+const AppContainer = connect(null, { authData })(App);
+
+const SocialApp = () => {
+  return (
+    <React.StrictMode>
+      <BrowserRouter>
+        <Provider store={store}>
+          <AppContainer />
+        </Provider>
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+};
+
+export default SocialApp;

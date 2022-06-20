@@ -23,7 +23,7 @@ let initState = {
   ],
 
   userInfo: null,
-  profileStatus: "First",
+  profileStatus: "",
 };
 
 const mainPageReducer = (state = initState, action) => {
