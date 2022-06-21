@@ -29,6 +29,7 @@
   color: white;
   text-decoration: none;
   padding-right: 0.5em;
+  border-bottom: 1px solid;
 }
 
 .friends_block {
@@ -36,9 +37,6 @@
   flex-direction: row-reverse;
   align-items: center;
   gap: 0.4em;
-
-  /* margin-bottom: 1.5em; */
-
   font-size: 0.75em;
 }
 

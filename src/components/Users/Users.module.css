@@ -5,20 +5,3 @@
   width: 100%;
 }
 
-.pagination {
-  margin: 0 auto;
-  width: 28em;
-  display: flex;
-  justify-content: space-between;
-}
-
-.page {
-  text-decoration: none;
-  text-align: center;
-}
-
-.selectedPage {
-  font-weight: bold;
-  border-bottom: 2px solid var(--main-color);
-  
-}

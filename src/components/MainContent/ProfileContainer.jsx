@@ -16,7 +16,6 @@ import {
 import { getAuthId } from "../../utilities/selectors/authSelector";
 
 const ProfileContainer = (props) => {
-  console.log(props);
 
   useEffect(() => {
     const userId = props.router.params.userId
