@@ -1,23 +1,33 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { ChatPage } from "./components/Dailogs/ChatPage";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import { Music } from "./components/Pages//Music/Music";
-import { News } from "./components/Pages/News/News";
-import { Settings } from "./components/Pages/Settings/Settings";
-import { UsersPage } from "./components/Users/UsersPage";
-import ProfileContainerWithRouter from "./components/MainContent/ProfileContainer";
+import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import ProfileContainerWithRouter from "./components/MainContent/ProfileContainer";
+import { UsersPage } from "./components/Users/UsersPage";
 import NavMenuContainer from "./components/NavMenu/NavMenuContainer";
 import { connect } from "react-redux";
 import { authData } from "./redux/authReducer";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import store from "./redux/reduxStore";
 import { Provider } from "react-redux";
+import withPreloader from "./hoc/withPreloader";
+
+const Settings = React.lazy(() =>
+  import("./components/Pages/Settings/Settings")
+);
+const SettingsWithPreloader = withPreloader(Settings);
+
+const Music = React.lazy(() => import("./components/Pages//Music/Music"));
+const MusicWithPreloader = withPreloader(Music);
+
+const News = React.lazy(() => import("./components/Pages/News/News"));
+const NewsWithPreloader = withPreloader(News);
+
+const ChatPage = React.lazy(() => import("./components/Dailogs/ChatPage"));
+const ChatPageWithPreloader = withPreloader(ChatPage);
 
 const App = (props) => {
- 
   useEffect(() => {
     props.authData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,15 +46,15 @@ const App = (props) => {
               <Route path=":userId" element={<ProfileContainerWithRouter />} />
             </Route>
 
-            <Route path="/messages" element={<ChatPage />} />
+            <Route path="/messages" element={<ChatPageWithPreloader />} />
 
-            <Route path="/news" element={<News />} />
+            <Route path="/news" element={<NewsWithPreloader />} />
 
-            <Route path="/music" element={<Music />} />
+            <Route path="/music" element={<MusicWithPreloader />} />
 
             <Route path="/users" element={<UsersPage />} />
 
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<SettingsWithPreloader />} />
 
             <Route path="/login" element={<Login />} />
 
@@ -68,11 +78,12 @@ const AppContainer = connect(null, { authData })(App);
 const SocialApp = () => {
   return (
     <React.StrictMode>
-      <BrowserRouter>
+      {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
+      <HashRouter>
         <Provider store={store}>
           <AppContainer />
         </Provider>
-      </BrowserRouter>
+      </HashRouter>
     </React.StrictMode>
   );
 };

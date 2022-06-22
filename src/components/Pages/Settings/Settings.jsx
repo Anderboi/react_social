@@ -1,5 +1,8 @@
+import React from "react";
 // import c from "./Settings.module.css";
 
-export function Settings() {
+const Settings = () => {
   return <div></div>;
-}
+};
+
+export default Settings;

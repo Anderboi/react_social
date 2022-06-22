@@ -1,5 +1,7 @@
 // import c from "./News.module.css";
 
-export function News() {
+const News = () => {
   return <div></div>;
-}
+};
+
+export default News;

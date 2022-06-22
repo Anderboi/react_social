@@ -9,7 +9,7 @@ const IN_PROGRESS = "users/IN_PROGRESS";
 
 const initState = {
   users: [],
-  pageSize: 5,
+  pageSize: 10,
   usersTotalCount: 100,
   selectedPage: 1,
   isLoading: false,

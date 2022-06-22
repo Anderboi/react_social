@@ -7,10 +7,9 @@
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1020px;
   margin: 0 auto;
   height: 100vh;
-  
 }
 
 .grid {
@@ -27,5 +26,4 @@
 .app-content {
   grid-area: cont;
   /* padding-right: 1em; */
-  
 }

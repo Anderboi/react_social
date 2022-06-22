@@ -6,10 +6,8 @@ const Pagination = ({
   pageSize,
   itemsTotalCount,
   onPageChanged,
-  pagesRange
+  pagesRange,
 }) => {
-
-
   const pages = Math.ceil(itemsTotalCount / pageSize);
 
   const pageNumbers = [];
@@ -18,12 +16,12 @@ const Pagination = ({
     pageNumbers.push(x);
   }
 
+  const halfRange = Math.floor(pagesRange / 2);
+
   return (
     <div className={`${css.pagination} ${css.page}`}>
       <div
-        className={`${
-          selectedPage < Math.ceil(pagesRange / 2) + 1 && css.page_hidden
-        }`}
+        className={`${selectedPage < halfRange + 2 && css.page_hidden}`}
         onClick={() => {
           onPageChanged(1);
         }}
@@ -33,8 +31,7 @@ const Pagination = ({
       {pageNumbers
         .map((p) => {
           return (
-            <a
-              href="#"
+            <div
               key={p}
               className={`${selectedPage === p && css.selectedPage} ${
                 css.page
@@ -44,16 +41,16 @@ const Pagination = ({
               }}
             >
               {p}
-            </a>
+            </div>
           );
         })
         .slice(
-          selectedPage > Math.floor(pagesRange / 2) ? selectedPage - Math.ceil(pagesRange / 2) : 0,
-          selectedPage > Math.floor(pagesRange / 2) ? selectedPage + Math.floor(pagesRange / 2) : pagesRange
+          selectedPage > halfRange ? selectedPage - (halfRange + 1) : 0,
+          selectedPage > halfRange ? selectedPage + halfRange : pagesRange
         )}
       <div
         className={`${
-          selectedPage > pages - Math.ceil(pagesRange / 2) && css.page_hidden
+          selectedPage > pages - (halfRange + 1) && css.page_hidden
         }`}
         onClick={() => {
           onPageChanged(pages);
