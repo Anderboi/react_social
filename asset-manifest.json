@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/react_social/static/css/main.4a864d56.css",
+    "main.js": "/react_social/static/js/main.f92fc988.js",
+    "static/js/804.0e4c1cc8.chunk.js": "/react_social/static/js/804.0e4c1cc8.chunk.js",
+    "static/js/890.7d4f64bd.chunk.js": "/react_social/static/js/890.7d4f64bd.chunk.js",
+    "static/js/982.4d21317b.chunk.js": "/react_social/static/js/982.4d21317b.chunk.js",
+    "static/css/620.ee051595.chunk.css": "/react_social/static/css/620.ee051595.chunk.css",
+    "static/js/620.63cc8786.chunk.js": "/react_social/static/js/620.63cc8786.chunk.js",
+    "static/js/787.96cdf0b8.chunk.js": "/react_social/static/js/787.96cdf0b8.chunk.js",
+    "static/media/avatar.png": "/react_social/static/media/avatar.027afa56263ee72746c0.png",
+    "index.html": "/react_social/index.html",
+    "static/media/Dual Ring-1s-200px.svg": "/react_social/static/media/Dual Ring-1s-200px.1d6fc0e7781944671467b12601b8abfd.svg",
+    "main.4a864d56.css.map": "/react_social/static/css/main.4a864d56.css.map",
+    "main.f92fc988.js.map": "/react_social/static/js/main.f92fc988.js.map",
+    "804.0e4c1cc8.chunk.js.map": "/react_social/static/js/804.0e4c1cc8.chunk.js.map",
+    "890.7d4f64bd.chunk.js.map": "/react_social/static/js/890.7d4f64bd.chunk.js.map",
+    "982.4d21317b.chunk.js.map": "/react_social/static/js/982.4d21317b.chunk.js.map",
+    "620.ee051595.chunk.css.map": "/react_social/static/css/620.ee051595.chunk.css.map",
+    "620.63cc8786.chunk.js.map": "/react_social/static/js/620.63cc8786.chunk.js.map",
+    "787.96cdf0b8.chunk.js.map": "/react_social/static/js/787.96cdf0b8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4a864d56.css",
+    "static/js/main.f92fc988.js"
+  ]
+}
