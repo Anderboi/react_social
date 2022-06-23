@@ -3,15 +3,15 @@ import common from "../../../Common.module.css";
 
 const StatusComponent = (props) => {
   const [editMode, setEditMode] = useState(false);
-  const [statusInput, setStatusInput] = useState(props.profileStatus);
+  const [statusInput, setStatusInput] = useState(props.displayInfo);
 
   useEffect(() => {
-    setStatusInput(props.profileStatus);
-  }, [props.profileStatus]);
-    
+    setStatusInput(props.displayInfo);
+  }, [props.displayInfo]);
+
   const setProfileStatus = () => {
     setEditMode(false);
-    props.setUserStatusTC(statusInput);
+    props.setInfoState(statusInput);
   };
 
   const handleEditMode = () => {
@@ -31,13 +31,13 @@ const StatusComponent = (props) => {
             placeholder="Enter your status"
             onBlur={setProfileStatus}
             className={common.input}
-            data-testid='status-input'
+            data-testid="status-input"
           />
         </div>
       )}
       {!editMode && (
-        <div onDoubleClick={handleEditMode} data-testid='status-div'>
-          <b>About me:</b> {props.profileStatus || "Nothing"}
+        <div onDoubleClick={handleEditMode} data-testid="status-div">
+          <b>{props.children}</b> {props.displayInfo || "Nothing"}
         </div>
       )}
     </div>

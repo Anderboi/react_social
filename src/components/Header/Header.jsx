@@ -36,11 +36,12 @@ export const Header = (props) => {
         />
         <LoginSignupHeaderBlock id={props.id} />
       </header>
+      {state && <div className={nav.nav_back} onClick={blur}></div>}
       <div
         className={`${state ? nav.m_navbar_open : nav.m_navbar_close} ${
           nav.main_nav_block_mobile
         }`}
-        onClick={blur}
+        onClick={blur} //TODO Заменить на логику - при переходе на страницу
       >
         <NavBlock isAuth={props.isAuth} isForMobile={true} />
       </div>

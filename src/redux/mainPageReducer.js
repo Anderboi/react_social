@@ -5,6 +5,7 @@ const SET_USER_INFO = "postsPage/SET_USER_INFO";
 const SET_USER_STATUS = "postsPage/SET_USER_STATUS";
 const DELETE_POST = "postsPage/DELETE_POST";
 const EDIT_POST = "postsPage/EDIT_POST";
+const SET_USER_PHOTO = "postsPage/SET_USER_PHOTO";
 
 let initState = {
   posts: [
@@ -70,6 +71,9 @@ const mainPageReducer = (state = initState, action) => {
     case SET_USER_STATUS: {
       return { ...state, profileStatus: action.data };
     }
+    case SET_USER_PHOTO: {
+      return { ...state, userInfo: { ...state.userInfo, photos: action.file } };
+    }
 
     default:
       return state;
@@ -95,11 +99,34 @@ export const setUserInfo = (userInfo) => {
 export const setUserStatus = (data) => {
   return { type: SET_USER_STATUS, data };
 };
+export const setUserPhoto = (file) => {
+  return { type: SET_USER_PHOTO, file };
+};
 
 export const setUserInfoTC = (userId) => {
   return async (dispatch) => {
     const response = await profileAPI.getAuthUser(userId);
     dispatch(setUserInfo(response));
+  };
+};
+
+//! TODO add contact, job n photo setup
+export const setUserProfileTC = (jobText) => {
+
+  return async (dispatch) => {
+    const response = await profileAPI.setUserProfile(jobText);
+
+    // dispatch(setUserProfile(response));
+  };
+};
+
+export const uploadPhoto = (image) => {
+  return async (dispatch) => {
+    const response = await profileAPI.uploadPhoto(image);
+    if (response.data.resultCode === 0) {
+      console.log(response.data);
+      dispatch(setUserPhoto(response.data.data.photos));
+    }
   };
 };
 

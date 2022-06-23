@@ -52,7 +52,24 @@ export const profileAPI = {
   setUserStatusApi(text) {
     return instance.put("/profile/status", { status: text });
   },
+
   getAuthUser(userId) {
     return instance.get(`/profile/${userId}`).then((response) => response.data);
+  },
+
+  setUserProfile(text) {
+    debugger;
+    return instance.put(`/profile`, {
+      lookingForAJobDescription: text,
+    });
+  },
+
+  uploadPhoto(image) {
+    const formData = new FormData();
+    formData.append("image", image);
+
+    return instance.put("/profile/photo", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
   },
 };

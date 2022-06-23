@@ -18,16 +18,12 @@ export function MainContent(props) {
       ></img>
       {/* Hero image */}
       <UserInfo
-        fullName={props.userInfo.fullName}
-        aboutMe={props.userInfo.aboutMe}
-        contacts={props.userInfo.contacts}
-        lookingForAJob={props.userInfo.lookingForAJob}
-        lookingForAJobDescription={props.userInfo.lookingForAJobDescription}
-        userId={props.userInfo.userId}
-        photo={props.userInfo.photos.small}
+        userInfo={props.userInfo}
         authId={props.authId}
         setUserStatusTC={props.setUserStatusTC}
+        setUserProfileTC={props.setUserProfileTC}
         profileStatus={props.profileStatus}
+        uploadPhoto={props.uploadPhoto}
       />
       {/* Info User Block  */}
       <PostFormContainer />

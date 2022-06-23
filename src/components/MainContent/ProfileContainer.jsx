@@ -8,6 +8,9 @@ import { compose } from "redux";
 import {
   setUserStatusTC,
   getUserStatusTC,
+  setUserProfileTC,
+  // setUserDescriptionTC,
+  uploadPhoto,
 } from "./../../redux/mainPageReducer";
 import {
   getUserInfo,
@@ -16,15 +19,12 @@ import {
 import { getAuthId } from "../../utilities/selectors/authSelector";
 
 const ProfileContainer = (props) => {
-
   useEffect(() => {
-    const userId = props.router.params.userId
-      ? props.router.params.userId
-      : props.authId;
+    const userId = props.router.params.userId || props.authId;
     props.setUserInfoTC(userId);
     props.getUserStatusTC(userId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.router.params.userId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.router.params.userId, props.userInfo]);
 
   if (props.userInfo === null) {
   }
@@ -34,6 +34,8 @@ const ProfileContainer = (props) => {
       userInfo={props.userInfo}
       profileStatus={props.profileStatus}
       setUserStatusTC={props.setUserStatusTC}
+      setUserProfileTC={props.setUserProfileTC}
+      uploadPhoto={props.uploadPhoto}
     />
   );
 };
@@ -58,7 +60,14 @@ function withRouter(Component) {
 }
 
 export default compose(
-  connect(mapStateToProps, { setUserInfoTC, setUserStatusTC, getUserStatusTC }),
+  connect(mapStateToProps, {
+    setUserInfoTC,
+    setUserStatusTC,
+    getUserStatusTC,
+    setUserProfileTC,
+    // setUserDescriptionTC,
+    uploadPhoto,
+  }),
   withRouter,
   withAuthRedirect
 )(ProfileContainer);

@@ -4,10 +4,14 @@
   align-items: stretch;
   align-content: space-between;
 }
+
+.info_avatar {
+  display: flex;
+  flex-direction: column;
+}
+
 .info_description {
   padding-left: 1em;
-}
-.info_description {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -26,4 +30,14 @@
   width: 64px;
   height: 64px;
   align-self: flex-end;
+  margin-right: 1em;
+}
+
+.pick_file {
+  position: relative;
+  /* left: 200px; */
+  /* top: 550px; */
+  width: 115px;
+  background-color: red;
+  color: white;
 }
