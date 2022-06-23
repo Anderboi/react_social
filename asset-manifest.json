@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react_social/static/css/main.be35d785.css",
-    "main.js": "/react_social/static/js/main.daad9dfe.js",
+    "main.css": "/react_social/static/css/main.87144ac0.css",
+    "main.js": "/react_social/static/js/main.1c26e95c.js",
     "static/js/804.0e4c1cc8.chunk.js": "/react_social/static/js/804.0e4c1cc8.chunk.js",
     "static/js/890.7d4f64bd.chunk.js": "/react_social/static/js/890.7d4f64bd.chunk.js",
     "static/js/982.4d21317b.chunk.js": "/react_social/static/js/982.4d21317b.chunk.js",
@@ -11,8 +11,8 @@
     "static/media/avatar.png": "/react_social/static/media/avatar.027afa56263ee72746c0.png",
     "index.html": "/react_social/index.html",
     "static/media/Dual Ring-1s-200px.svg": "/react_social/static/media/Dual Ring-1s-200px.1d6fc0e7781944671467b12601b8abfd.svg",
-    "main.be35d785.css.map": "/react_social/static/css/main.be35d785.css.map",
-    "main.daad9dfe.js.map": "/react_social/static/js/main.daad9dfe.js.map",
+    "main.87144ac0.css.map": "/react_social/static/css/main.87144ac0.css.map",
+    "main.1c26e95c.js.map": "/react_social/static/js/main.1c26e95c.js.map",
     "804.0e4c1cc8.chunk.js.map": "/react_social/static/js/804.0e4c1cc8.chunk.js.map",
     "890.7d4f64bd.chunk.js.map": "/react_social/static/js/890.7d4f64bd.chunk.js.map",
     "982.4d21317b.chunk.js.map": "/react_social/static/js/982.4d21317b.chunk.js.map",
@@ -21,7 +21,7 @@
     "787.96cdf0b8.chunk.js.map": "/react_social/static/js/787.96cdf0b8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.be35d785.css",
-    "static/js/main.daad9dfe.js"
+    "static/css/main.87144ac0.css",
+    "static/js/main.1c26e95c.js"
   ]
 }
