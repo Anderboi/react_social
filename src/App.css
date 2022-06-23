@@ -6,6 +6,7 @@
   background-color: var(--main-color);
 }
 
+
 .container {
   max-width: 1020px;
   margin: 0 auto;
@@ -27,3 +28,11 @@
   grid-area: cont;
   /* padding-right: 1em; */
 }
+
+ @media screen and (max-width: 768px) {
+  .grid {
+    display: block;
+    margin: 0 1em;
+  }
+ 
+ } 

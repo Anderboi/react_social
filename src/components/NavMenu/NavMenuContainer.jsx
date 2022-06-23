@@ -1,10 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavMenu } from "./NavMenu";
+import nav from "./NavMenu.module.css";
 import { getIsAuthorised } from "../../utilities/selectors/authSelector";
+import NavBlock from "./../common/NavBlock";
 
 const NavMenuContainer = (props) => {
-  return <NavMenu isAuth={props.isAuth} />;
+  return (
+    <div className={nav.main_nav_block}>
+      <NavBlock isAuth={props.isAuth} isForMobile={false}/>
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {

@@ -1,0 +1,47 @@
+.nav_menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  align-items: flex-end;
+  margin-bottom: 5em;
+  
+}
+
+.nav_item {
+  cursor: pointer;
+  align-self: stretch;
+  text-align: end;
+  text-decoration: none;
+}
+
+.active {
+  align-self: stretch;
+  text-align: end;
+  color: white;
+  text-decoration: none;
+  padding-right: 0.5em;
+  border-bottom: 1px solid;
+}
+
+.friends_block {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.75em;
+}
+
+.friends_block_item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friends_block_img {
+  width: 40px;
+}
+
+@media screen and (max-width: 768px) {
+
+
+}

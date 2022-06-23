@@ -1,31 +1,25 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
+import { Provider, connect } from "react-redux";
 import Login from "./components/Login/Login";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import ProfileContainerWithRouter from "./components/MainContent/ProfileContainer";
 import { UsersPage } from "./components/Users/UsersPage";
 import NavMenuContainer from "./components/NavMenu/NavMenuContainer";
-import { connect } from "react-redux";
 import { authData } from "./redux/authReducer";
-import { HashRouter } from "react-router-dom";
 import store from "./redux/reduxStore";
-import { Provider } from "react-redux";
-import withPreloader from "./hoc/withPreloader";
+import { Preloader } from "./components/common/Preloader";
 
-const Settings = React.lazy(() =>
+const LazySettings = React.lazy(() =>
   import("./components/Pages/Settings/Settings")
 );
-const SettingsWithPreloader = withPreloader(Settings);
 
-const Music = React.lazy(() => import("./components/Pages//Music/Music"));
-const MusicWithPreloader = withPreloader(Music);
+const LazyMusic = React.lazy(() => import("./components/Pages//Music/Music"));
 
-const News = React.lazy(() => import("./components/Pages/News/News"));
-const NewsWithPreloader = withPreloader(News);
+const LazyNews = React.lazy(() => import("./components/Pages/News/News"));
 
-const ChatPage = React.lazy(() => import("./components/Dailogs/ChatPage"));
-const ChatPageWithPreloader = withPreloader(ChatPage);
+const LazyChatPage = React.lazy(() => import("./components/Dailogs/ChatPage"));
 
 const App = (props) => {
   useEffect(() => {
@@ -40,33 +34,38 @@ const App = (props) => {
         <HeaderContainer />
         <NavMenuContainer />
         <div className="app-content">
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/profile" element={<ProfileContainerWithRouter />}>
-              <Route path=":userId" element={<ProfileContainerWithRouter />} />
-            </Route>
+          <React.Suspense fallback={<Preloader />}>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/profile" element={<ProfileContainerWithRouter />}>
+                <Route
+                  path=":userId"
+                  element={<ProfileContainerWithRouter />}
+                />
+              </Route>
 
-            <Route path="/messages" element={<ChatPageWithPreloader />} />
+              <Route path="/messages" element={<LazyChatPage />} />
 
-            <Route path="/news" element={<NewsWithPreloader />} />
+              <Route path="/news" element={<LazyNews />} />
 
-            <Route path="/music" element={<MusicWithPreloader />} />
+              <Route path="/music" element={<LazyMusic />} />
 
-            <Route path="/users" element={<UsersPage />} />
+              <Route path="/users" element={<UsersPage />} />
 
-            <Route path="/settings" element={<SettingsWithPreloader />} />
+              <Route path="/settings" element={<LazySettings />} />
 
-            <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login />} />
 
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p>There's nothing here!</p>
-                </main>
-              }
-            />
-          </Routes>
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p>There's nothing here!</p>
+                  </main>
+                }
+              />
+            </Routes>
+          </React.Suspense>
         </div>
       </div>
     </div>
