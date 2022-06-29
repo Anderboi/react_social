@@ -4,7 +4,7 @@ import PostFormContainer from "./PostForm/PostFormContainer";
 import { PostListContainer } from "./PostList/PostListContainer";
 import { Preloader } from "./../common/Preloader";
 
-export function MainContent(props) {
+export const MainContent = (props) => {
   if (!props.userInfo) {
     return <Preloader />;
   }
@@ -32,4 +32,4 @@ export function MainContent(props) {
       {/* Posts */}
     </div>
   );
-}
+};

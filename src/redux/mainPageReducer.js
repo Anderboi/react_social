@@ -6,6 +6,7 @@ const SET_USER_STATUS = "postsPage/SET_USER_STATUS";
 const DELETE_POST = "postsPage/DELETE_POST";
 const EDIT_POST = "postsPage/EDIT_POST";
 const SET_USER_PHOTO = "postsPage/SET_USER_PHOTO";
+const SET_USER_PROFILE = "postsPage/SET_USER_PROFILE";
 
 let initState = {
   posts: [
@@ -71,6 +72,32 @@ const mainPageReducer = (state = initState, action) => {
     case SET_USER_STATUS: {
       return { ...state, profileStatus: action.data };
     }
+
+    // case SET_USER_PROFILE: {
+    //   return {
+    //     ...state,
+    //     userInfo: {
+    //       ...state.userInfo,
+    //       aboutMe: action.data.aboutMe,
+    //       lookingForAJob: action.data.lookingForAJob,
+    //       lookingForAJobDescription: action.data.lookingForAJobDescription,
+    //       fullName: action.data.fullName,
+    //       photos: action.data.photos,
+    //       contacts: {
+    //         ...state.userInfo.contacts,
+    //         github: action.data.github,
+    //         vk: action.data.vk,
+    //         facebook: action.data.facebook,
+    //         instagram: action.data.instagram,
+    //         twitter: action.data.twitter,
+    //         website: action.data.website,
+    //         youtube: action.data.youtube,
+    //         mainLink: action.data.mainLink,
+    //       },
+    //     },
+    //   };
+    // }
+
     case SET_USER_PHOTO: {
       return { ...state, userInfo: { ...state.userInfo, photos: action.file } };
     }
@@ -99,8 +126,13 @@ export const setUserInfo = (userInfo) => {
 export const setUserStatus = (data) => {
   return { type: SET_USER_STATUS, data };
 };
+
 export const setUserPhoto = (file) => {
   return { type: SET_USER_PHOTO, file };
+};
+
+export const setUserProfile = (data) => {
+  return { type: SET_USER_PROFILE, data };
 };
 
 export const setUserInfoTC = (userId) => {
@@ -110,22 +142,30 @@ export const setUserInfoTC = (userId) => {
   };
 };
 
-//! TODO add contact, job n photo setup
-export const setUserProfileTC = (jobText) => {
-
-  return async (dispatch) => {
-    const response = await profileAPI.setUserProfile(jobText);
-
-    // dispatch(setUserProfile(response));
-  };
-};
-
 export const uploadPhoto = (image) => {
   return async (dispatch) => {
     const response = await profileAPI.uploadPhoto(image);
     if (response.data.resultCode === 0) {
       console.log(response.data);
       dispatch(setUserPhoto(response.data.data.photos));
+    }
+  };
+};
+
+export const setUserProfileTC = (profileData) => {
+  return async (dispatch) => {
+    const response = await profileAPI.setUserProfile(profileData);
+
+    if (response.data.resultCode === 0) {
+      dispatch(setUserInfo(profileData));
+    }
+  };
+};
+export const getUserProfileTC = (userId) => {
+  return async (dispatch) => {
+    const response = await profileAPI.getUserProfile(userId);
+    if (response.data.resultCode === 0) {
+      dispatch(setUserInfo(response.data));
     }
   };
 };

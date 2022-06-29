@@ -5,7 +5,8 @@ import job from "../../../assets/images/job-search.png";
 import noJob from "../../../assets/images/unemployment.png";
 import StatusComponent from "./StatusComponent";
 
-export function UserInfo(props) {
+export const UserInfo = (props) => {
+
   //* upload photo from input
   const getAvatarPhoto = (e) => {
     if (e.target.value.length) {
@@ -33,38 +34,44 @@ export function UserInfo(props) {
         <h2>{props.userInfo.fullName}</h2>
         <div>
           <StatusComponent
-            // aboutMe={props.aboutMe}
             userId={props.userInfo.userId}
             authId={props.authId}
             setInfoState={props.setUserStatusTC}
             displayInfo={props.profileStatus}
+            userInfo={props.userInfo}
+            currentData={props.profileStatus}
+            placeholder='Enter your status'
+
           >
-            About Me:
+            Status:
           </StatusComponent>
           <StatusComponent
-            // aboutMe={props.aboutMe}
             userId={props.userInfo.userId}
             authId={props.authId}
             setInfoState={props.setUserProfileTC}
-            displayInfo={props.lookingForAJobDescription}
+            displayInfo={props.userInfo}
+            currentData={props.userInfo.lookingForAJobDescription}
+            userInfoPropertie="lookingForAJobDescription"
+            placeholder='Describe your skills'
           >
             Skills:
           </StatusComponent>
           <StatusComponent
-            aboutMe={props.userInfo.aboutMe}
             userId={props.userInfo.userId}
             authId={props.authId}
-            // setInfoState={props.setUserProfileTC}
-            // displayInfo={props.lookingForAJobDescription}
+            userInfo={props.userInfo}
+            displayInfo={props.userInfo}
+            currentData={props.userInfo.aboutMe}
+            setInfoState={props.setUserProfileTC}
+            userInfoPropertie="aboutMe"
+            placeholder='Describe yourself'
+
           >
             About me:
           </StatusComponent>
-
-          <div>
-            <b>Web Site:</b> {props.userInfo.contacts.website}
-          </div>
         </div>
       </div>
+     
       <img
         src={props.userInfo.lookingForAJob ? job : noJob}
         alt="job"
@@ -72,4 +79,4 @@ export function UserInfo(props) {
       />
     </div>
   );
-}
+};

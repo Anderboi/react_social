@@ -57,11 +57,28 @@ export const profileAPI = {
     return instance.get(`/profile/${userId}`).then((response) => response.data);
   },
 
-  setUserProfile(text) {
-    debugger;
+  setUserProfile(data) {
     return instance.put(`/profile`, {
-      lookingForAJobDescription: text,
+      userId: data.userID,
+      aboutMe: data.aboutMe,
+      lookingForAJob: data.lookingForAJob,
+      lookingForAJobDescription: data.lookingForAJobDescription,
+      fullName: data.fullName,
+      contacts: {
+        github: data.github,
+        vk: data.vk,
+        facebook: data.facebook,
+        instagram: data.instagram,
+        twitter: data.twitter,
+        website: data.website,
+        youtube: data.youtube,
+        mainLink: data.mainLink,
+      },
     });
+  },
+
+  getUserProfile(userId) {
+    return instance.get("profile/" + userId);
   },
 
   uploadPhoto(image) {

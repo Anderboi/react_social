@@ -9,7 +9,7 @@ import {
   setUserStatusTC,
   getUserStatusTC,
   setUserProfileTC,
-  // setUserDescriptionTC,
+  getUserProfileTC,
   uploadPhoto,
 } from "./../../redux/mainPageReducer";
 import {
@@ -23,6 +23,7 @@ const ProfileContainer = (props) => {
     const userId = props.router.params.userId || props.authId;
     props.setUserInfoTC(userId);
     props.getUserStatusTC(userId);
+    props.getUserProfileTC(userId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.router.params.userId, props.userInfo]);
 
@@ -65,7 +66,7 @@ export default compose(
     setUserStatusTC,
     getUserStatusTC,
     setUserProfileTC,
-    // setUserDescriptionTC,
+    getUserProfileTC,
     uploadPhoto,
   }),
   withRouter,
