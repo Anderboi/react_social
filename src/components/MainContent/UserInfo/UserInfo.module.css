@@ -10,6 +10,11 @@
   flex-direction: column;
 }
 
+.info_status {
+  color: var(--main-color);
+  font-style: italic;
+}
+
 .info_description {
   padding-left: 1em;
   display: flex;
@@ -38,6 +43,5 @@
   /* left: 200px; */
   /* top: 550px; */
   width: 115px;
-  background-color: red;
   color: white;
 }

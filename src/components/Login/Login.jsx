@@ -5,6 +5,10 @@ import { connect } from "react-redux";
 import { loginTC } from "./../../redux/authReducer";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import {
+  getIsAuthorised,
+  getAuthMessage,
+} from "../../utilities/selectors/authSelector";
 
 const Login = (props) => {
   if (props.isAuth) {
@@ -38,7 +42,7 @@ const LoginForm = (props) => {
   };
 
   // const errorsCallback = (error) => {
-  
+
   //   if (error.resultCode === 10) {
   //     //TODO Add logic for captcha insertion
   //   }
@@ -79,7 +83,7 @@ const LoginForm = (props) => {
           </p>
         ) : (
           <p className={common.error_message}>{errors.password?.message}</p>
-        )} 
+        )}
 
         <div>
           <input type="checkbox" name="rememberMe" id="rememberMe" />
@@ -96,8 +100,8 @@ const LoginForm = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.auth.isAuthorised,
-    authMessage: state.auth.authMessage,
+    isAuth: getIsAuthorised(state),
+    authMessage: getAuthMessage(state),
   };
 };
 

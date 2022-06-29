@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import common from "../../../Common.module.css";
+import { TextForm } from "./../../common/Forms";
 
 const StatusComponent = (props) => {
-  const userInfo = props.displayInfo;
+  const userInfo = props.userInfo;
 
   const [editMode, setEditMode] = useState(false);
   const [statusInput, setStatusInput] = useState(props.currentData);
+  const [userStatusInput, setUserStatusInput] = useState(props.userStatusData);
 
   useEffect(() => {
     setStatusInput(props.currentData);
-  }, [props.currentData]);
+    setUserStatusInput(props.userStatusData);
+  }, [props.currentData, props.userStatusData]);
 
   const setProfileStatus = () => {
     setEditMode(false);
-    props.setInfoState(statusInput);
+    props.setInfoState(userStatusInput);
   };
 
   const setProfileData = () => {
@@ -24,7 +27,6 @@ const StatusComponent = (props) => {
 
       aboutMe:
         props.userInfoPropertie === "aboutMe" ? statusInput : userInfo.aboutMe,
-      // lookingForAJob: userInfo.lookingForAJob,
       lookingForAJob: userInfo.lookingForAJobDescription ? true : false,
       lookingForAJobDescription:
         props.userInfoPropertie === "lookingForAJobDescription"
@@ -78,26 +80,53 @@ const StatusComponent = (props) => {
   return (
     <div>
       {editMode && (
-        <div>
-          <input
-            autoFocus
-            value={statusInput}
-            onChange={(e) => setStatusInput(e.currentTarget.value)}
-            placeholder={props.placeholder}
-            onBlur={
-              typeof props.displayInfo === "string"
-                ? setProfileStatus
-                : setProfileData
+        <>
+          <div>
+            <TextForm
+              autoFocus
+              value={props.userStatusData ? userStatusInput : statusInput}
+              onChange={(e) =>
+                props.userStatusData
+                  ? setUserStatusInput(e.currentTarget.value)
+                  : setStatusInput(e.currentTarget.value)
+              }
+              placeholder={props.placeholder}
+              onBlur={props.userStatusData ? setProfileStatus : setProfileData}
+              className={common.input}
+              data-testid="status-input"
+            />
+          </div>
+          {/* <div
+            className={
+              props.userInfo.errorMessage
+                ? common.display_flex
+                : common.display_none
             }
-            className={common.input}
-            data-testid="status-input"
-          />
-        </div>
+          >
+            {props.userInfo.errorMessage}
+          </div> */}
+        </>
       )}
       {!editMode && (
-        <div onDoubleClick={handleEditMode} data-testid="status-div">
-          <b>{props.children}</b> {props.currentData || "Nothing"}
-        </div>
+        <>
+          <div
+            onDoubleClick={handleEditMode}
+            data-testid="status-div"
+            className={props.className}
+          >
+            <b>{props.children} </b>
+            {props.currentData || props.userStatusData || "Nothing"}
+          </div>
+          {/* <div
+            className={
+              props.userInfo.errorMessage
+                ? common.display_flex
+                : common.display_none
+            }
+          >
+            {props.userInfo.errorMessage}
+          </div> */}
+        </>
       )}
     </div>
   );

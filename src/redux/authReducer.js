@@ -71,7 +71,7 @@ export const authData = () => {
   };
 };
 
-export const loginTC = (values, cb) => {
+export const loginTC = (values) => {
   return async (dispatch) => {
     const response = await authAPI.authLogin(values);
     if (response.resultCode === 0) {

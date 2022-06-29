@@ -6,7 +6,6 @@ import noJob from "../../../assets/images/unemployment.png";
 import StatusComponent from "./StatusComponent";
 
 export const UserInfo = (props) => {
-
   //* upload photo from input
   const getAvatarPhoto = (e) => {
     if (e.target.value.length) {
@@ -31,47 +30,65 @@ export const UserInfo = (props) => {
         )}
       </div>
       <div className={user.info_description}>
-        <h2>{props.userInfo.fullName}</h2>
+        <div>
+          <h2>
+            <StatusComponent
+              userId={props.userInfo.userId}
+              authId={props.authId}
+              userInfo={props.userInfo}
+              currentData={props.userInfo.fullName}
+              setInfoState={props.setUserProfileTC}
+              userInfoPropertie="fullName"
+              placeholder="Enter your full name"
+            ></StatusComponent>
+          </h2>
+          <StatusComponent
+            className={user.info_status}
+            userId={props.userInfo.userId}
+            authId={props.authId}
+            setInfoState={props.setUserStatusTC}
+            userInfo={props.userInfo}
+            userStatusData={props.profileStatus}
+            placeholder="Enter your status"
+          ></StatusComponent>
+        </div>
         <div>
           <StatusComponent
             userId={props.userInfo.userId}
             authId={props.authId}
-            setInfoState={props.setUserStatusTC}
-            displayInfo={props.profileStatus}
-            userInfo={props.userInfo}
-            currentData={props.profileStatus}
-            placeholder='Enter your status'
-
-          >
-            Status:
-          </StatusComponent>
-          <StatusComponent
-            userId={props.userInfo.userId}
-            authId={props.authId}
             setInfoState={props.setUserProfileTC}
-            displayInfo={props.userInfo}
             currentData={props.userInfo.lookingForAJobDescription}
             userInfoPropertie="lookingForAJobDescription"
-            placeholder='Describe your skills'
+            placeholder="Describe your skills"
           >
-            Skills:
+            Skills: 
           </StatusComponent>
           <StatusComponent
             userId={props.userInfo.userId}
             authId={props.authId}
             userInfo={props.userInfo}
-            displayInfo={props.userInfo}
             currentData={props.userInfo.aboutMe}
             setInfoState={props.setUserProfileTC}
             userInfoPropertie="aboutMe"
-            placeholder='Describe yourself'
-
+            placeholder="Describe yourself"
           >
-            About me:
+            About me: 
+          </StatusComponent>
+
+          <StatusComponent
+            userId={props.userInfo.userId}
+            authId={props.authId}
+            userInfo={props.userInfo}
+            currentData={props.userInfo.contacts.website}
+            setInfoState={props.setUserProfileTC}
+            userInfoPropertie="website"
+            placeholder="Place your website"
+          >
+            Website: 
           </StatusComponent>
         </div>
       </div>
-     
+
       <img
         src={props.userInfo.lookingForAJob ? job : noJob}
         alt="job"

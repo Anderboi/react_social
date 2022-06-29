@@ -10,4 +10,7 @@ export const getAuthEmail = (state) => {
 export const getIsAuthorised = (state) => {
   return state.auth.isAuthorised;
 };
+export const getAuthMessage = (state) => {
+  return state.auth.authMessage;
+};
 

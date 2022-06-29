@@ -7,6 +7,7 @@ const DELETE_POST = "postsPage/DELETE_POST";
 const EDIT_POST = "postsPage/EDIT_POST";
 const SET_USER_PHOTO = "postsPage/SET_USER_PHOTO";
 const SET_USER_PROFILE = "postsPage/SET_USER_PROFILE";
+const SET_USER_PROFILE_MESSAGE = "postsPage/SET_USER_PROFILE_MESSAGE";
 
 let initState = {
   posts: [
@@ -26,6 +27,7 @@ let initState = {
 
   userInfo: null,
   profileStatus: "",
+  errorMessage: null,
 };
 
 const mainPageReducer = (state = initState, action) => {
@@ -73,30 +75,12 @@ const mainPageReducer = (state = initState, action) => {
       return { ...state, profileStatus: action.data };
     }
 
-    // case SET_USER_PROFILE: {
-    //   return {
-    //     ...state,
-    //     userInfo: {
-    //       ...state.userInfo,
-    //       aboutMe: action.data.aboutMe,
-    //       lookingForAJob: action.data.lookingForAJob,
-    //       lookingForAJobDescription: action.data.lookingForAJobDescription,
-    //       fullName: action.data.fullName,
-    //       photos: action.data.photos,
-    //       contacts: {
-    //         ...state.userInfo.contacts,
-    //         github: action.data.github,
-    //         vk: action.data.vk,
-    //         facebook: action.data.facebook,
-    //         instagram: action.data.instagram,
-    //         twitter: action.data.twitter,
-    //         website: action.data.website,
-    //         youtube: action.data.youtube,
-    //         mainLink: action.data.mainLink,
-    //       },
-    //     },
-    //   };
-    // }
+    case SET_USER_PROFILE_MESSAGE: {
+      return {
+        ...state,
+        errorMessage: action.message,
+      };
+    }
 
     case SET_USER_PHOTO: {
       return { ...state, userInfo: { ...state.userInfo, photos: action.file } };
@@ -134,6 +118,9 @@ export const setUserPhoto = (file) => {
 export const setUserProfile = (data) => {
   return { type: SET_USER_PROFILE, data };
 };
+export const setUserProfileMessage = (message) => {
+  return { type: SET_USER_PROFILE_MESSAGE, message };
+};
 
 export const setUserInfoTC = (userId) => {
   return async (dispatch) => {
@@ -146,13 +133,13 @@ export const uploadPhoto = (image) => {
   return async (dispatch) => {
     const response = await profileAPI.uploadPhoto(image);
     if (response.data.resultCode === 0) {
-      console.log(response.data);
       dispatch(setUserPhoto(response.data.data.photos));
     }
   };
 };
 
 export const setUserProfileTC = (profileData) => {
+  debugger;
   return async (dispatch) => {
     const response = await profileAPI.setUserProfile(profileData);
 
@@ -164,6 +151,7 @@ export const setUserProfileTC = (profileData) => {
 export const getUserProfileTC = (userId) => {
   return async (dispatch) => {
     const response = await profileAPI.getUserProfile(userId);
+
     if (response.data.resultCode === 0) {
       dispatch(setUserInfo(response.data));
     }
@@ -177,6 +165,7 @@ export const getUserStatusTC = (userId) => async (dispatch) => {
 
 export const setUserStatusTC = (text) => async (dispatch) => {
   const response = await profileAPI.setUserStatusApi(text);
+
   if (response.data.resultCode === 0) {
     dispatch(setUserStatus(text));
   }
