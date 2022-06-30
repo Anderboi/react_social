@@ -42,5 +42,5 @@
   align-items: flex-end;
   color: var(--main-color);
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--fs-300);
 }

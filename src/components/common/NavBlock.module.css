@@ -28,7 +28,7 @@
   flex-direction: row-reverse;
   align-items: center;
   gap: 0.4em;
-  font-size: 0.75em;
+  font-size: var(--fs-300);
 }
 
 .friends_block_item {

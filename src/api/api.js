@@ -30,17 +30,25 @@ export const authAPI = {
   },
 
   authLogin(data) {
+
     return instance
       .post("auth/login", {
         email: data.email,
         password: data.password,
         rememberMe: data.rememberMe,
+        captcha: data.captcha
       })
       .then((response) => response.data);
   },
 
   authLogout() {
     return instance.post("auth/logout");
+  },
+};
+
+export const securityAPI = {
+  getCaptcha() {
+    return instance.get("security/get-captcha-url");
   },
 };
 

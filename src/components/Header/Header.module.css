@@ -12,7 +12,7 @@
 
 .logo_text {
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: var(--fs-500);
   letter-spacing: 0.5em;
   flex-grow: 1;
   margin-bottom: 0.2em;
@@ -37,6 +37,10 @@
   display: none;
 }
 
+.header__burger {
+  display: none;
+}
+
 .avatar {
   height: 32px;
   width: 32px;
@@ -56,6 +60,8 @@
   }
   .header {
     padding-bottom: 3em;
+    padding-left: 0;
+    padding-right: 0;
   }
   .logo_text {
     text-align: center;
@@ -68,5 +74,11 @@
     min-width: 180px;
     display: flex;
     flex-direction: column;
+  }
+  .header__burger {
+    display: flex;
+  }
+  .logo_img {
+    display: none;
   }
 }

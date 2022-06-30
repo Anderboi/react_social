@@ -15,21 +15,21 @@ export const UserInfo = (props) => {
 
   return (
     <div className={user.info}>
-      <div className={user.info_avatar}>
+      <div className={user.info__avatar}>
         <img
           src={props.userInfo.photos.small || avatar}
           alt="avatar"
-          className={user.info_img}
+          className={user.info__avatar_img}
         ></img>
         {props.userInfo.userId === props.authId && (
           <input
             type="file"
-            className={user.pick_file}
+            className={user.info__avatar_pickFile}
             onChange={getAvatarPhoto}
           />
         )}
       </div>
-      <div className={user.info_description}>
+      <div className={user.info__description}>
         <div>
           <h2>
             <StatusComponent
@@ -43,7 +43,7 @@ export const UserInfo = (props) => {
             ></StatusComponent>
           </h2>
           <StatusComponent
-            className={user.info_status}
+            className={user.info__description_status}
             userId={props.userInfo.userId}
             authId={props.authId}
             setInfoState={props.setUserStatusTC}
@@ -56,12 +56,13 @@ export const UserInfo = (props) => {
           <StatusComponent
             userId={props.userInfo.userId}
             authId={props.authId}
-            setInfoState={props.setUserProfileTC}
+            userInfo={props.userInfo}
             currentData={props.userInfo.lookingForAJobDescription}
+            setInfoState={props.setUserProfileTC}
             userInfoPropertie="lookingForAJobDescription"
             placeholder="Describe your skills"
           >
-            Skills: 
+            Skills:
           </StatusComponent>
           <StatusComponent
             userId={props.userInfo.userId}
@@ -72,7 +73,7 @@ export const UserInfo = (props) => {
             userInfoPropertie="aboutMe"
             placeholder="Describe yourself"
           >
-            About me: 
+            About me:
           </StatusComponent>
 
           <StatusComponent
@@ -84,7 +85,7 @@ export const UserInfo = (props) => {
             userInfoPropertie="website"
             placeholder="Place your website"
           >
-            Website: 
+            Website:
           </StatusComponent>
         </div>
       </div>
@@ -92,7 +93,7 @@ export const UserInfo = (props) => {
       <img
         src={props.userInfo.lookingForAJob ? job : noJob}
         alt="job"
-        className={user.job_icon}
+        className={user.info__jobIcon}
       />
     </div>
   );

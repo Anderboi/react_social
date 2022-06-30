@@ -20,12 +20,11 @@ export const Header = (props) => {
   return (
     <>
       <header className={head.header}>
-        <img
-          src={logo}
-          alt="logo"
-          className={head.logo_img}
-          onClick={onClick}
-        ></img>
+        {/* //TODO show burger and hide logo in mobile view   */}
+        <img src={logo} alt="logo" className={head.logo_img}></img>
+        <div className={head.header__burger} onClick={onClick}>
+          burger
+        </div>
 
         <div className={head.logo_text}>MINIMAL</div>
 

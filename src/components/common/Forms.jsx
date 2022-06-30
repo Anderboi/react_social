@@ -13,6 +13,9 @@ export const TextForm = ({ ...props }) => {
         placeholder={props.placeholder}
         validate={props.validate}
         onBlur={props.onBlur}
+        onMouseEnter={props.onMouseEnter}
+        onMouseLeave={props.onMouseLeave}
+        onMouseOver={props.onMouseOver}
       ></input>
     </div>
   );

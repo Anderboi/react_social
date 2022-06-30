@@ -2,12 +2,19 @@
   --main-color: #dc493f;
   --main-text-color: white;
   --background-color: #fbf9f9;
+
+  --fs-xl: clamp(3.5rem, 12vw + 1rem, 12rem);
+  --fs-600: 2rem;
+  --fs-500: 1.5rem;
+  --fs-400: 1rem;
+  --fs-300: 0.8rem;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 body {

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import common from "../../../Common.module.css";
+import c from "./UserInfo.module.css";
 import { TextForm } from "./../../common/Forms";
 
 const StatusComponent = (props) => {
   const userInfo = props.userInfo;
 
   const [editMode, setEditMode] = useState(false);
+  const [hoverMode, setHoverMode] = useState(false);
   const [statusInput, setStatusInput] = useState(props.currentData);
   const [userStatusInput, setUserStatusInput] = useState(props.userStatusData);
 
@@ -17,6 +19,13 @@ const StatusComponent = (props) => {
   const setProfileStatus = () => {
     setEditMode(false);
     props.setInfoState(userStatusInput);
+  };
+
+  const hoverModeOn = () => {
+    props.authId === props.userId && setHoverMode(true);
+  };
+  const hoverModeOff = () => {
+    props.authId === props.userId && setHoverMode(false);
   };
 
   const setProfileData = () => {
@@ -108,14 +117,23 @@ const StatusComponent = (props) => {
         </>
       )}
       {!editMode && (
-        <>
+        <div className={c.info__profileBlock}>
           <div
             onDoubleClick={handleEditMode}
             data-testid="status-div"
-            className={props.className}
+            className={`${props.className}`}
+            onMouseEnter={hoverModeOn}
+            onMouseLeave={hoverModeOff}
           >
             <b>{props.children} </b>
             {props.currentData || props.userStatusData || "Nothing"}
+          </div>
+          <div
+            className={
+              hoverMode ? c.info__profileBlock_hover : common.display_none
+            }
+          >
+            double click to edit ...
           </div>
           {/* <div
             className={
@@ -126,7 +144,7 @@ const StatusComponent = (props) => {
           >
             {props.userInfo.errorMessage}
           </div> */}
-        </>
+        </div>
       )}
     </div>
   );

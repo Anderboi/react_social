@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import {
   getIsAuthorised,
   getAuthMessage,
+  getCaptchaUrl,
 } from "../../utilities/selectors/authSelector";
 
 const Login = (props) => {
@@ -85,9 +86,21 @@ const LoginForm = (props) => {
           <p className={common.error_message}>{errors.password?.message}</p>
         )}
 
-        <div>
+        <div className={css.form__checkbox}>
           <input type="checkbox" name="rememberMe" id="rememberMe" />
           <label htmlFor="rememberMe"> remember me</label>
+        </div>
+        <div
+          className={props.captchaUrl ? css.form__captcha : common.display_none}
+        >
+          <img src={props.captchaUrl} alt="captcha" />
+          <input
+            {...register("captcha", {})}
+            type="text"
+            name="captcha"
+            id="captcha"
+            className={common.input}
+          />
         </div>
         <button type="submit" className={common.button}>
           Login
@@ -102,6 +115,7 @@ const mapStateToProps = (state) => {
   return {
     isAuth: getIsAuthorised(state),
     authMessage: getAuthMessage(state),
+    captchaUrl: getCaptchaUrl(state),
   };
 };
 

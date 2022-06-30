@@ -13,6 +13,7 @@
   border: 1px solid var(--main-color);
   padding: 0.5em;
   width: 100%;
+  margin-top: 1em;
 }
 .input:focus-visible {
   border-color: var(--main-color);
@@ -27,13 +28,10 @@
 .display_none {
   display: none;
 }
-.display_flex {
-  display: flex;
-}
 
 .error_message {
   color: red;
-  font-size: 12px;
+  font-size: var(--fs-300);
 }
 
 .hover {

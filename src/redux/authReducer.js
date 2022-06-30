@@ -1,9 +1,11 @@
 import { authAPI } from "../api/api";
+import { securityAPI } from "./../api/api";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const WRONG_AUTH_DATA = "auth/WRONG_AUTH_DATA";
 const LOGIN_USER = "auth/LOGIN_USER";
 const LOGOUT_USER = "auth/LOGOUT_USER";
+const GET_CAPTCHA = "auth/GET_CAPTCHA";
 
 let initState = {
   id: null,
@@ -11,6 +13,7 @@ let initState = {
   email: null,
   isAuthorised: false,
   authMessage: null,
+  captchaUrl: null,
 };
 
 const authReducer = (state = initState, action) => {
@@ -39,6 +42,13 @@ const authReducer = (state = initState, action) => {
       };
     }
 
+    case GET_CAPTCHA: {
+      return {
+        ...state,
+        captchaUrl: action.url,
+      };
+    }
+
     case WRONG_AUTH_DATA: {
       return { message: "You have not registered yet" };
     }
@@ -62,6 +72,10 @@ export const logoutUser = () => {
   return { type: LOGOUT_USER };
 };
 
+export const getCaptchaUrl = (url) => {
+  return { type: GET_CAPTCHA, url };
+};
+
 export const authData = () => {
   return async (dispatch) => {
     const response = await authAPI.authInfo();
@@ -73,11 +87,15 @@ export const authData = () => {
 
 export const loginTC = (values) => {
   return async (dispatch) => {
+    
     const response = await authAPI.authLogin(values);
     if (response.resultCode === 0) {
       dispatch(loginUser("Success"));
       dispatch(authData());
     } else {
+      if (response.resultCode === 10) {
+        dispatch(getCaptchaTC());
+      }
       dispatch(loginUser(response.messages[0]));
     }
   };
@@ -89,5 +107,13 @@ export const logoutTC = () => {
     if (response.data.resultCode === 0) {
       dispatch(logoutUser());
     }
+  };
+};
+
+export const getCaptchaTC = () => {
+  return async (dispatch) => {
+   
+    const response = await securityAPI.getCaptcha();
+    dispatch(getCaptchaUrl(response.data.url));
   };
 };

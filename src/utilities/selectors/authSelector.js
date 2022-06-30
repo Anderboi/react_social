@@ -13,4 +13,6 @@ export const getIsAuthorised = (state) => {
 export const getAuthMessage = (state) => {
   return state.auth.authMessage;
 };
-
+export const getCaptchaUrl = (state) => {
+  return state.auth.captchaUrl;
+};
