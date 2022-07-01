@@ -5,7 +5,7 @@ import { PostForm } from "./PostForm";
 import { connect } from "react-redux";
 
 
-let mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     sendPost: (data) => {
       dispatch(addPostActionCreator(data));

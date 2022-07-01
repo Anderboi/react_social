@@ -2,6 +2,7 @@ import form from "./PostForm.module.css";
 import base from "../../../Common.module.css";
 import React from "react";
 import { useForm } from "react-hook-form";
+import cn from 'classnames'
 
 export const PostForm = (props) => {
   const {
@@ -31,10 +32,10 @@ export const PostForm = (props) => {
           name="post"
           id="post"
           placeholder="Type your text here..."
-          className={`${base.input} ${form.input}`}
+          className={cn(base.input, form.input)}
         />
 
-        <button type="submit" className={`${base.button} ${form.button}`}>
+        <button type="submit" className={cn(base.button, form.button)}>
           Send post
         </button>
       </form>

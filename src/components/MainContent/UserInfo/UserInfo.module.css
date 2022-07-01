@@ -10,11 +10,6 @@
   flex-direction: column;
 }
 
-.info__description_status {
-  color: var(--main-color);
-  font-style: italic;
-}
-
 .info__description {
   padding-left: 1em;
   display: flex;
@@ -22,6 +17,21 @@
   justify-content: space-between;
   flex-grow: 1;
   padding-right: 1em;
+}
+
+.info__description_username{
+  font-size: var(--fs-600);
+  line-height: 1em;
+}
+
+.info__description_status {
+  color: var(--main-color);
+  font-style: italic;
+  font-size: var(--fs-400);
+}
+
+.info__description_profileInfo{
+  font-size: var(--fs-400);
 }
 
 .info__avatar_img {
@@ -53,16 +63,31 @@
 }
 
 .info__profileBlock_hover {
-  font-size: var(--fs-300);
+  font-size: var(--fs-200);
   font-weight: bold;
   color: rgba(255, 0, 0, 0.459);
+  line-height: 1em;
 }
 
 @media screen and (max-width: 768px) {
+
+  .info__avatar{
+    display: none;
+  }
+
   .info__jobIcon {
     width: 40px;
     height: 40px;
+    margin-right: 0;
   }
+  .info__description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-left: 0;
+    height: 7em;
+  }
+
+
   .info__description_status {
     font-size: var(--fs-300);
     font-weight: bold;
@@ -71,8 +96,5 @@
     display: none;
   }
 
-  .info__description {
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
+
 }

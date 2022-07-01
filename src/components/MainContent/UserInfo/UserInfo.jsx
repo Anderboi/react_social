@@ -31,8 +31,9 @@ export const UserInfo = (props) => {
       </div>
       <div className={user.info__description}>
         <div>
-          <h2>
+          <h2 className={user.info__description_username}>
             <StatusComponent
+             
               userId={props.userInfo.userId}
               authId={props.authId}
               userInfo={props.userInfo}
@@ -54,6 +55,7 @@ export const UserInfo = (props) => {
         </div>
         <div>
           <StatusComponent
+          className={user.info__description_profileInfo}
             userId={props.userInfo.userId}
             authId={props.authId}
             userInfo={props.userInfo}
@@ -65,6 +67,7 @@ export const UserInfo = (props) => {
             Skills:
           </StatusComponent>
           <StatusComponent
+          className={user.info__description_profileInfo}
             userId={props.userInfo.userId}
             authId={props.authId}
             userInfo={props.userInfo}
@@ -77,6 +80,7 @@ export const UserInfo = (props) => {
           </StatusComponent>
 
           <StatusComponent
+          className={user.info__description_profileInfo}
             userId={props.userInfo.userId}
             authId={props.authId}
             userInfo={props.userInfo}

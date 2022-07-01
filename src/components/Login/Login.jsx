@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { loginTC } from "./../../redux/authReducer";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
 import {
   getIsAuthorised,
   getAuthMessage,
@@ -31,8 +32,9 @@ const LoginForm = (props) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "free@samuraijs.com",
+      password: "free",
+      captcha: null,
     },
     mode: "onChange",
   });
@@ -41,14 +43,6 @@ const LoginForm = (props) => {
     props.loginTC(data);
     reset();
   };
-
-  // const errorsCallback = (error) => {
-
-  //   if (error.resultCode === 10) {
-  //     //TODO Add logic for captcha insertion
-  //   }
-  //   setError("password", { type: "custom", message: error.messages[0] });
-  // };
 
   return (
     <div>
@@ -66,13 +60,27 @@ const LoginForm = (props) => {
           type="email"
           placeholder="Email"
         />
-        <p className={common.error_message}>{errors.email?.message}</p>
+        {/* react hook forms error message */}
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ message }) => (
+            <p className={common.error_message}>{message}</p>
+          )}
+        />
+        {/* <p className={common.error_message}>{errors.email?.message}</p> */}
 
         <input
           {...register("password", {
             required: "Password is required",
-            maxLength: { value: 20, message: "Max length must be 20 symbols" },
-            minLength: { value: 6, message: "Max length must be 6 symbols" },
+            maxLength: {
+              value: 20,
+              message: "Maximum length must be 20 symbols",
+            },
+            minLength: {
+              value: 4,
+              message: "Minimal length must be 4 symbols",
+            },
           })}
           type="password"
           className={common.input}
@@ -102,7 +110,11 @@ const LoginForm = (props) => {
             className={common.input}
           />
         </div>
-        <button type="submit" className={common.button}>
+        <button
+          type="submit"
+          className={`${common.button} ${css.submitButton}`}
+          onSubmit={handleSubmit(onSubmit)}
+        >
           Login
         </button>
       </form>

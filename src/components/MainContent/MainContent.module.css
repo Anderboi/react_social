@@ -1,6 +1,5 @@
 .main_img {
   width: 100%;
-  height: 21em;
-  
+  height: min(21em, 60vw);
   object-fit: cover;
 }

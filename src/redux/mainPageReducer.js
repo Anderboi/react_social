@@ -139,7 +139,7 @@ export const uploadPhoto = (image) => {
 };
 
 export const setUserProfileTC = (profileData) => {
-  debugger;
+  
   return async (dispatch) => {
     const response = await profileAPI.setUserProfile(profileData);
 

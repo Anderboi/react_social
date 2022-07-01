@@ -6,6 +6,8 @@ const WRONG_AUTH_DATA = "auth/WRONG_AUTH_DATA";
 const LOGIN_USER = "auth/LOGIN_USER";
 const LOGOUT_USER = "auth/LOGOUT_USER";
 const GET_CAPTCHA = "auth/GET_CAPTCHA";
+const SHOW_ERROR = "auth/SHOW_ERROR";
+const HIDE_ERROR = "auth/HIDE_ERROR";
 
 let initState = {
   id: null,
@@ -14,6 +16,7 @@ let initState = {
   isAuthorised: false,
   authMessage: null,
   captchaUrl: null,
+  errorMessage: null,
 };
 
 const authReducer = (state = initState, action) => {
@@ -48,6 +51,18 @@ const authReducer = (state = initState, action) => {
         captchaUrl: action.url,
       };
     }
+    case SHOW_ERROR: {
+      return {
+        ...state,
+        errorMessage: action.message,
+      };
+    }
+    case HIDE_ERROR: {
+      return {
+        ...state,
+        errorMessage: null,
+      };
+    }
 
     case WRONG_AUTH_DATA: {
       return { message: "You have not registered yet" };
@@ -60,6 +75,7 @@ const authReducer = (state = initState, action) => {
 
 export default authReducer;
 
+//! Actions
 export const setUserData = ({ id, login, email }) => {
   return { type: SET_USER_DATA, data: { id, login, email } };
 };
@@ -76,18 +92,23 @@ export const getCaptchaUrl = (url) => {
   return { type: GET_CAPTCHA, url };
 };
 
-export const authData = () => {
-  return async (dispatch) => {
-    const response = await authAPI.authInfo();
-    if (response.resultCode === 0) {
-      dispatch(setUserData(response.data));
-    }
-  };
+export const showError = (message) => {
+  return { type: SHOW_ERROR, message };
+};
+export const hideError = () => {
+  return { type: HIDE_ERROR };
 };
 
-export const loginTC = (values) => {
-  return async (dispatch) => {
-    
+//!Thunks
+export const authData = () => async (dispatch) => {
+  const response = await authAPI.authInfo();
+  if (response.resultCode === 0) {
+    dispatch(setUserData(response.data));
+  }
+};
+
+export const loginTC = (values) => async (dispatch) => {
+  try {
     const response = await authAPI.authLogin(values);
     if (response.resultCode === 0) {
       dispatch(loginUser("Success"));
@@ -98,22 +119,25 @@ export const loginTC = (values) => {
       }
       dispatch(loginUser(response.messages[0]));
     }
-  };
+  } catch (error) {
+    debugger;
+    dispatch(showErrorMessage(error));
+  }
 };
 
-export const logoutTC = () => {
-  return async (dispatch) => {
-    const response = await authAPI.authLogout();
-    if (response.data.resultCode === 0) {
-      dispatch(logoutUser());
-    }
-  };
+export const logoutTC = () => async (dispatch) => {
+  const response = await authAPI.authLogout();
+  if (response.data.resultCode === 0) {
+    dispatch(logoutUser());
+  }
 };
 
-export const getCaptchaTC = () => {
-  return async (dispatch) => {
-   
-    const response = await securityAPI.getCaptcha();
-    dispatch(getCaptchaUrl(response.data.url));
-  };
+export const getCaptchaTC = () => async (dispatch) => {
+  const response = await securityAPI.getCaptcha();
+  dispatch(getCaptchaUrl(response.data.url));
+};
+
+export const showErrorMessage = (message) => async (dispatch) => {
+  dispatch(showError(message));
+  setTimeout(dispatch(hideError), 3000);
 };

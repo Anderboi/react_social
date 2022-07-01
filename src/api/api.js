@@ -17,6 +17,7 @@ export const usersAPI = {
   followUserApi(userId) {
     return instance.post(`/follow/${userId}`).then((response) => response.data);
   },
+
   unfollowUserApi(userId) {
     return instance
       .delete(`/follow/${userId}`)
@@ -30,13 +31,12 @@ export const authAPI = {
   },
 
   authLogin(data) {
-
     return instance
       .post("auth/login", {
         email: data.email,
         password: data.password,
         rememberMe: data.rememberMe,
-        captcha: data.captcha
+        captcha: data.captcha,
       })
       .then((response) => response.data);
   },
@@ -44,6 +44,26 @@ export const authAPI = {
   authLogout() {
     return instance.post("auth/logout");
   },
+};
+
+export const dialogsAPI = {
+  setChatCompanion(userId) {
+    return instance.put("dialogs/" + userId);
+  },
+
+  getAllMessages(userId, page = 1, count = 10) {
+    return instance.get(
+      `dialogs/${userId}/messages?page=${page}&count=${count}`
+    );
+  },
+
+  sendMessage(userId, body) {
+    return instance.post(`dialogs/${userId}/messages`, { body: body });
+  },
+
+  isMessageViewed(messageId){
+    return instance.get(`dialogs/messages/${messageId}/viewed`)
+  }
 };
 
 export const securityAPI = {

@@ -7,9 +7,10 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import ProfileContainerWithRouter from "./components/MainContent/ProfileContainer";
 import { UsersPage } from "./components/Users/UsersPage";
 import NavMenuContainer from "./components/NavMenu/NavMenuContainer";
-import { authData } from "./redux/authReducer";
+import { authData, showErrorMessage } from "./redux/authReducer";
 import store from "./redux/reduxStore";
 import { Preloader } from "./components/common/Preloader";
+import { getErrorMessage } from "./utilities/selectors/authSelector";
 
 const LazySettings = React.lazy(() =>
   import("./components/Pages/Settings/Settings")
@@ -22,8 +23,14 @@ const LazyNews = React.lazy(() => import("./components/Pages/News/News"));
 const LazyChatPage = React.lazy(() => import("./components/Dailogs/ChatPage"));
 
 const App = (props) => {
+  const catchErrors = (reason, promise) => {
+    props.showErrorMessage(reason);
+  };
+
   useEffect(() => {
     props.authData();
+    window.addEventListener("unhandledrejection", catchErrors); //! Global error catcher
+    return window.removeEventListener("unhandledrejection", catchErrors); //* Unsubscribe from global error catcher
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.authData]);
 
@@ -31,6 +38,7 @@ const App = (props) => {
     <div className="App">
       <div className="header-line"></div>
       <div className="container grid">
+        <div>{props.errorMessage}</div>
         <HeaderContainer />
         <NavMenuContainer />
         <div className="app-content">
@@ -72,7 +80,15 @@ const App = (props) => {
   );
 };
 
-const AppContainer = connect(null, { authData })(App);
+const mapStateToProps = (state) => {
+  return {
+    errorMessage: getErrorMessage(state),
+  };
+};
+
+const AppContainer = connect(mapStateToProps, { authData, showErrorMessage })(
+  App
+);
 
 const SocialApp = () => {
   return (
