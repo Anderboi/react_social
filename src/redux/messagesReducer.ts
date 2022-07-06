@@ -1,4 +1,6 @@
+import { ThunkAction } from "redux-thunk";
 import { Message, User } from "../types/types";
+import { RootState } from "./reduxStore";
 
 const ADD_MESSAGE = "messagePage/ADD-MESSAGE";
 
@@ -42,8 +44,7 @@ const initState: State = {
   ],
 };
 
-const messageReducer = (state = initState, action: any): State => {
-  
+const messageReducer = (state = initState, action: ActionType): State => {
   switch (action.type) {
     case ADD_MESSAGE: {
       return {
@@ -66,6 +67,10 @@ const messageReducer = (state = initState, action: any): State => {
 
 export default messageReducer;
 
+//! Actions
+
+type ActionType = AddMessageAction;
+
 type AddMessageAction = {
   type: typeof ADD_MESSAGE;
   data: string;
@@ -75,6 +80,17 @@ export const addMessage = (data: string): AddMessageAction => {
   return { type: ADD_MESSAGE, data };
 };
 
-export const sendMessage = (text: string) => (dispatch: any) => {
-  text && dispatch(addMessage(text));
-};
+//! Thunks
+
+type AuthThunkActionType = ThunkAction<
+  void, //? Is here a Promise?
+  RootState,
+  unknown,
+  ActionType
+>;
+
+export const sendMessage =
+  (text: string): AuthThunkActionType =>
+  (dispatch) => {
+    text && dispatch(addMessage(text));
+  };

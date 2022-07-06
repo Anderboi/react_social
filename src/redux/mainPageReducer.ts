@@ -1,5 +1,7 @@
+import { ThunkAction } from "redux-thunk";
 import { profileAPI } from "../api/api";
 import { Photos, Post, UserInfo } from "../types/types";
+import { RootState } from "./reduxStore";
 
 const ADD_POST = "postsPage/ADD-POST";
 const SET_USER_INFO = "postsPage/SET_USER_INFO";
@@ -17,7 +19,7 @@ type State = {
   errorMessage: string | null;
 };
 
-let initState: State = {
+const initState: State = {
   posts: [
     {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates dignissimos minus vitae maxime omnis magnam, fugit iste ducimus veniam vero eius et alias deserunt est illo sequi aut enim ratione!",
@@ -37,7 +39,7 @@ let initState: State = {
   errorMessage: "",
 };
 
-const mainPageReducer = (state = initState, action: any): State => {
+const mainPageReducer = (state = initState, action: ActionType): State => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -63,9 +65,13 @@ const mainPageReducer = (state = initState, action: any): State => {
       return {
         ...state,
         posts: [
-          ...state.posts.map((t) =>
-            t.id === action.postId ? (t.text = action.postText) : t
-          ),
+          ...state.posts.map((t) => {
+            if (t.id === action.postId) {
+              return (t = { text: (t.text = action.newPostText), id: t.id });
+            } else {
+              return t;
+            }
+          }),
         ],
       };
     }
@@ -89,7 +95,10 @@ const mainPageReducer = (state = initState, action: any): State => {
     }
 
     case SET_USER_PHOTO: {
-      return { ...state, userInfo: { ...state.userInfo!, photos: action.file } }; 
+      return {
+        ...state,
+        userInfo: { ...state.userInfo!, photos: action.file },
+      };
       // {//TODO UserInfo! should be reviewed }
     }
 
@@ -99,6 +108,18 @@ const mainPageReducer = (state = initState, action: any): State => {
 };
 
 export default mainPageReducer;
+
+//! Actions
+
+type ActionType =
+  | AddPostAction
+  | DeletePostAction
+  | EditPostAction
+  | SetUserInfoAction
+  | SetUserStatusAction
+  | SetUserPhotoAction
+  | SetUserProfileAction
+  | SetUserProfileMessageAction;
 
 type AddPostAction = {
   type: typeof ADD_POST;
@@ -119,10 +140,13 @@ export const deletePost = (postId: number): DeletePostAction => {
 type EditPostAction = {
   type: typeof EDIT_POST;
   postId: number;
-  newPost: string;
+  newPostText: string;
 };
-export const editPost = (postId: number, newPost: string): EditPostAction => {
-  return { type: EDIT_POST, postId, newPost };
+export const editPost = (
+  postId: number,
+  newPostText: string
+): EditPostAction => {
+  return { type: EDIT_POST, postId, newPostText };
 };
 
 type SetUserInfoAction = {
@@ -167,15 +191,24 @@ export const setUserProfileMessage = (
   return { type: SET_USER_PROFILE_MESSAGE, message };
 };
 
-export const setUserInfoTC = (userId: number) => {
-  return async (dispatch: any) => {
+//! Thunks
+
+type AuthThunkActionType = ThunkAction<
+  Promise<void>, //? Is here a Promise?
+  RootState,
+  unknown,
+  ActionType
+>;
+
+export const setUserInfoTC = (userId: number): AuthThunkActionType => {
+  return async (dispatch) => {
     const response = await profileAPI.getAuthUser(userId);
     dispatch(setUserInfo(response));
   };
 };
 
-export const uploadPhoto = (image: any) => {
-  return async (dispatch: any) => {
+export const uploadPhoto = (image: any): AuthThunkActionType => {
+  return async (dispatch) => {
     const response = await profileAPI.uploadPhoto(image);
     if (response.data.resultCode === 0) {
       dispatch(setUserPhoto(response.data.data.photos));
@@ -183,8 +216,10 @@ export const uploadPhoto = (image: any) => {
   };
 };
 
-export const setUserProfileTC = (profileData: UserInfo) => {
-  return async (dispatch: any) => {
+export const setUserProfileTC = (
+  profileData: UserInfo
+): AuthThunkActionType => {
+  return async (dispatch) => {
     const response = await profileAPI.setUserProfile(profileData);
 
     if (response.data.resultCode === 0) {
@@ -192,8 +227,8 @@ export const setUserProfileTC = (profileData: UserInfo) => {
     }
   };
 };
-export const getUserProfileTC = (userId: number) => {
-  return async (dispatch: any) => {
+export const getUserProfileTC = (userId: number): AuthThunkActionType => {
+  return async (dispatch) => {
     const response = await profileAPI.getUserProfile(userId);
 
     if (response.data.resultCode === 0) {
@@ -202,15 +237,19 @@ export const getUserProfileTC = (userId: number) => {
   };
 };
 
-export const getUserStatusTC = (userId: number) => async (dispatch: any) => {
-  const response = await profileAPI.getUserStatus(userId);
-  dispatch(setUserStatus(response.data));
-};
+export const getUserStatusTC =
+  (userId: number): AuthThunkActionType =>
+  async (dispatch) => {
+    const response = await profileAPI.getUserStatus(userId);
+    dispatch(setUserStatus(response.data));
+  };
 
-export const setUserStatusTC = (text: string) => async (dispatch: any) => {
-  const response = await profileAPI.setUserStatusApi(text);
+export const setUserStatusTC =
+  (text: string): AuthThunkActionType =>
+  async (dispatch) => {
+    const response = await profileAPI.setUserStatusApi(text);
 
-  if (response.data.resultCode === 0) {
-    dispatch(setUserStatus(text));
-  }
-};
+    if (response.data.resultCode === 0) {
+      dispatch(setUserStatus(text));
+    }
+  };

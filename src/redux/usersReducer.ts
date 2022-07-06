@@ -19,7 +19,7 @@ const initState = {
   selectedPage: 1,
   isLoading: false,
   inProgressArray: [] as Array<number>, //* Array of users ids
-  followedUsers: [] as Array<number>, //TODO finish adding followedUsers
+  followedUsers: [] as Array<number>, 
 };
 
 export type State = typeof initState;
@@ -38,12 +38,11 @@ export const usersReducer = (state = initState, action: ActionType): State => {
       };
     }
     case ADD_FOLLOWED_USERS: {
-      debugger
+      console.log(state.followedUsers);
+
       return {
-        
         ...state,
-        //@ts-ignore
-        followedUsers: [...action.id],
+        followedUsers: [...state.followedUsers, action.id],
       };
     }
     case REMOVE_FOLLOWED_USERS: {
@@ -190,7 +189,7 @@ export const getUsersThunkConstructor =
     dispatch(toggleLoading(true));
     const response = await usersAPI.getUsers(selectedPage, pageSize);
     dispatch(setUsers(response.items, response.totalCount));
-    // dispatch(filterFollowedUsers()); //! Experimental
+   
     dispatch(toggleLoading(false));
   };
 
