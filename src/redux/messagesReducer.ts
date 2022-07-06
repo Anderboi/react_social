@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { Message, User } from "../types/types";
 import { RootState } from "./reduxStore";
-import { usersAPI } from "./../api/api";
+import { usersAPI } from "../api/api";
 
 const ADD_MESSAGE = "messagePage/ADD-MESSAGE";
 const GET_FOLLOWED_USER = "messagePage/GET_FOLLOWED_USER";

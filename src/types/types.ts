@@ -13,11 +13,11 @@ export type Contacts = {
   youtube: string | null;
 };
 export type Photos = {
-  small?: string | null;
-  large?: string | null;
+  small: string | null;
+  large: string | null;
 };
 export type UserInfo = {
-  photos?: Photos;
+  photos: Photos | null;
   aboutMe?: string | null;
   contacts?: Contacts;
   fullName: string | null;

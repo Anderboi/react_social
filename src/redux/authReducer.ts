@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { authAPI, securityAPI } from "../api/api";
+import { authAPI, ResponseCodes, securityAPI } from "../api/api";
 import { RootState } from "./reduxStore";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
@@ -98,7 +98,6 @@ type SetUserDataAction = {
   type: typeof SET_USER_DATA;
   payload: SetUserDataPayload;
 };
-
 export const setUserData = ({
   id,
   login,
@@ -111,14 +110,13 @@ type LoginUserAction = {
   type: typeof LOGIN_USER;
   payload: string;
 };
-
 export const loginUser = (message: string): LoginUserAction => {
   return { type: LOGIN_USER, payload: message };
 };
+
 type LogoutUserAction = {
   type: typeof LOGOUT_USER;
 };
-
 export const logoutUser = (): LogoutUserAction => {
   return { type: LOGOUT_USER };
 };
@@ -127,7 +125,6 @@ type GetCaptchaUrlAction = {
   type: typeof GET_CAPTCHA;
   url: string;
 };
-
 export const getCaptchaUrl = (url: string): GetCaptchaUrlAction => {
   return { type: GET_CAPTCHA, url };
 };
@@ -136,7 +133,6 @@ type ShowErrorAction = {
   type: typeof SHOW_ERROR;
   message: string;
 };
-
 export const showError = (message: string): ShowErrorAction => {
   return { type: SHOW_ERROR, message };
 };
@@ -144,7 +140,6 @@ export const showError = (message: string): ShowErrorAction => {
 type HideErrorAction = {
   type: typeof HIDE_ERROR;
 };
-
 export const hideError = (): HideErrorAction => {
   return { type: HIDE_ERROR };
 };
@@ -160,7 +155,7 @@ type AuthThunkActionType = ThunkAction<
 
 export const authData = (): AuthThunkActionType => async (dispatch) => {
   const response = await authAPI.authInfo();
-  if (response.resultCode === 0) {
+  if (response.resultCode === ResponseCodes.success) {
     dispatch(setUserData(response.data));
   }
 };
@@ -169,7 +164,7 @@ type LoginType = {
   email: string;
   password: string;
   rememberMe: boolean;
-  captcha?: string;
+  captcha: string | null;
 };
 
 export const loginTC =
@@ -177,11 +172,11 @@ export const loginTC =
   async (dispatch) => {
     try {
       const response = await authAPI.authLogin(values);
-      if (response.resultCode === 0) {
+      if (response.resultCode === ResponseCodes.success) {
         dispatch(loginUser("Success"));
         dispatch(authData());
       } else {
-        if (response.resultCode === 10) {
+        if (response.resultCode === ResponseCodes.captcha_needed) {
           dispatch(getCaptchaTC());
         }
         dispatch(loginUser(response.messages[0]));
@@ -194,7 +189,7 @@ export const loginTC =
 
 export const logoutTC = (): AuthThunkActionType => async (dispatch) => {
   const response = await authAPI.authLogout();
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResponseCodes.success) {
     dispatch(logoutUser());
   }
 };

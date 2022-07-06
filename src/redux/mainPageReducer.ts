@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { profileAPI } from "../api/api";
+import { profileAPI, ResponseCodes } from "../api/api";
 import { Photos, Post, UserInfo } from "../types/types";
 import { RootState } from "./reduxStore";
 
@@ -194,7 +194,7 @@ export const setUserProfileMessage = (
 //! Thunks
 
 type AuthThunkActionType = ThunkAction<
-  Promise<void>, //? Is here a Promise?
+  void, //? Is here a Promise?
   RootState,
   unknown,
   ActionType
@@ -202,15 +202,15 @@ type AuthThunkActionType = ThunkAction<
 
 export const setUserInfoTC = (userId: number): AuthThunkActionType => {
   return async (dispatch) => {
-    const response = await profileAPI.getAuthUser(userId);
-    dispatch(setUserInfo(response));
+    const response = await profileAPI.getUserProfile(userId);
+    dispatch(setUserInfo(response.data));
   };
 };
 
 export const uploadPhoto = (image: any): AuthThunkActionType => {
   return async (dispatch) => {
     const response = await profileAPI.uploadPhoto(image);
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResponseCodes.success) {
       dispatch(setUserPhoto(response.data.data.photos));
     }
   };
@@ -222,7 +222,7 @@ export const setUserProfileTC = (
   return async (dispatch) => {
     const response = await profileAPI.setUserProfile(profileData);
 
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResponseCodes.success) {
       dispatch(setUserInfo(profileData));
     }
   };
@@ -230,10 +230,7 @@ export const setUserProfileTC = (
 export const getUserProfileTC = (userId: number): AuthThunkActionType => {
   return async (dispatch) => {
     const response = await profileAPI.getUserProfile(userId);
-
-    if (response.data.resultCode === 0) {
-      dispatch(setUserInfo(response.data));
-    }
+    dispatch(setUserInfo(response.data));
   };
 };
 
@@ -249,7 +246,7 @@ export const setUserStatusTC =
   async (dispatch) => {
     const response = await profileAPI.setUserStatusApi(text);
 
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResponseCodes.success) {
       dispatch(setUserStatus(text));
     }
   };

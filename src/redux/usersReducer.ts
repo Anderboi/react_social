@@ -9,8 +9,8 @@ const SET_USERS = "users/SET-USERS";
 const SET_PAGE = "users/SET-PAGE";
 const IS_LOADING = "users/IS_LOADING";
 const IN_PROGRESS = "users/IN_PROGRESS";
-const ADD_FOLLOWED_USERS = "users/ADD_FOLLOWED_USERS";
-const REMOVE_FOLLOWED_USERS = "users/REMOVE_FOLLOWED_USERS";
+// const ADD_FOLLOWED_USERS = "users/ADD_FOLLOWED_USERS";
+// const REMOVE_FOLLOWED_USERS = "users/REMOVE_FOLLOWED_USERS";
 
 const initState = {
   users: [] as Array<User>,
@@ -37,20 +37,19 @@ export const usersReducer = (state = initState, action: ActionType): State => {
         }),
       };
     }
-    case ADD_FOLLOWED_USERS: {
-      console.log(state.followedUsers);
+    // case ADD_FOLLOWED_USERS: {
 
-      return {
-        ...state,
-        followedUsers: [...state.followedUsers, action.id],
-      };
-    }
-    case REMOVE_FOLLOWED_USERS: {
-      return {
-        ...state,
-        followedUsers: state.followedUsers.filter((u) => u !== action.id),
-      };
-    }
+    //   return {
+    //     ...state,
+    //     followedUsers: [...state.followedUsers, action.id],
+    //   };
+    // }
+    // case REMOVE_FOLLOWED_USERS: {
+    //   return {
+    //     ...state,
+    //     followedUsers: state.followedUsers.filter((u) => u !== action.id),
+    //   };
+    // }
 
     case UNFOLLOW: {
       return {
@@ -105,8 +104,8 @@ type ActionType =
   | SetUsersAction
   | SetPageAction
   | ToggleLoadingAction
-  | AddFilterFollowedUsers
-  | RemoveFilterFollowedUsers
+  // | AddFilterFollowedUsers
+  // | RemoveFilterFollowedUsers
   | RequestInProgressAction;
 
 type FollowUserAction = {
@@ -134,23 +133,23 @@ export const setUsers = (users: Array<User>, total: number): SetUsersAction => {
   return { type: SET_USERS, users, total };
 };
 
-type AddFilterFollowedUsers = {
-  type: typeof ADD_FOLLOWED_USERS;
-  id: number;
-};
-export const addFilterFollowedUsers = (id: number): AddFilterFollowedUsers => {
-  return { type: ADD_FOLLOWED_USERS, id };
-};
+// type AddFilterFollowedUsers = {
+//   type: typeof ADD_FOLLOWED_USERS;
+//   id: number;
+// };
+// export const addFilterFollowedUsers = (id: number): AddFilterFollowedUsers => {
+//   return { type: ADD_FOLLOWED_USERS, id };
+// };
 
-type RemoveFilterFollowedUsers = {
-  type: typeof REMOVE_FOLLOWED_USERS;
-  id: number;
-};
-export const removeFilterFollowedUsers = (
-  id: number
-): RemoveFilterFollowedUsers => {
-  return { type: REMOVE_FOLLOWED_USERS, id };
-};
+// type RemoveFilterFollowedUsers = {
+//   type: typeof REMOVE_FOLLOWED_USERS;
+//   id: number;
+// };
+// export const removeFilterFollowedUsers = (
+//   id: number
+// ): RemoveFilterFollowedUsers => {
+//   return { type: REMOVE_FOLLOWED_USERS, id };
+// };
 
 type SetPageAction = {
   type: typeof SET_PAGE;
@@ -199,7 +198,7 @@ export const followUserTC =
     const response = await usersAPI.followUserApi(id);
     if (response.resultCode === 0) {
       dispatch(followUser(id));
-      dispatch(addFilterFollowedUsers(id)); //! Experimental
+      // dispatch(addFilterFollowedUsers(id)); //! Experimental
     }
     dispatch(requestInProgress(false, id));
   };
@@ -211,7 +210,7 @@ export const unfollowUserTC =
     const response = await usersAPI.unfollowUserApi(id);
     if (response.resultCode === 0) {
       dispatch(unfollowUser(id));
-      dispatch(removeFilterFollowedUsers(id)); //! Experimental
+      // dispatch(removeFilterFollowedUsers(id)); //! Experimental
     }
     dispatch(requestInProgress(false, id));
   };

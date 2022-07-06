@@ -17,17 +17,18 @@ type Props = {
 export const ChatItem: React.FC<Props> = (props): JSX.Element => {
   return (
     <div>
-      <NavLink to={"/messeges/" + props.id} className={css.chat_item}>
-        <div>
+      <NavLink to={"/messeges/" + props.id} className={css.chat__item}>
+        <div className={css.avatar__block}>
           <img
             src={props.photos || avatar}
             alt="avatar"
-            className={css.avatar_icon}
+            className={css.avatar__block_icon}
           />
-          <div className={css.green_circle}></div>
+          {/* <div className={`${css.status_circle} ${css.green}`}></div> */}
+          {/* //TODO Add Active state */}
         </div>
-        <div className={css.chat_item_text_wrap}>
-          <div className={css.chat_item_name}>{props.name}</div>
+        <div className={css.chat__item_text_wrap}>
+          <div className={css.chat__item_name}>{props.name}</div>
           <div className={css.messege_text}>{props.status}</div>
         </div>
         <div className={css.messege_text}>10:04</div>
