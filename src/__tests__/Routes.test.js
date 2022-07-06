@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { NavMenu } from "./../components/NavMenu/NavMenu";
+import { NavMenu } from "../components/NavMenu/NavMenu";
 import SocialApp from './../App';
 
 describe("Navigation tests", () => {

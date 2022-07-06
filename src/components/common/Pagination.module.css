@@ -1,8 +1,9 @@
 .pagination {
   margin: 0 auto;
-  width: 28em;
-  display: flex;
-  justify-content: space-between;
+  width: 32em;
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 3fr;
+  grid-template-rows:  1fr;
 }
 
 .page {

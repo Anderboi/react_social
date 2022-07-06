@@ -2,7 +2,7 @@ import React from "react";
 import common from "../../Common.module.css";
 import css from "./Login.module.css";
 import { connect } from "react-redux";
-import { loginTC } from "./../../redux/authReducer";
+import { loginTC } from "../../redux/authReducer";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";

@@ -1,6 +1,8 @@
 :root {
   /** colors */
-  --main-color: #dc493f;
+  --main-color: rgb(220, 73, 63);
+  --main-color-opac: rgba(220, 73, 63,0.25);
+  /* --main-color: #dc493f; */
   --main-text-color: white;
   --background-color: #fbf9f9;
 
@@ -13,18 +15,17 @@
   --fs-200: 0.6rem;
 }
 
-@media screen and (max-width: 768px){
-:root{
-/** font_sizes */
+@media screen and (max-width: 768px) {
+  :root {
+    /** font_sizes */
 
-  --fs-xl: clamp(3.5rem, 12vw + 1rem, 12rem);
-  --fs-600: 1.8rem;
-  --fs-500: 1.5rem;
-  --fs-400: 0.85rem;
-  --fs-300: 0.75rem;
-  --fs-200: 0.6rem;
-}
-
+    --fs-xl: clamp(3.5rem, 12vw + 1rem, 12rem);
+    --fs-600: 1.8rem;
+    --fs-500: 1.5rem;
+    --fs-400: 0.85rem;
+    --fs-300: 0.75rem;
+    --fs-200: 0.6rem;
+  }
 }
 
 * {
@@ -46,7 +47,7 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-  monospace;
+    monospace;
 }
 
 body::-webkit-scrollbar {

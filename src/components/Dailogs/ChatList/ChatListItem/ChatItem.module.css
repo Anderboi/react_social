@@ -1,6 +1,5 @@
 .chat_item {
   background-color: white;
-  /* height: 3.5em; */
   padding: 1em;
   display: flex;
   align-items: center;
@@ -57,3 +56,5 @@
   border-width: 0px;
   background-color: var(--main-color);
 }
+
+

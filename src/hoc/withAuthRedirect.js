@@ -1,6 +1,7 @@
-import { React } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { RootState } from "../redux/reduxStore";
 
 const mapStateToProps = (state) => {
   return {

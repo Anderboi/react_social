@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import "./App.css";
-import { Route, Routes, HashRouter } from "react-router-dom";
 import { Provider, connect } from "react-redux";
+import { Route, Routes, HashRouter } from "react-router-dom";
+import "./App.css";
+import store from "./redux/reduxStore";
+import { authData, showErrorMessage } from "./redux/authReducer";
+import { getErrorMessage } from "./utilities/selectors/authSelector";
 import Login from "./components/Login/Login";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import NavMenuContainer from "./components/NavMenu/NavMenuContainer";
 import ProfileContainerWithRouter from "./components/MainContent/ProfileContainer";
 import { UsersPage } from "./components/Users/UsersPage";
-import NavMenuContainer from "./components/NavMenu/NavMenuContainer";
-import { authData, showErrorMessage } from "./redux/authReducer";
-import store from "./redux/reduxStore";
 import { Preloader } from "./components/common/Preloader";
-import { getErrorMessage } from "./utilities/selectors/authSelector";
 
 const LazySettings = React.lazy(() =>
   import("./components/Pages/Settings/Settings")
@@ -20,7 +20,9 @@ const LazyMusic = React.lazy(() => import("./components/Pages//Music/Music"));
 
 const LazyNews = React.lazy(() => import("./components/Pages/News/News"));
 
-const LazyChatPage = React.lazy(() => import("./components/Dailogs/ChatPage"));
+const LazyChatPage = React.lazy(() =>
+  import("./components/Dailogs/ChatPage")
+);
 
 const App = (props) => {
   const catchErrors = (reason, promise) => {

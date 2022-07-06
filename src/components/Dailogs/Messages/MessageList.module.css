@@ -23,3 +23,9 @@
 .message_input_textarea {
   width: 100%;
 }
+
+@media screen and (max-width: 768px) {
+  .message_block {
+ 
+  }
+}

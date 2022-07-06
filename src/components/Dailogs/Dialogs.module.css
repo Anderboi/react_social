@@ -2,3 +2,11 @@
   display: grid;
   grid-template-columns: 300px 2fr;
 }
+
+@media screen and (max-width: 768px){
+  .chat{
+ 
+    grid-template-columns:  100%;
+    
+  }
+}
