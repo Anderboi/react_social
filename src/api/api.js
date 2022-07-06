@@ -8,9 +8,9 @@ const instance = axios.create({
 }); //! instance create base parameters for axios request
 
 export const usersAPI = {
-  getUsers(selectedPage = 1, pageSize = 5) {
+  getUsers(selectedPage = 1, pageSize = 5, friend) {
     return instance
-      .get(`/users?page=${selectedPage}&count=${pageSize}`)
+      .get(`/users?page=${selectedPage}&count=${pageSize}&friend=${friend}`)
       .then((response) => response.data);
   },
 
@@ -61,9 +61,9 @@ export const dialogsAPI = {
     return instance.post(`dialogs/${userId}/messages`, { body: body });
   },
 
-  isMessageViewed(messageId){
-    return instance.get(`dialogs/messages/${messageId}/viewed`)
-  }
+  isMessageViewed(messageId) {
+    return instance.get(`dialogs/messages/${messageId}/viewed`);
+  },
 };
 
 export const securityAPI = {

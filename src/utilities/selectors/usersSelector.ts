@@ -3,9 +3,9 @@ import { RootState } from "../../redux/reduxStore";
 export const getUsers = (state: RootState) => {
   return state.usersPage.users;
 };
-export const getFollowedUsers = (state: RootState) => {
-  return state.usersPage.followedUsers;
-};
+// export const getFollowedUsers = (state: RootState) => {
+//   return state.usersPage.followedUsers;
+// };
 export const getUsersTotalCount = (state: RootState) => {
   return state.usersPage.usersTotalCount;
 };

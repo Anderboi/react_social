@@ -1,30 +1,20 @@
 import { ThunkAction } from "redux-thunk";
 import { Message, User } from "../types/types";
 import { RootState } from "./reduxStore";
+import { usersAPI } from "./../api/api";
 
 const ADD_MESSAGE = "messagePage/ADD-MESSAGE";
+const GET_FOLLOWED_USER = "messagePage/GET_FOLLOWED_USER";
 
 type State = {
-  users: Array<User>;
+  followedUsers: Array<User> | null;
   messages: Array<Message>;
+  usersOnPageCount: number;
 };
 
 const initState: State = {
-  users: [
-    {
-      name: "Ivan",
-      id: 1,
-      photos: {
-        small:
-          "https://i.pinimg.com/564x/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.jpg",
-        large:
-          "https://i.pinimg.com/564x/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.jpg",
-      },
-      followed: false,
-      status: null,
-      uniqueUrlName: null,
-    },
-  ],
+  followedUsers: null,
+  usersOnPageCount: 10,
   messages: [
     {
       text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, modi, ipsam nemo doloribus earum voluptatem blanditiis",
@@ -60,6 +50,13 @@ const messageReducer = (state = initState, action: ActionType): State => {
       };
     }
 
+    case GET_FOLLOWED_USER: {
+      return {
+        ...state,
+        followedUsers: [...action.data],
+      };
+    }
+
     default:
       return state;
   }
@@ -69,20 +66,27 @@ export default messageReducer;
 
 //! Actions
 
-type ActionType = AddMessageAction;
+type ActionType = AddMessageAction | GetFollowedUserAction;
 
 type AddMessageAction = {
   type: typeof ADD_MESSAGE;
   data: string;
 };
-
 export const addMessage = (data: string): AddMessageAction => {
   return { type: ADD_MESSAGE, data };
 };
 
+type GetFollowedUserAction = {
+  type: typeof GET_FOLLOWED_USER;
+  data: Array<User>;
+};
+export const getFollowedUsers = (data: Array<User>): GetFollowedUserAction => {
+  return { type: GET_FOLLOWED_USER, data };
+};
+
 //! Thunks
 
-type AuthThunkActionType = ThunkAction<
+type MessageThunkActionType = ThunkAction<
   void, //? Is here a Promise?
   RootState,
   unknown,
@@ -90,7 +94,15 @@ type AuthThunkActionType = ThunkAction<
 >;
 
 export const sendMessage =
-  (text: string): AuthThunkActionType =>
+  (text: string): MessageThunkActionType =>
   (dispatch) => {
     text && dispatch(addMessage(text));
+  };
+
+export const getFollowedUserTC =
+  (usersOnPage: number): MessageThunkActionType =>
+  async (dispatch) => {
+    const response = await usersAPI.getUsers(1, usersOnPage, true);
+
+    dispatch(getFollowedUsers(response.items));
   };

@@ -1,54 +1,63 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { RootState } from "../../../redux/reduxStore";
 import { User } from "../../../types/types";
-// import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
-import { getMessagesUsers } from "../../../utilities/selectors/messagesSelector";
-import { ChatItem } from "./ChatListItem/ChatItem";
 import c from "./Chat.module.css";
-import { followUser } from './../../../redux/usersReducer';
-import { getFollowedUsers } from "../../../utilities/selectors/usersSelector";
+// import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
+import {
+  getFollowedUsers,
+  usersOnPageCountSelector,
+} from "../../../utilities/selectors/messagesSelector";
+import { ChatItem } from "./ChatListItem/ChatItem";
+import { getFollowedUserTC } from "../../../redux/messagesReducer";
 
 type MapStateToProps = {
-  users: Array<User>;
-  followedUsers: Array<number>
+  users: Array<User> | null;
+  usersOnPageCount: number;
 };
-type MapDispatchToProps = {};
+type MapDispatchToProps = { getFollowedUserTC: (usersOnPage: number) => void };
 
 type OwnProps = {};
 
 type Props = OwnProps & MapStateToProps & MapDispatchToProps;
 
-
-
-
 const ChatContainer: React.FC<Props> = (props) => {
+  const [users, getUsers] = useState(props.users);
 
-  useEffect(()=>{
-
-  })
+  useEffect(() => {
+    props.getFollowedUserTC(props.usersOnPageCount);
+  }, [users]);
 
   return <Chat {...props} />;
 };
 
 export const Chat: React.FC<Props> = (props): JSX.Element => {
-  const usersList = props.users.map((t: User) => (
-    <ChatItem name={t.name} id={t.id} key={t.id} photos={t.photos.small!} />
-  ));
+  const usersList =
+    props.users &&
+    props.users.map((t: User) => (
+      <ChatItem
+        name={t.name}
+        id={t.id}
+        key={t.id}
+        status={t.status}
+        photos={t.photos.small!}
+      />
+    ));
 
   return <div className={c.chat_list}>{usersList}</div>;
 };
 
-const mapStateToProps = (state: RootState):MapStateToProps => {
+const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
-    users: getMessagesUsers(state),
-    followedUsers: getFollowedUsers(state)
+    users: getFollowedUsers(state),
+    usersOnPageCount: usersOnPageCountSelector(state),
   };
 };
 export default compose(
   connect<MapStateToProps, MapDispatchToProps, OwnProps, RootState>(
-    mapStateToProps
+    mapStateToProps,
+    { getFollowedUserTC }
   )
   // withAuthRedirect //TODO add TS to 'withAuthRedirect'
 )(ChatContainer);

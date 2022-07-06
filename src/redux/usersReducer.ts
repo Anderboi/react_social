@@ -19,7 +19,7 @@ const initState = {
   selectedPage: 1,
   isLoading: false,
   inProgressArray: [] as Array<number>, //* Array of users ids
-  followedUsers: [] as Array<number>, 
+  followedUsers: [] as Array<number>,
 };
 
 export type State = typeof initState;
@@ -67,7 +67,6 @@ export const usersReducer = (state = initState, action: ActionType): State => {
     case SET_USERS: {
       return {
         ...state,
-        //@ts-ignore
         users: [...action.users],
         usersTotalCount: action.total,
       };
@@ -128,10 +127,10 @@ export const unfollowUser = (id: number): UnfollowUserAction => {
 
 type SetUsersAction = {
   type: typeof SET_USERS;
-  users: User;
+  users: Array<User>;
   total: number;
 };
-export const setUsers = (users: User, total: number): SetUsersAction => {
+export const setUsers = (users: Array<User>, total: number): SetUsersAction => {
   return { type: SET_USERS, users, total };
 };
 
@@ -189,7 +188,7 @@ export const getUsersThunkConstructor =
     dispatch(toggleLoading(true));
     const response = await usersAPI.getUsers(selectedPage, pageSize);
     dispatch(setUsers(response.items, response.totalCount));
-   
+
     dispatch(toggleLoading(false));
   };
 
