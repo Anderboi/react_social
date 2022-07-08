@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/120.2b8e9a17.chunk.js","mappings":"6IAMA,UAJa,WACX,OAAO","sources":["components/News/News.jsx"],"sourcesContent":["// import c from \"./News.module.css\";\r\n\r\nconst News = () => {\r\n  return <div></div>;\r\n};\r\n\r\nexport default News;\r\n"],"names":[],"sourceRoot":""}
