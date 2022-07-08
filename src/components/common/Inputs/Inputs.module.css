@@ -1,0 +1,21 @@
+.inputblock_item {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.inputblock_item_checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5em;
+  font-weight: bold;
+  font-size: small;
+  user-select: none;
+}
+
+.inputblock_item_textarea{
+  max-width: 30ch;
+  resize: vertical;
+}

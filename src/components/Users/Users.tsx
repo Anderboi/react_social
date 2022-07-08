@@ -4,11 +4,11 @@ import css from "./Users.module.css";
 import { UserItem } from "./UsersItem/UserItem";
 //@ts-ignore
 import userIcon from "../../assets/images/avatar.png";
-import Pagination from "../common/Pagination";
-import { User } from "../../types/types";
+import Pagination from "../common/Pagination/Pagination";
+import { IUser } from "../../types/types";
 
 type Props = {
-  users: Array<User>;
+  users: Array<IUser>;
   // follow: () => void;
   // unfollow: () => void;
   // requestInProgress: () => void;

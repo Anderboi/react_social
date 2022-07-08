@@ -1,18 +1,18 @@
 import { ThunkAction } from "redux-thunk";
-import { Message, User } from "../types/types";
+import { IMessage, IUser } from "../types/types";
 import { RootState } from "./reduxStore";
 import { usersAPI } from "../api/api";
 
 const ADD_MESSAGE = "messagePage/ADD-MESSAGE";
 const GET_FOLLOWED_USER = "messagePage/GET_FOLLOWED_USER";
 
-type State = {
-  followedUsers: Array<User> | null;
-  messages: Array<Message>;
+interface IState {
+  followedUsers: Array<IUser> | null;
+  messages: Array<IMessage>;
   usersOnPageCount: number;
 };
 
-const initState: State = {
+const initState: IState = {
   followedUsers: null,
   usersOnPageCount: 10,
   messages: [
@@ -34,7 +34,7 @@ const initState: State = {
   ],
 };
 
-const messageReducer = (state = initState, action: ActionType): State => {
+const messageReducer = (state = initState, action: ActionType): IState => {
   switch (action.type) {
     case ADD_MESSAGE: {
       return {
@@ -78,9 +78,9 @@ export const addMessage = (data: string): AddMessageAction => {
 
 type GetFollowedUserAction = {
   type: typeof GET_FOLLOWED_USER;
-  data: Array<User>;
+  data: Array<IUser>;
 };
-export const getFollowedUsers = (data: Array<User>): GetFollowedUserAction => {
+export const getFollowedUsers = (data: Array<IUser>): GetFollowedUserAction => {
   return { type: GET_FOLLOWED_USER, data };
 };
 

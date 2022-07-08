@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { RootState } from "../../../redux/reduxStore";
-import { User } from "../../../types/types";
+import { IUser } from "../../../types/types";
 import c from "./Chat.module.css";
 // import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import {
@@ -13,7 +13,7 @@ import { ChatItem } from "./ChatListItem/ChatItem";
 import { getFollowedUserTC } from "../../../redux/messagesReducer";
 
 type MapStateToProps = {
-  users: Array<User> | null;
+  users: Array<IUser> | null;
   usersOnPageCount: number;
 };
 type MapDispatchToProps = { getFollowedUserTC: (usersOnPage: number) => void };
@@ -35,7 +35,7 @@ const ChatContainer: React.FC<Props> = (props) => {
 export const Chat: React.FC<Props> = (props): JSX.Element => {
   const usersList =
     props.users &&
-    props.users.map((t: User) => (
+    props.users.map((t: IUser) => (
       <ChatItem
         name={t.name}
         id={t.id}

@@ -5,7 +5,7 @@ import backgroundImage from "../../assets/images/redAccent.jpg";
 import PostFormContainer from "./PostForm/PostFormContainer";
 import { PostListContainer } from "./PostList/PostListContainer";
 import { Preloader } from "../common/Preloader";
-import { UserInfo as UserInfoType } from "../../types/types";
+import { IUserInfo as UserInfoType } from "../../types/types";
 
 type Props = {
   userInfo: UserInfoType;

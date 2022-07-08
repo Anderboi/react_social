@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
-// import { User } from "../../../../types/types";
 //@ts-ignore
 import css from "./ChatItem.module.css";
 //@ts-ignore
 import avatar from "../../../../assets/images/avatar.png";
-// import { Photos, User } from "../../../../types/types";
+// import { IPhotos, IUser } from "../../../../types/types";
 
 type Props = {
   id: number;

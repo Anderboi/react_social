@@ -18,13 +18,13 @@ import {
   getInProgressArray,
 } from "../../utilities/selectors/usersSelector";
 import { getIsAuthorised } from "../../utilities/selectors/authSelector";
-import { User } from "../../types/types";
+import { IUser } from "../../types/types";
 import { RootState } from "../../redux/reduxStore";
 
 
 
 type MapStateToProps = {
-  users: Array<User>;
+  users: Array<IUser>;
   usersTotalCount: number;
   inProgressArray: Array<number>;
   isAuth: boolean;

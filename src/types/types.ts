@@ -1,8 +1,8 @@
-export type Post = {
+export interface IPost { 
   text: string;
   id: number;
-};
-export type Contacts = {
+}
+export interface IContacts {
   facebook: string | null;
   github: string | null;
   instagram: string | null;
@@ -11,33 +11,31 @@ export type Contacts = {
   vk: string | null;
   website: string | null;
   youtube: string | null;
-};
-export type Photos = {
+}
+export interface IPhotos {
   small: string | null;
   large: string | null;
-};
-export type UserInfo = {
-  photos: Photos | null;
+}
+export interface IUserInfo {
+  photos: IPhotos | null;
   aboutMe?: string | null;
-  contacts?: Contacts;
+  contacts?: IContacts;
   fullName: string | null;
   lookingForAJob: boolean;
   lookingForAJobDescription?: string | null;
   userId: number;
-};
-export type User = {
+}
+export interface IUser {
   id: number;
   name: string;
   followed: boolean;
-  photos: Photos;
+  photos: IPhotos;
   status: string | null;
   uniqueUrlName: string | null;
-};
+}
 
-
-export type Message = {
+export interface IMessage {
   text: string;
   id: number;
   isOwn: boolean;
-};
-
+}

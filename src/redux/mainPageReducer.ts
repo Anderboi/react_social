@@ -1,6 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { profileAPI, ResponseCodes } from "../api/api";
-import { Photos, Post, UserInfo } from "../types/types";
+import { IPhotos, IPost, IUserInfo } from "../types/types";
 import { RootState } from "./reduxStore";
 
 const ADD_POST = "postsPage/ADD-POST";
@@ -12,14 +12,14 @@ const SET_USER_PHOTO = "postsPage/SET_USER_PHOTO";
 const SET_USER_PROFILE = "postsPage/SET_USER_PROFILE";
 const SET_USER_PROFILE_MESSAGE = "postsPage/SET_USER_PROFILE_MESSAGE";
 
-type State = {
-  posts: Array<Post>;
-  userInfo: UserInfo | null;
+interface IState  {
+  posts: Array<IPost>;
+  userInfo: IUserInfo | null;
   profileStatus: string | null;
   errorMessage: string | null;
 };
 
-const initState: State = {
+const initState: IState = {
   posts: [
     {
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates dignissimos minus vitae maxime omnis magnam, fugit iste ducimus veniam vero eius et alias deserunt est illo sequi aut enim ratione!",
@@ -39,7 +39,7 @@ const initState: State = {
   errorMessage: "",
 };
 
-const mainPageReducer = (state = initState, action: ActionType): State => {
+const mainPageReducer = (state = initState, action: ActionType): IState => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -151,9 +151,9 @@ export const editPost = (
 
 type SetUserInfoAction = {
   type: typeof SET_USER_INFO;
-  userInfo: UserInfo;
+  userInfo: IUserInfo;
 };
-export const setUserInfo = (userInfo: UserInfo): SetUserInfoAction => {
+export const setUserInfo = (userInfo: IUserInfo): SetUserInfoAction => {
   return { type: SET_USER_INFO, userInfo };
 };
 
@@ -167,17 +167,17 @@ export const setUserStatus = (data: string): SetUserStatusAction => {
 
 type SetUserPhotoAction = {
   type: typeof SET_USER_PHOTO;
-  file: Photos;
+  file: IPhotos;
 };
-export const setUserPhoto = (file: Photos): SetUserPhotoAction => {
+export const setUserPhoto = (file: IPhotos): SetUserPhotoAction => {
   return { type: SET_USER_PHOTO, file };
 };
 
 type SetUserProfileAction = {
   type: typeof SET_USER_PROFILE;
-  data: UserInfo;
+  data: IUserInfo;
 };
-export const setUserProfile = (data: UserInfo): SetUserProfileAction => {
+export const setUserProfile = (data: IUserInfo): SetUserProfileAction => {
   return { type: SET_USER_PROFILE, data };
 };
 
@@ -210,14 +210,14 @@ export const setUserInfoTC = (userId: number): AuthThunkActionType => {
 export const uploadPhoto = (image: any): AuthThunkActionType => {
   return async (dispatch) => {
     const response = await profileAPI.uploadPhoto(image);
-    if (response.data.resultCode === ResponseCodes.success) {
-      dispatch(setUserPhoto(response.data.data.photos));
+    if (response.resultCode === ResponseCodes.success) {
+      dispatch(setUserPhoto(response.data.photos));
     }
   };
 };
 
 export const setUserProfileTC = (
-  profileData: UserInfo
+  profileData: IUserInfo
 ): AuthThunkActionType => {
   return async (dispatch) => {
     const response = await profileAPI.setUserProfile(profileData);

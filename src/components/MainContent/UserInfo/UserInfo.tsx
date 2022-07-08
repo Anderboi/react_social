@@ -7,7 +7,7 @@ import job from "../../../assets/images/job-search.png";
 //@ts-ignore
 import noJob from "../../../assets/images/unemployment.png";
 import StatusComponent from "./StatusComponent";
-import { UserInfo as UserInfoType } from "../../../types/types";
+import { IUserInfo as UserInfoType } from "../../../types/types";
 
 type Props = {
   userId?: number;

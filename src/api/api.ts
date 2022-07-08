@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Post, User, UserInfo } from "../types/types";
+import { IPost, IUser, IUserInfo } from "../types/types";
 
 //! axios logic
 const instance = axios.create({
@@ -9,13 +9,15 @@ const instance = axios.create({
 }); //! instance create base parameters for axios request
 
 export enum ResponseCodes {
-  "success" = 0,
-  "bad_response" = 1,
-  "captcha_needed" = 10,
+  success = 0,
+  bad_response = 1,
+}
+export enum ResponseCodesForCaptcha {
+  captcha_needed = 10,
 }
 
 type GetUsersAPI = {
-  items: Array<User>;
+  items: Array<IUser>;
   totalCount: number;
   error: string | null;
 };
@@ -44,17 +46,17 @@ export const usersAPI = {
 
 type AuthResponse = {
   data: { id: number; email: string; login: string };
-  resultCode: number;
+  resultCode: ResponseCodes;
   messages: Array<string>;
 };
 type AuthLoginResponse = {
-  resultCode: number;
+  resultCode: ResponseCodes | ResponseCodesForCaptcha;
   messages: Array<string>;
   data: { userId: number };
 };
 
 type AuthLogoutResponse = {
-  resultCode: number;
+  resultCode: ResponseCodes;
 };
 
 export const authAPI = {
@@ -96,7 +98,7 @@ export const dialogsAPI = {
     );
   },
 
-  sendMessage(userId: number, body: Post) {
+  sendMessage(userId: number, body: IPost) {
     return instance.post(`dialogs/${userId}/messages`, { body: body });
   },
 
@@ -111,19 +113,21 @@ type GetCaptchaType = {
 
 export const securityAPI = {
   getCaptcha() {
-    return instance.get<GetCaptchaType>("security/get-captcha-url");
+    return instance
+      .get<GetCaptchaType>("security/get-captcha-url")
+      .then((response) => response.data);
   },
 };
 
 type RespnseType = {
-  resultCode: number;
+  resultCode: ResponseCodes;
   messages: Array<string>;
   data: {};
 };
 
 type UploadPhotoType = {
   data: { photos: { small: string; large: string } };
-  resultCode: number;
+  resultCode: ResponseCodes;
   messages: Array<string>;
 };
 
@@ -136,7 +140,7 @@ export const profileAPI = {
     return instance.put<RespnseType>("/profile/status", { status: text });
   },
 
-  setUserProfile(data: UserInfo) {
+  setUserProfile(data: IUserInfo) {
     return instance.put<RespnseType>(`/profile`, {
       userId: data.userId,
       aboutMe: data.aboutMe,
@@ -157,15 +161,17 @@ export const profileAPI = {
   },
 
   getUserProfile(userId: number) {
-    return instance.get<UserInfo>("profile/" + userId);
+    return instance.get<IUserInfo>("profile/" + userId);
   },
 
   uploadPhoto(image: any) {
     const formData = new FormData();
     formData.append("image", image);
 
-    return instance.put<UploadPhotoType>("/profile/photo", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    return instance
+      .put<UploadPhotoType>("/profile/photo", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => response.data);
   },
 };

@@ -1,5 +1,11 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+// interface ILocationState {
+//   from: {
+//     pathname: string;
+//   };
+// }
+
 const withRouter = (Component) => {
   function ComponentWithRouterProp(props) {
     let location = useLocation();

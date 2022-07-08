@@ -18,10 +18,10 @@ import {
 import { getAuthId } from "../../utilities/selectors/authSelector";
 import withRouter from "../../hoc/withRouter";
 import { RootState } from "../../redux/reduxStore";
-import { UserInfo } from "../../types/types";
+import { IUserInfo } from "../../types/types";
 
 type MapStateToProps = {
-  userInfo: UserInfo | null;
+  userInfo: IUserInfo | null;
   authId: number | null;
   profileStatus: string | null;
 };
@@ -29,7 +29,7 @@ type MapDispatchToProps = {
   setUserInfoTC: (userId: number) => void;
   setUserStatusTC: () => void;
   getUserStatusTC: (userId: number) => void;
-  setUserProfileTC: (profileData: UserInfo) => void;
+  setUserProfileTC: (profileData: IUserInfo) => void;
   getUserProfileTC: (userId: number) => void;
   uploadPhoto: () => void;
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
-import { Message } from "../../../types/types";
+import { IMessage } from "../../../types/types";
 import { getMessages } from "../../../utilities/selectors/messagesSelector";
 import css from "./MessageList.module.css";
 import base from "../../../Common.module.css";
@@ -10,7 +10,7 @@ import { MessageItem } from "./MessageItem/MessageItem";
 import { RootState } from "../../../redux/reduxStore";
 
 type MapStateToProps = {
-  messages: Array<Message>;
+  messages: Array<IMessage>;
 };
 type MapDispatchToProps = {
   sendMessage: (data: string) => void;
@@ -25,14 +25,18 @@ export const MessageList: React.FC<Props> = (props): JSX.Element => {
     <MessageItem text={t.text} id={t.id} key={t.id} isOwn={t.isOwn} />
   ));
 
+  interface IMessage {
+    message: string
+  }
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({ defaultValues: { message: "" } });
+  } = useForm<IMessage>({ defaultValues: { message: "" } });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data:IMessage):void => {
     props.sendMessage(data.message);
     reset();
   };

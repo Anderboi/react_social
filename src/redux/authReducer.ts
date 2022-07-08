@@ -1,5 +1,10 @@
 import { ThunkAction } from "redux-thunk";
-import { authAPI, ResponseCodes, securityAPI } from "../api/api";
+import {
+  authAPI,
+  ResponseCodes,
+  ResponseCodesForCaptcha,
+  securityAPI,
+} from "../api/api";
 import { RootState } from "./reduxStore";
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
@@ -176,7 +181,7 @@ export const loginTC =
         dispatch(loginUser("Success"));
         dispatch(authData());
       } else {
-        if (response.resultCode === ResponseCodes.captcha_needed) {
+        if (response.resultCode === ResponseCodesForCaptcha.captcha_needed) {
           dispatch(getCaptchaTC());
         }
         dispatch(loginUser(response.messages[0]));
@@ -196,7 +201,7 @@ export const logoutTC = (): AuthThunkActionType => async (dispatch) => {
 
 export const getCaptchaTC = (): AuthThunkActionType => async (dispatch) => {
   const response = await securityAPI.getCaptcha();
-  dispatch(getCaptchaUrl(response.data.url));
+  dispatch(getCaptchaUrl(response.url));
 };
 
 export const showErrorMessage =

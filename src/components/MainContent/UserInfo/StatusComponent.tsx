@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import common from "../../../Common.module.css";
 import c from "./UserInfo.module.css";
 import { TextForm } from "../../common/Forms";
-import { UserInfo as UserInfoType } from "../../../types/types";
+import { IUserInfo as UserInfoType } from "../../../types/types";
 
 type Props = {
   userInfo: UserInfoType;

@@ -1,0 +1,108 @@
+import React, { useState, useEffect } from "react";
+import css from "./Settings.module.css";
+import common from "../../Common.module.css";
+import { connect } from "react-redux";
+import { getUserInfo } from "../../utilities/selectors/profileSelector";
+import { RootState } from "../../redux/reduxStore";
+import { IUserInfo } from "../../types/types";
+import { compose } from "redux";
+import { getUserProfileTC } from "../../redux/mainPageReducer";
+import { getAuthId } from "../../utilities/selectors/authSelector";
+import InputWithLabel from "../common/Inputs/InputWithLabel";
+import TextareaWithLabel from "../common/Inputs/TextareaWithLabel";
+import CheckboxWithLabel from "../common/Inputs/CheckboxWithLabel";
+
+type MapStateToProps = {
+  profileInfo: IUserInfo | null;
+  userId: number | null;
+};
+
+type MapDispatchToProps = {
+  getUserProfileTC: (userId: number) => void;
+};
+
+type OwnProps = {};
+
+type Props = MapStateToProps & MapDispatchToProps & OwnProps;
+
+const SettingsContainer: React.FC<Props> = (props): JSX.Element => {
+  useEffect(() => {
+    props.getUserProfileTC(props.userId!);
+  }, [props.userId]);
+
+  return <Settings userInfo={props.profileInfo} />;
+};
+
+type SettingsProps = {
+  userInfo: IUserInfo | null;
+};
+
+const Settings: React.FC<SettingsProps> = (props): JSX.Element => {
+  // const [isLooking, getIsLooking] = useState(props.userInfo?.lookingForAJob);
+  return (
+    <div className={css.settings}>
+      <div className={css.settings__submenu}>
+        <h1>Settings</h1>
+        <div className={css.settings__submenu_items}>
+          <div>Profile information</div>
+          <div>Appearance</div>
+          <div>Security</div>
+        </div>
+      </div>
+      <div className={css.settings__infoblock}>
+        <h2>Personal Information</h2>
+        <hr className={css.settings__infoblock_divider} />
+        <h4>Profile</h4>
+        <span>
+          This information will be displayed publicly so be careful what you
+          share.
+        </span>
+        <div className={css.settings__infoblock_inputblock}>
+          <InputWithLabel
+          type="text"
+
+            labelText="Full name"
+            inputName="firstName"
+            value={props.userInfo?.fullName!}
+            key={"firstName"}
+          />
+          <InputWithLabel
+          type="text"
+            labelText="Full name"
+            inputName="firstName"
+            value={props.userInfo?.contacts?.website!}
+            key={"firstName"}
+          />
+
+          <CheckboxWithLabel
+            inputName="JobSearch"
+            labelText="Search for employment"
+            value={props.userInfo?.lookingForAJob!}
+          />
+
+          <TextareaWithLabel
+            labelText="Skills"
+            inputName="skillsSteck"
+            value={props.userInfo?.lookingForAJobDescription!}
+            key={"Skills"}
+          />
+        </div>
+        <input type="submit" value="Save" className={common.button} />
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: RootState): MapStateToProps => {
+  return {
+    profileInfo: getUserInfo(state),
+    userId: getAuthId(state),
+  };
+};
+
+export default compose(
+  connect<MapStateToProps, MapDispatchToProps, OwnProps, RootState>(
+    mapStateToProps,
+    { getUserProfileTC }
+  )
+)(SettingsContainer);

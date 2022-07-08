@@ -12,17 +12,14 @@ import ProfileContainerWithRouter from "./components/MainContent/ProfileContaine
 import { UsersPage } from "./components/Users/UsersPage";
 import { Preloader } from "./components/common/Preloader";
 
-const LazySettings = React.lazy(() =>
-  import("./components/Pages/Settings/Settings")
-);
+const LazySettings = React.lazy(() => import("./components/Settings/Settings"));
 
-const LazyMusic = React.lazy(() => import("./components/Pages//Music/Music"));
+const LazyMusic = React.lazy(() => import("./components/Music/Music"));
 
-const LazyNews = React.lazy(() => import("./components/Pages/News/News"));
+const LazyNews = React.lazy(() => import("./components/News/News"));
 
-const LazyChatPage = React.lazy(() =>
-  import("./components/Dailogs/ChatPage")
-);
+const LazyChatPage = React.lazy(() => import("./components/Dailogs/ChatPage"));
+const LazyRegister = React.lazy(() => import("./components/Register/Register"));
 
 const App = (props) => {
   const catchErrors = (reason, promise) => {
@@ -65,6 +62,7 @@ const App = (props) => {
               <Route path="/settings" element={<LazySettings />} />
 
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<LazyRegister />} />
 
               <Route
                 path="*"

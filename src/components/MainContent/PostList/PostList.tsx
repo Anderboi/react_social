@@ -1,9 +1,9 @@
-import { Post } from "../../../types/types";
+import { IPost } from "../../../types/types";
 import { PostItem } from "./PostItem/PostItem";
 import post from "./PostList.module.css";
 
 type Props = {
-  posts: Array<Post>;
+  posts: Array<IPost>;
 };
 
 export const PostList: React.FC<Props> = (props): JSX.Element => {
