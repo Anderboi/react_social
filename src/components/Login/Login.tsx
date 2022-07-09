@@ -20,7 +20,7 @@ type MapStateToProps = {
 };
 
 type MapDispatchToProps = {
-  loginTC: (data: LoginType) => void;
+  loginTC: (data: ILoginFormValues) => void;
 };
 
 type OwnProps = {};
@@ -39,30 +39,30 @@ const Login: React.FC<Props> = (props): JSX.Element => {
   }
 };
 
-type LoginType = {
+interface ILoginFormValues {
   email: string;
   password: string;
   rememberMe: boolean;
   captcha: string | null;
-};
+}
 
 const LoginForm: React.FC<Props> = (props): JSX.Element => {
   const {
     register,
     handleSubmit,
     reset,
-
     formState: { errors },
-  } = useForm<LoginType>({
+  } = useForm<ILoginFormValues>({
     defaultValues: {
       email: "free@samuraijs.com",
       password: "free",
       captcha: null,
+      rememberMe: false,
     },
     mode: "onChange",
   });
 
-  const onSubmit = (data: LoginType): void => {
+  const onSubmit = (data: ILoginFormValues): void => {
     props.loginTC(data);
     reset();
   };

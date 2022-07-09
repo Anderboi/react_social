@@ -18,12 +18,12 @@ type OwnProps = {};
 
 type Props = MapStateToProps & MapDispatchToProps & OwnProps;
 
-type FormValues = {
+interface IRegFormValues {
   fullName: string;
   email: string;
   password: string;
   confirmPassword: string;
-};
+}
 
 const Register: React.FC<Props> = (): JSX.Element => {
   const {
@@ -32,20 +32,20 @@ const Register: React.FC<Props> = (): JSX.Element => {
     watch,
     reset,
     formState: { errors, isValid },
-  } = useForm<FormValues>({ mode: "onBlur" });
+  } = useForm<IRegFormValues>({ mode: "onBlur" });
 
   const password = useRef({});
   password.current = watch("password", "");
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<IRegFormValues> = (data) => {
     console.log(data);
     reset();
   };
 
   return (
     <div className={form.form}>
-      <h1>Create Account</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <h1>Create Account</h1>
         <section className={input.inputblock_item}>
           <label>User name: </label>
           <input
@@ -114,13 +114,13 @@ const Register: React.FC<Props> = (): JSX.Element => {
           </div>
         </section>
         <section className={input.inputblock_item}>
-        <input
-          type="submit"
-          className={cn(common.button, common.submitButton)}
-          value="SIGN UP"
-          onSubmit={handleSubmit(onSubmit)}
-          disabled={!isValid}
-        />
+          <input
+            type="submit"
+            className={cn(common.button, common.submitButton)}
+            value="SIGN UP"
+            onSubmit={handleSubmit(onSubmit)}
+            disabled={!isValid}
+          />
         </section>
       </form>
     </div>

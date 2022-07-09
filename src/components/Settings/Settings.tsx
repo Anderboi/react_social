@@ -38,7 +38,12 @@ type SettingsProps = {
 };
 
 const Settings: React.FC<SettingsProps> = (props): JSX.Element => {
-  // const [isLooking, getIsLooking] = useState(props.userInfo?.lookingForAJob);
+  const [fullName, getFullName] = useState(props.userInfo?.fullName);
+  const [skillsSteck, getSkillsSteck] = useState(
+    props.userInfo?.lookingForAJobDescription
+  );
+  const [isLooking, getIsLooking] = useState(props.userInfo?.lookingForAJob);
+
   return (
     <div className={css.settings}>
       <div className={css.settings__submenu}>
@@ -59,15 +64,14 @@ const Settings: React.FC<SettingsProps> = (props): JSX.Element => {
         </span>
         <div className={css.settings__infoblock_inputblock}>
           <InputWithLabel
-          type="text"
-
+            type="text"
             labelText="Full name"
             inputName="firstName"
-            value={props.userInfo?.fullName!}
+            value={fullName!}
             key={"firstName"}
           />
           <InputWithLabel
-          type="text"
+            type="text"
             labelText="Full name"
             inputName="firstName"
             value={props.userInfo?.contacts?.website!}
@@ -77,13 +81,13 @@ const Settings: React.FC<SettingsProps> = (props): JSX.Element => {
           <CheckboxWithLabel
             inputName="JobSearch"
             labelText="Search for employment"
-            value={props.userInfo?.lookingForAJob!}
+            value={isLooking!}
           />
 
           <TextareaWithLabel
             labelText="Skills"
             inputName="skillsSteck"
-            value={props.userInfo?.lookingForAJobDescription!}
+            value={skillsSteck!}
             key={"Skills"}
           />
         </div>
