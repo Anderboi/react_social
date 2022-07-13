@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import head from "./Header.module.css";
 import nav from "../NavMenu/NavMenu.module.css";
+import common from '../../Common.module.css'
 //@ts-ignore
 import logo from "../../Asset 13MLogo.png";
 //@ts-ignore
@@ -30,12 +31,12 @@ export const Header: React.FC<Props> = (props): JSX.Element => {
   return (
     <>
       <header className={head.header}>
-        <img src={logo} alt="logo" className={head.logo_img}></img>
+        <img src={logo} alt="logo" className={head.header__logoImg}></img>
         <div className={head.header__burger} onClick={onClick}>
           burger
         </div>
 
-        <div className={head.logo_text}>MINIMAL</div>
+        <div className={head.header__logoText}>MINIMAL</div>
 
         <UserInfoHeaderBlock
           id={props.id}
@@ -60,12 +61,12 @@ export const Header: React.FC<Props> = (props): JSX.Element => {
 
 const LoginSignupHeaderBlock: React.FC<Props> = (props): JSX.Element => {
   return (
-    <div className={!props.id ? head.login_block : head.display_none}>
-      <NavLink to={"/login"} className={head.link}>
+    <div className={!props.id ? head.header__loginBlock : common.display_none}>
+      <NavLink to={"/login"} className={head.header__loginBlock_link}>
         <span>Log In</span>
       </NavLink>
       <span> | </span>
-      <NavLink to={"/register"} className={head.link}>
+      <NavLink to={"/register"} className={head.header__loginBlock_link}>
         <span>Sign Up</span>
       </NavLink>
     </div>
@@ -78,15 +79,15 @@ const UserInfoHeaderBlock: React.FC<Props> = ({ id, email, logoutTC }) => {
   };
 
   return (
-    <div className={id ? head.login_block : head.hide}>
-      <h5 className={head.link}>{email}</h5>
+    <div className={id ? head.header__loginBlock : common.display_none}>
+      <h5 className={head.header__loginBlock_link}>{email}</h5>
       <NavLink to={"/profile"}>
-        <img src={avatar} alt="" className={head.avatar} />
+        <img src={avatar} alt="" className={head.header__loginBlock_avatar} />
       </NavLink>
       <a
         href="/"
         onClick={logout}
-        className={head.link}
+        className={head.header__loginBlock_link}
         data-testid="logout-btn"
       >
         Logout

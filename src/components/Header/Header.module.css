@@ -8,9 +8,9 @@
   padding: 1.4em 2em 1em 2em;
 
   color: var(--main-text-color);
-}
+} 
 
-.logo_text {
+.header__logoText {
   font-weight: 700;
   font-size: var(--fs-500);
   letter-spacing: 0.5em;
@@ -18,44 +18,33 @@
   margin-bottom: 0.2em;
 }
 
-.logo_img {
+.header__logoImg {
   height: 18px;
 }
 
-.login_block {
+.header__loginBlock {
   display: flex;
   gap: 1em;
 }
 
-.link {
+.header__loginBlock_link {
   text-decoration: none;
   color: white;
   line-height: 32px;
-}
-
-.display_none {
-  display: none;
 }
 
 .header__burger {
   display: none;
 }
 
-.avatar {
+.header__loginBlock_avatar {
   height: 32px;
   width: 32px;
 }
 
-.hide {
-  display: none;
-}
-
-.menu-bar {
-  display: none;
-}
 
 @media screen and (max-width: 768px) {
-  .link {
+  .header__loginBlock_link {
     display: none;
   }
   .header {
@@ -63,10 +52,10 @@
     padding-left: 0;
     padding-right: 0;
   }
-  .logo_text {
+  .header__logoText {
     text-align: center;
   }
-  .menu-bar {
+  /* .menu-bar {
     grid-area: nav;
     background-color: var(--main-color);
     color: var(--main-text-color);
@@ -74,11 +63,11 @@
     min-width: 180px;
     display: flex;
     flex-direction: column;
-  }
+  } */
   .header__burger {
     display: flex;
   }
-  .logo_img {
+  .header__logoImg {
     display: none;
   }
 }
