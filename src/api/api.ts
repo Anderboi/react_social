@@ -31,6 +31,10 @@ export const usersAPI = {
       .then((response) => response.data);
   },
 
+  searchUsers(name: string) {
+    return instance.get<GetUsersAPI>(`/users?term=${name}`).then(response => response.data)
+  },
+
   followUserApi(userId: number) {
     return instance
       .post<RespnseType>(`/follow/${userId}`)

@@ -57,6 +57,7 @@ export const usersReducer = (state = initState, action: ActionType): State => {
       };
     }
 
+
     case SET_PAGE: {
       return {
         ...state,
@@ -151,32 +152,42 @@ type ThunkActionType = ThunkAction<void, RootState, unknown, ActionType>;
 
 export const getUsersThunkConstructor =
   (selectedPage: number, pageSize: number): ThunkActionType =>
-  async (dispatch) => {
-    dispatch(toggleLoading(true));
-    const response = await usersAPI.getUsers(selectedPage, pageSize);
-    dispatch(setUsers(response.items, response.totalCount));
+    async (dispatch) => {
+      dispatch(toggleLoading(true));
+      const response = await usersAPI.getUsers(selectedPage, pageSize);
+      dispatch(setUsers(response.items, response.totalCount));
 
-    dispatch(toggleLoading(false));
-  };
+      dispatch(toggleLoading(false));
+    };
+
+export const searchUsersTC =
+  (text: string): ThunkActionType =>
+    async (dispatch) => {
+      dispatch(toggleLoading(true));
+      const response = await usersAPI.searchUsers(text);
+
+      dispatch(setUsers(response.items, response.totalCount))
+      dispatch(toggleLoading(false));
+    };
 
 export const followUserTC =
   (id: number): ThunkActionType =>
-  async (dispatch) => {
-    dispatch(requestInProgress(true, id));
-    const response = await usersAPI.followUserApi(id);
-    if (response.resultCode === 0) {
-      dispatch(followUser(id));
-    }
-    dispatch(requestInProgress(false, id));
-  };
+    async (dispatch) => {
+      dispatch(requestInProgress(true, id));
+      const response = await usersAPI.followUserApi(id);
+      if (response.resultCode === 0) {
+        dispatch(followUser(id));
+      }
+      dispatch(requestInProgress(false, id));
+    };
 
 export const unfollowUserTC =
   (id: number): ThunkActionType =>
-  async (dispatch) => {
-    dispatch(requestInProgress(true, id));
-    const response = await usersAPI.unfollowUserApi(id);
-    if (response.resultCode === 0) {
-      dispatch(unfollowUser(id));
-    }
-    dispatch(requestInProgress(false, id));
-  };
+    async (dispatch) => {
+      dispatch(requestInProgress(true, id));
+      const response = await usersAPI.unfollowUserApi(id);
+      if (response.resultCode === 0) {
+        dispatch(unfollowUser(id));
+      }
+      dispatch(requestInProgress(false, id));
+    };

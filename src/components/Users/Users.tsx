@@ -12,45 +12,58 @@ type Props = {
   // follow: () => void;
   // unfollow: () => void;
   // requestInProgress: () => void;
-  followUserTC: (id:number) => void;
-  unfollowUserTC: (id:number) => void;
+  followUserTC: (id: number) => void;
+  unfollowUserTC: (id: number) => void;
+  searchUsersTC: (text: string) => void;
   isAuth: boolean;
   inProgressArray: Array<number>;
 
   usersTotalCount: number;
   pageSize: number;
   selectedPage: number;
-  onPageChanged: (page:number) => void;
+  onPageChanged: (page: number) => void;
 };
 
 export const Users: React.FC<Props> = (props) => {
-  return (
-    <div className={css.usersList}>
-      {props.users.map((user) => (
-        <UserItem
-          name={user.name}
-          status={user.status!}
-          followed={user.followed || false}
-          icon={user.photos.small != null ? user.photos.small : userIcon}
-          id={user.id}
-          isAuth={props.isAuth}
-          key={user.id}
 
-          // follow={props.follow}
-          // unfollow={props.unfollow}
-          inProgressArray={props.inProgressArray}
-          // requestInProgress={props.requestInProgress}
-          followUserTC={props.followUserTC}
-          unfollowUserTC={props.unfollowUserTC}
+
+  const search = (text: string) => {
+
+    props.searchUsersTC(text);
+  }
+
+  return (
+    <>
+      <section>
+        <input type="text" name="search" id="search" onChange={(e) => search(e.currentTarget.value)} />
+      </section>
+      <div className={css.usersList}>
+        {props.users.map((user) => (
+          <UserItem
+            name={user.name}
+            status={user.status!}
+            followed={user.followed || false}
+            icon={user.photos.small != null ? user.photos.small : userIcon}
+            id={user.id}
+            isAuth={props.isAuth}
+            key={user.id}
+
+            // follow={props.follow}
+            // unfollow={props.unfollow}
+            inProgressArray={props.inProgressArray}
+            // requestInProgress={props.requestInProgress}
+            followUserTC={props.followUserTC}
+            unfollowUserTC={props.unfollowUserTC}
+          />
+        ))}
+        <Pagination
+          itemsTotalCount={props.usersTotalCount}
+          pageSize={props.pageSize}
+          selectedPage={props.selectedPage}
+          onPageChanged={props.onPageChanged}
+          pagesRange={7}
         />
-      ))}
-      <Pagination
-        itemsTotalCount={props.usersTotalCount}
-        pageSize={props.pageSize}
-        selectedPage={props.selectedPage}
-        onPageChanged={props.onPageChanged}
-        pagesRange={7}
-      />
-    </div>
+      </div>
+    </>
   );
 };

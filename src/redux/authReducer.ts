@@ -174,23 +174,23 @@ type LoginType = {
 
 export const loginTC =
   (values: LoginType): AuthThunkActionType =>
-  async (dispatch) => {
-    try {
-      const response = await authAPI.authLogin(values);
-      if (response.resultCode === ResponseCodes.success) {
-        dispatch(loginUser("Success"));
-        dispatch(authData());
-      } else {
-        if (response.resultCode === ResponseCodesForCaptcha.captcha_needed) {
-          dispatch(getCaptchaTC());
+    async (dispatch) => {
+      try {
+        const response = await authAPI.authLogin(values);
+        if (response.resultCode === ResponseCodes.success) {
+          dispatch(loginUser("Success"));
+          dispatch(authData());
+        } else {
+          if (response.resultCode === ResponseCodesForCaptcha.captcha_needed) {
+            dispatch(getCaptchaTC());
+          }
+          dispatch(loginUser(response.messages[0]));
         }
-        dispatch(loginUser(response.messages[0]));
+      } catch (error: any) {
+
+        dispatch(showErrorMessage(error));
       }
-    } catch (error: any) {
-      debugger;
-      dispatch(showErrorMessage(error));
-    }
-  };
+    };
 
 export const logoutTC = (): AuthThunkActionType => async (dispatch) => {
   const response = await authAPI.authLogout();
@@ -206,7 +206,7 @@ export const getCaptchaTC = (): AuthThunkActionType => async (dispatch) => {
 
 export const showErrorMessage =
   (message: string): AuthThunkActionType =>
-  async (dispatch) => {
-    dispatch(showError(message));
-    setTimeout(() => dispatch(hideError()), 3000);
-  };
+    async (dispatch) => {
+      dispatch(showError(message));
+      setTimeout(() => dispatch(hideError()), 3000);
+    };

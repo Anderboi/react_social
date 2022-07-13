@@ -111,7 +111,7 @@ const StatusComponent: React.FC<Props> = (props): JSX.Element => {
             <TextForm
               autoFocus
               value={props.userStatusData ? userStatusInput : statusInput}
-              onChange={(e:any) =>
+              onChange={(e: any) =>
                 props.userStatusData
                   ? setUserStatusInput(e.currentTarget.value)
                   : setStatusInput(e.currentTarget.value)

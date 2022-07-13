@@ -7,6 +7,7 @@ import {
   getUsersThunkConstructor,
   followUserTC,
   unfollowUserTC,
+  searchUsersTC,
 } from "../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
 import {
@@ -35,8 +36,9 @@ type MapStateToProps = {
 type MapDispatchToProps = {
   getUsersThunkConstructor: (page: number, pageSize: number) => void;
   setPage: (page: number) => void;
-  followUserTC: (id:number) => void;
-  unfollowUserTC: (id:number) => void;
+  followUserTC: (id: number) => void;
+  unfollowUserTC: (id: number) => void;
+  searchUsersTC: (text: string) => void;
 };
 
 type OwnProps = {};
@@ -49,7 +51,7 @@ const UsersContainer: React.FC<Props> = (props): JSX.Element => {
     props.getUsersThunkConstructor(props.selectedPage, props.pageSize);
   }, [props.selectedPage]);
 
-  const onPageChanged = (page:number) => {
+  const onPageChanged = (page: number) => {
     props.getUsersThunkConstructor(page, props.pageSize);
     props.setPage(page);
   };
@@ -67,6 +69,7 @@ const UsersContainer: React.FC<Props> = (props): JSX.Element => {
         inProgressArray={props.inProgressArray}
         followUserTC={props.followUserTC}
         unfollowUserTC={props.unfollowUserTC}
+        searchUsersTC={props.searchUsersTC}
       />
     </>
   );
@@ -90,5 +93,6 @@ export default compose(
     getUsersThunkConstructor,
     followUserTC,
     unfollowUserTC,
+    searchUsersTC,
   })
 )(UsersContainer);
