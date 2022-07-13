@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import common from '../../Common.module.css'
 import css from "./Users.module.css";
 import { UserItem } from "./UsersItem/UserItem";
 //@ts-ignore
@@ -35,8 +36,8 @@ export const Users: React.FC<Props> = (props) => {
 
   return (
     <>
-      <section>
-        <input type="text" name="search" id="search" onChange={(e) => search(e.currentTarget.value)} />
+      <section className={css.searchbar}>
+        <input className={common.input} placeholder='Search...' type="text" name="search" id="search" onChange={(e) => search(e.currentTarget.value)} />
       </section>
       <div className={css.usersList}>
         {props.users.map((user) => (
