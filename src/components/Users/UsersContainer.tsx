@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { RootState } from "../../redux/reduxStore";
 import { Users } from "./Users";
 import {
   setPage,
@@ -18,9 +19,8 @@ import {
   getIsLoading,
   getInProgressArray,
 } from "../../utilities/selectors/usersSelector";
-import { getIsAuthorised } from "../../utilities/selectors/authSelector";
+import { getAuthId, getIsAuthorised } from "../../utilities/selectors/authSelector";
 import { IUser } from "../../types/types";
-import { RootState } from "../../redux/reduxStore";
 
 
 
@@ -32,6 +32,7 @@ type MapStateToProps = {
   selectedPage: number;
   pageSize: number;
   isLoading: boolean;
+  authUserId: number | null;
 };
 type MapDispatchToProps = {
   getUsersThunkConstructor: (page: number, pageSize: number) => void;
@@ -70,6 +71,7 @@ const UsersContainer: React.FC<Props> = (props): JSX.Element => {
         followUserTC={props.followUserTC}
         unfollowUserTC={props.unfollowUserTC}
         searchUsersTC={props.searchUsersTC}
+        authUserId={props.authUserId!}
       />
     </>
   );
@@ -84,6 +86,7 @@ const mapStateToProps = (state: RootState) => {
     isLoading: getIsLoading(state),
     inProgressArray: getInProgressArray(state),
     isAuth: getIsAuthorised(state),
+    authUserId: getAuthId(state),
   };
 };
 

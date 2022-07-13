@@ -17,6 +17,7 @@ type Props = {
   searchUsersTC: (text: string) => void;
   isAuth: boolean;
   inProgressArray: Array<number>;
+  authUserId: number;
 
   usersTotalCount: number;
   pageSize: number;
@@ -47,11 +48,9 @@ export const Users: React.FC<Props> = (props) => {
             id={user.id}
             isAuth={props.isAuth}
             key={user.id}
+            authUserId={props.authUserId}
 
-            // follow={props.follow}
-            // unfollow={props.unfollow}
             inProgressArray={props.inProgressArray}
-            // requestInProgress={props.requestInProgress}
             followUserTC={props.followUserTC}
             unfollowUserTC={props.unfollowUserTC}
           />

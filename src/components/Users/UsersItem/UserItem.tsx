@@ -6,21 +6,29 @@ import common from "../../../Common.module.css";
 type Props = {
   id: number;
   icon: string;
-  inProgressArray: Array<number>;
-  isAuth: boolean;
   name: string;
   status: string;
   country?: string;
   city?: string;
+  inProgressArray: Array<number>;
+  isAuth: boolean;
+  followed: boolean;
+  authUserId: number;
+
 
   followUserTC: (id: number) => void;
   unfollowUserTC: (id: number) => void;
-  followed: boolean;
 };
 
 export const UserItem: React.FC<Props> = (props): JSX.Element => {
+
+
+  console.log(props.authUserId);
+  console.log(props.id);
+
+
   const toggleFollow = () => {
-    
+
     if (props.followed === false) {
       props.followUserTC(props.id);
     } else {
@@ -36,7 +44,7 @@ export const UserItem: React.FC<Props> = (props): JSX.Element => {
         </NavLink>
         <div>
           {!props.inProgressArray.some((id) => id === props.id) &&
-          props.isAuth ? (
+            props.isAuth && props.authUserId !== props.id ? (
             <button
               onClick={toggleFollow}
               className={`${common.button} ${css.followButton}`}
@@ -61,8 +69,8 @@ export const UserItem: React.FC<Props> = (props): JSX.Element => {
         </div>
       </NavLink>
       <div className={css.userAddress}>
-        <div className="country">{props.country || "Belarus"}</div>
-        <div className="city">{props.city || "Minsk"}</div>
+        <div className="country">User ID:</div>
+        <div className="city">{props.id}</div>
       </div>
     </div>
   );
