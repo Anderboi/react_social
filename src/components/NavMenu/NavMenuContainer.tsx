@@ -14,7 +14,7 @@ type Props = {
 
 const NavMenuContainer: React.FC<Props> = (props): JSX.Element => {
   return (
-    <div className={nav.main_nav_block}>
+    <div className={nav.navBlock}>
       <NavBlock isAuth={props.isAuth} isForMobile={false} />
     </div>
   );

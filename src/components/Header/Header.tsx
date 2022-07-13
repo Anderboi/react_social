@@ -31,6 +31,7 @@ export const Header: React.FC<Props> = (props): JSX.Element => {
   return (
     <>
       <header className={head.header}>
+
         <img src={logo} alt="logo" className={head.header__logoImg}></img>
         <div className={head.header__burger} onClick={onClick}>
           burger
@@ -47,8 +48,8 @@ export const Header: React.FC<Props> = (props): JSX.Element => {
       </header>
       {state && <div className={nav.nav_back} onClick={blur}></div>}
       <div
-        className={`${state ? nav.m_navbar_open : nav.m_navbar_close} ${
-          nav.main_nav_block_mobile
+        className={`${state ? nav.navBlock_mobile_open : nav.navBlock_mobile_close} ${
+          nav.navBlock_mobile
         }`}
         onClick={blur} //TODO Заменить на логику - при переходе на страницу
       >
@@ -61,12 +62,12 @@ export const Header: React.FC<Props> = (props): JSX.Element => {
 
 const LoginSignupHeaderBlock: React.FC<Props> = (props): JSX.Element => {
   return (
-    <div className={!props.id ? head.header__loginBlock : common.display_none}>
-      <NavLink to={"/login"} className={head.header__loginBlock_link}>
+    <div className={!props.id ? head.loginBlock : common.display_none}>
+      <NavLink to={"/login"} className={head.loginBlock__link}>
         <span>Log In</span>
       </NavLink>
       <span> | </span>
-      <NavLink to={"/register"} className={head.header__loginBlock_link}>
+      <NavLink to={"/register"} className={head.loginBlock__link}>
         <span>Sign Up</span>
       </NavLink>
     </div>
@@ -79,15 +80,15 @@ const UserInfoHeaderBlock: React.FC<Props> = ({ id, email, logoutTC }) => {
   };
 
   return (
-    <div className={id ? head.header__loginBlock : common.display_none}>
-      <h5 className={head.header__loginBlock_link}>{email}</h5>
+    <div className={id ? head.loginBlock : common.display_none}>
+      <h5 className={head.loginBlock__link}>{email}</h5>
       <NavLink to={"/profile"}>
-        <img src={avatar} alt="" className={head.header__loginBlock_avatar} />
+        <img src={avatar} alt="" className={head.loginBlock__avatar} />
       </NavLink>
       <a
         href="/"
         onClick={logout}
-        className={head.header__loginBlock_link}
+        className={head.loginBlock__link}
         data-testid="logout-btn"
       >
         Logout

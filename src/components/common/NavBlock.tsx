@@ -16,7 +16,7 @@ const NavBlock: React.FC<Props> = (props): JSX.Element => {
   return (
     <div
       className={`${
-        !props.isForMobile ? nav.main_nav_block : nav.main_nav_block_mobile
+        !props.isForMobile ? nav.navBlock : nav.navBlock_mobile
       }`}
     >
       <nav className={nav.nav_menu}>

@@ -22,12 +22,12 @@
   height: 18px;
 }
 
-.header__loginBlock {
+.loginBlock {
   display: flex;
   gap: 1em;
 }
 
-.header__loginBlock_link {
+.loginBlock__link {
   text-decoration: none;
   color: white;
   line-height: 32px;
@@ -37,7 +37,7 @@
   display: none;
 }
 
-.header__loginBlock_avatar {
+.loginBlock__avatar {
   height: 32px;
   width: 32px;
 }
