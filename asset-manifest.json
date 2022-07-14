@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react_social/static/css/main.92c3b618.css",
-    "main.js": "/react_social/static/js/main.2e1f5423.js",
+    "main.css": "/react_social/static/css/main.29aa6808.css",
+    "main.js": "/react_social/static/js/main.acca22e4.js",
     "static/css/692.e85df91d.chunk.css": "/react_social/static/css/692.e85df91d.chunk.css",
     "static/js/692.51da54f6.chunk.js": "/react_social/static/js/692.51da54f6.chunk.js",
     "static/js/940.4c4adc52.chunk.js": "/react_social/static/js/940.4c4adc52.chunk.js",
@@ -14,8 +14,8 @@
     "static/media/redAccent.jpg": "/react_social/static/media/redAccent.12af55192994e5a94fdd.jpg",
     "index.html": "/react_social/index.html",
     "static/media/Dual Ring-1s-200px.svg": "/react_social/static/media/Dual Ring-1s-200px.6e5c104a5c7bf0b24ffd6457625ef07e.svg",
-    "main.92c3b618.css.map": "/react_social/static/css/main.92c3b618.css.map",
-    "main.2e1f5423.js.map": "/react_social/static/js/main.2e1f5423.js.map",
+    "main.29aa6808.css.map": "/react_social/static/css/main.29aa6808.css.map",
+    "main.acca22e4.js.map": "/react_social/static/js/main.acca22e4.js.map",
     "692.e85df91d.chunk.css.map": "/react_social/static/css/692.e85df91d.chunk.css.map",
     "692.51da54f6.chunk.js.map": "/react_social/static/js/692.51da54f6.chunk.js.map",
     "940.4c4adc52.chunk.js.map": "/react_social/static/js/940.4c4adc52.chunk.js.map",
@@ -26,7 +26,7 @@
     "787.96cdf0b8.chunk.js.map": "/react_social/static/js/787.96cdf0b8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.92c3b618.css",
-    "static/js/main.2e1f5423.js"
+    "static/css/main.29aa6808.css",
+    "static/js/main.acca22e4.js"
   ]
 }
