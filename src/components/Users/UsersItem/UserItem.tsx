@@ -23,10 +23,6 @@ type Props = {
 export const UserItem: React.FC<Props> = (props): JSX.Element => {
 
 
-  console.log(props.authUserId);
-  console.log(props.id);
-
-
   const toggleFollow = () => {
 
     if (props.followed === false) {
@@ -38,16 +34,16 @@ export const UserItem: React.FC<Props> = (props): JSX.Element => {
 
   return (
     <div className={css.userItem}>
-      <div className={css.iconContainer}>
+      <div className={css.userItem__iconContainer}>
         <NavLink to={`/profile/${props.id}`}>
-          <img src={props.icon} alt="userIcon" className={css.userIcon} />
+          <img src={props.icon} alt="userIcon" className={css.iconContainer__userIcon} />
         </NavLink>
         <div>
           {!props.inProgressArray.some((id) => id === props.id) &&
             props.isAuth && props.authUserId !== props.id ? (
             <button
               onClick={toggleFollow}
-              className={`${common.button} ${css.followButton}`}
+              className={`${common.button} ${css.iconContainer__followButton}`}
               data-testid="follow-btn"
             >
               {props.followed ? "Unfollow" : "Follow"}
@@ -55,22 +51,22 @@ export const UserItem: React.FC<Props> = (props): JSX.Element => {
           ) : (
             <button
               style={{ backgroundColor: "grey", border: "none" }}
-              className={`${common.button} ${css.followButton}`}
+              className={`${common.button} ${css.iconContainer__followButton}`}
             >
               Disabled
             </button>
           )}
         </div>
       </div>
-      <NavLink to={`/profile/${props.id}`} className={css.userInfo}>
+      <NavLink to={`/profile/${props.id}`} className={css.userItem__userInfo}>
         <div>
           <h3>{props.name}</h3>
-          <p className={css.userInfoDescription}>{props.status}</p>
+          <p className={css.userInfo__description}>{props.status}</p>
         </div>
       </NavLink>
-      <div className={css.userAddress}>
-        <div className="country">User ID:</div>
-        <div className="city">{props.id}</div>
+      <div className={css.userInfo__id}>
+        <div >User ID:</div>
+        <div >{props.id}</div>
       </div>
     </div>
   );

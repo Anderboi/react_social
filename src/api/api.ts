@@ -23,10 +23,10 @@ type GetUsersAPI = {
 };
 
 export const usersAPI = {
-  getUsers(selectedPage: number = 1, pageSize: number = 5, isFriend?: boolean) {
+  getUsers(selectedPage: number = 1, pageSize: number = 5, isFriend?: boolean, name:string = '') {
     return instance
       .get<GetUsersAPI>(
-        `/users?page=${selectedPage}&count=${pageSize}&friend=${isFriend}`
+        `/users?page=${selectedPage}&count=${pageSize}&friend=${isFriend}&term=${name}`
       )
       .then((response) => response.data);
   },

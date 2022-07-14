@@ -8,7 +8,7 @@ import {
   getUsersThunkConstructor,
   followUserTC,
   unfollowUserTC,
-  searchUsersTC,
+  searchUsers,
 } from "../../redux/usersReducer";
 import { Preloader } from "../common/Preloader";
 import {
@@ -18,6 +18,7 @@ import {
   getSelectedPage,
   getIsLoading,
   getInProgressArray,
+  getSearchParam,
 } from "../../utilities/selectors/usersSelector";
 import { getAuthId, getIsAuthorised } from "../../utilities/selectors/authSelector";
 import { IUser } from "../../types/types";
@@ -33,13 +34,14 @@ type MapStateToProps = {
   pageSize: number;
   isLoading: boolean;
   authUserId: number | null;
+  searchedUsersBarValue: string;
 };
 type MapDispatchToProps = {
-  getUsersThunkConstructor: (page: number, pageSize: number) => void;
+  getUsersThunkConstructor: (page: number, pageSize: number, name?:string) => void;
   setPage: (page: number) => void;
   followUserTC: (id: number) => void;
   unfollowUserTC: (id: number) => void;
-  searchUsersTC: (text: string) => void;
+  searchUsers: (name:string)=>void;
 };
 
 type OwnProps = {};
@@ -49,13 +51,19 @@ type Props = OwnProps & MapStateToProps & MapDispatchToProps;
 
 const UsersContainer: React.FC<Props> = (props): JSX.Element => {
   useEffect(() => {
-    props.getUsersThunkConstructor(props.selectedPage, props.pageSize);
-  }, [props.selectedPage]);
+    props.getUsersThunkConstructor(props.selectedPage, props.pageSize, props.searchedUsersBarValue);
+    // return props.getUsersThunkConstructor(props.selectedPage, props.pageSize, '')
+  }, [props.selectedPage, props.searchedUsersBarValue]);
 
   const onPageChanged = (page: number) => {
-    props.getUsersThunkConstructor(page, props.pageSize);
+    props.getUsersThunkConstructor(page, props.pageSize, props.searchedUsersBarValue);
     props.setPage(page);
   };
+
+  const search = (text: string) => {
+    props.searchUsers(text)
+  }
+
 
   return (
     <>
@@ -70,8 +78,9 @@ const UsersContainer: React.FC<Props> = (props): JSX.Element => {
         inProgressArray={props.inProgressArray}
         followUserTC={props.followUserTC}
         unfollowUserTC={props.unfollowUserTC}
-        searchUsersTC={props.searchUsersTC}
+        searchUsers={search}
         authUserId={props.authUserId!}
+        searchedUsersBarValue={props.searchedUsersBarValue}
       />
     </>
   );
@@ -87,6 +96,7 @@ const mapStateToProps = (state: RootState) => {
     inProgressArray: getInProgressArray(state),
     isAuth: getIsAuthorised(state),
     authUserId: getAuthId(state),
+    searchedUsersBarValue: getSearchParam(state)
   };
 };
 
@@ -96,6 +106,6 @@ export default compose(
     getUsersThunkConstructor,
     followUserTC,
     unfollowUserTC,
-    searchUsersTC,
+    searchUsers
   })
 )(UsersContainer);

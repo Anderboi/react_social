@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import common from '../../Common.module.css'
 import css from "./Users.module.css";
@@ -10,15 +9,14 @@ import { IUser } from "../../types/types";
 
 type Props = {
   users: Array<IUser>;
-  // follow: () => void;
-  // unfollow: () => void;
-  // requestInProgress: () => void;
+  
   followUserTC: (id: number) => void;
   unfollowUserTC: (id: number) => void;
-  searchUsersTC: (text: string) => void;
+  searchUsers: (text:string)=>void
   isAuth: boolean;
   inProgressArray: Array<number>;
   authUserId: number;
+  searchedUsersBarValue:string;
 
   usersTotalCount: number;
   pageSize: number;
@@ -29,15 +27,11 @@ type Props = {
 export const Users: React.FC<Props> = (props) => {
 
 
-  const search = (text: string) => {
-
-    props.searchUsersTC(text);
-  }
 
   return (
     <>
       <section className={css.searchbar}>
-        <input className={common.input} placeholder='Search...' type="text" name="search" id="search" onChange={(e) => search(e.currentTarget.value)} />
+        <input className={common.input} placeholder='Search...' type="text" name="search" id="search" onChange={(e) => props.searchUsers(e.currentTarget.value)} value={props.searchedUsersBarValue} />
       </section>
       <div className={css.usersList}>
         {props.users.map((user) => (
