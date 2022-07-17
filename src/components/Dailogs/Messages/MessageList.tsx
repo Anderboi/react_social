@@ -26,7 +26,7 @@ export const MessageList: React.FC<Props> = (props): JSX.Element => {
   ));
 
   interface IMessage {
-    message: string
+    message: string;
   }
 
   const {
@@ -36,7 +36,7 @@ export const MessageList: React.FC<Props> = (props): JSX.Element => {
     formState: { errors },
   } = useForm<IMessage>({ defaultValues: { message: "" } });
 
-  const onSubmit = (data:IMessage):void => {
+  const onSubmit = (data: IMessage): void => {
     props.sendMessage(data.message);
     reset();
   };

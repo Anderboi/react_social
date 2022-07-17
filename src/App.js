@@ -13,11 +13,8 @@ import { UsersPage } from "./components/Users/UsersPage";
 import { Preloader } from "./components/common/Preloader";
 
 const LazySettings = React.lazy(() => import("./components/Settings/Settings"));
-
 const LazyMusic = React.lazy(() => import("./components/Music/Music"));
-
 const LazyNews = React.lazy(() => import("./components/News/News"));
-
 const LazyChatPage = React.lazy(() => import("./components/Dailogs/ChatPage"));
 const LazyRegister = React.lazy(() => import("./components/Register/Register"));
 
