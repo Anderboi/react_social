@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import css from "./Settings.module.css";
+import settings from "./Settings.module.css";
 import common from "../../Common.module.css";
 import { connect } from "react-redux";
 import { getUserInfo } from "../../utilities/selectors/profileSelector";
@@ -45,36 +45,29 @@ const Settings: React.FC<SettingsProps> = (props): JSX.Element => {
   const [isLooking, getIsLooking] = useState(props.userInfo?.lookingForAJob);
 
   return (
-    <div className={css.settings}>
-      <div className={css.settings__submenu}>
+    <div className={settings.settings}>
+      <div className={settings.settings__submenu}>
         <h1>Settings</h1>
-        <div className={css.settings__submenu_items}>
+        <div className={settings.submenu__items}>
           <div>Profile information</div>
           <div>Appearance</div>
           <div>Security</div>
         </div>
       </div>
-      <div className={css.settings__infoblock}>
+      <div className={settings.settings__infoblock}>
         <h2>Personal Information</h2>
-        <hr className={css.settings__infoblock_divider} />
+        <hr className={settings.infoblock__divider} />
         <h4>Profile</h4>
         <span>
           This information will be displayed publicly so be careful what you
           share.
         </span>
-        <div className={css.settings__infoblock_inputblock}>
+        <div className={settings.infoblock__inputblock}>
           <InputWithLabel
             type="text"
             labelText="Full name"
             inputName="firstName"
             value={fullName!}
-            key={"firstName"}
-          />
-          <InputWithLabel
-            type="text"
-            labelText="Full name"
-            inputName="firstName"
-            value={props.userInfo?.contacts?.website!}
             key={"firstName"}
           />
 

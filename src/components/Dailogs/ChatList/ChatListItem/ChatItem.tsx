@@ -10,12 +10,17 @@ type Props = {
   photos: string;
   name: string;
   status: string | null;
-  // followedUsers: Array<User>
+  getChatUserId: (userId:number)=>any //TODO remove any
 };
 
 export const ChatItem: React.FC<Props> = (props): JSX.Element => {
+
+ const onClick = (id:number)=>{
+  return props.getChatUserId(id)
+ }
+
   return (
-    <div>
+    <div onClick={onClick(props.id)}>
       <NavLink to={"/messeges/" + props.id} className={css.chat__item}>
         <div className={css.avatar__block}>
           <img

@@ -33,6 +33,8 @@
 .checkbox {
   color: var(--main-color);
   background-color: var(--main-color);
+  accent-color: var(--main-color);
+  
 }
 
 .spinner {
