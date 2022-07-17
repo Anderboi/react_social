@@ -5,7 +5,7 @@ import { IMessage } from "../../../types/types";
 import { getMessages } from "../../../utilities/selectors/messagesSelector";
 import css from "./MessageList.module.css";
 import base from "../../../Common.module.css";
-import { sendMessage } from "../../../redux/messagesReducer";
+import {   sendMessage } from "../../../redux/messagesReducer";
 import { MessageItem } from "./MessageItem/MessageItem";
 import { RootState } from "../../../redux/reduxStore";
 

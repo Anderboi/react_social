@@ -15,24 +15,22 @@
 .settings__infoblock {
   padding: 2.85em;
 }
-.settings__infoblock span {
-  font-size: 13px;
-}
 
-.settings__infoblock_inputblock {
+
+.infoblock__inputblock {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
   margin: 1em 0;
 }
 
-.settings__infoblock_inputblock_item {
+/* .settings__infoblock_inputblock_item {
   display: flex;
   flex-direction: column;
   font-weight: bold;
-}
+} */
 
-.settings__submenu_items {
+.submenu__items {
   padding-left: 1em;
   font-weight: bold;
   display: flex;

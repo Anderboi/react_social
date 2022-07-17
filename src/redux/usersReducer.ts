@@ -8,10 +8,12 @@ const UNFOLLOW = "users/UNFOLLOW";
 const SET_USERS = "users/SET-USERS";
 const SET_PAGE = "users/SET-PAGE";
 const IS_LOADING = "users/IS_LOADING";
+const SEARCH_USERS = "users/SEARCH_USERS";
 const IN_PROGRESS = "users/IN_PROGRESS";
 
 const initState = {
   users: [] as Array<IUser>,
+  searchParam: '',
   pageSize: 10,
   usersTotalCount: 100,
   selectedPage: 1,
@@ -56,6 +58,12 @@ export const usersReducer = (state = initState, action: ActionType): State => {
         usersTotalCount: action.total,
       };
     }
+    case SEARCH_USERS: {
+      return {
+        ...state,
+        searchParam: action.text
+      };
+    }
 
 
     case SET_PAGE: {
@@ -91,6 +99,7 @@ type ActionType =
   | SetUsersAction
   | SetPageAction
   | ToggleLoadingAction
+  | SearchUsersAction
   | RequestInProgressAction;
 
 type FollowUserAction = {
@@ -116,6 +125,14 @@ type SetUsersAction = {
 };
 export const setUsers = (users: Array<IUser>, total: number): SetUsersAction => {
   return { type: SET_USERS, users, total };
+};
+
+type SearchUsersAction = {
+  type: typeof SEARCH_USERS;
+  text:string
+};
+export const searchUsersAC = (text:string): SearchUsersAction => {
+  return { type: SEARCH_USERS, text };
 };
 
 
@@ -151,22 +168,22 @@ export const requestInProgress = (
 type ThunkActionType = ThunkAction<void, RootState, unknown, ActionType>;
 
 export const getUsersThunkConstructor =
-  (selectedPage: number, pageSize: number): ThunkActionType =>
+  (selectedPage: number, pageSize: number, name?:string): ThunkActionType =>
     async (dispatch) => {
       dispatch(toggleLoading(true));
-      const response = await usersAPI.getUsers(selectedPage, pageSize);
+      const response = await usersAPI.getUsers(selectedPage, pageSize,undefined, name ); 
       dispatch(setUsers(response.items, response.totalCount));
 
       dispatch(toggleLoading(false));
     };
 
-export const searchUsersTC =
+export const searchUsers =
   (text: string): ThunkActionType =>
     async (dispatch) => {
       dispatch(toggleLoading(true));
-      const response = await usersAPI.searchUsers(text);
-
-      dispatch(setUsers(response.items, response.totalCount))
+      dispatch(searchUsersAC(text));
+      dispatch(getUsersThunkConstructor(1, 10, text));
+      dispatch(setPage(1));
       dispatch(toggleLoading(false));
     };
 

@@ -3,6 +3,10 @@ import { RootState } from "../../redux/reduxStore";
 export const getUsers = (state: RootState) => {
   return state.usersPage.users;
 };
+
+export const getSearchParam = (state:RootState)=>{
+  return state.usersPage.searchParam;
+}
 // export const getFollowedUsers = (state: RootState) => {
 //   return state.usersPage.followedUsers;
 // };
