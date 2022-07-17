@@ -10,18 +10,18 @@ type Props = {
   photos: string;
   name: string;
   status: string | null;
-  getChatUserId: (userId:number)=>any //TODO remove any
+  getUserMessages: (userId: number) => any; //TODO remove any
 };
 
 export const ChatItem: React.FC<Props> = (props): JSX.Element => {
-
- const onClick = (id:number)=>{
-  return props.getChatUserId(id)
- }
+  const onClick = () => {
+    return props.getUserMessages(props.id);
+  };
 
   return (
-    <div onClick={onClick(props.id)}>
-      <NavLink to={"/messeges/" + props.id} className={css.chat__item}>
+    <div onClick={onClick}>
+      <div className={css.chat__item}>
+        {/* <NavLink to={"/messeges/" + props.id} className={css.chat__item}> */}
         <div className={css.avatar__block}>
           <img
             src={props.photos || avatar}
@@ -36,7 +36,8 @@ export const ChatItem: React.FC<Props> = (props): JSX.Element => {
           <div className={css.messege_text}>{props.status}</div>
         </div>
         <div className={css.messege_text}>10:04</div>
-      </NavLink>
+        {/* </NavLink> */}
+      </div>
       <hr className={css.divider}></hr>
     </div>
   );

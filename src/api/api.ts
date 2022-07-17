@@ -23,7 +23,12 @@ type GetUsersAPI = {
 };
 
 export const usersAPI = {
-  getUsers(selectedPage: number = 1, pageSize: number = 5, isFriend?: boolean, name:string = '') {
+  getUsers(
+    selectedPage: number = 1,
+    pageSize: number = 5,
+    isFriend?: boolean,
+    name: string = ""
+  ) {
     return instance
       .get<GetUsersAPI>(
         `/users?page=${selectedPage}&count=${pageSize}&friend=${isFriend}&term=${name}`
@@ -32,7 +37,9 @@ export const usersAPI = {
   },
 
   searchUsers(name: string) {
-    return instance.get<GetUsersAPI>(`/users?term=${name}`).then(response => response.data)
+    return instance
+      .get<GetUsersAPI>(`/users?term=${name}`)
+      .then((response) => response.data);
   },
 
   followUserApi(userId: number) {
@@ -91,17 +98,15 @@ export const authAPI = {
   },
 };
 
-
-
 export const dialogsAPI = {
   setChatCompanion(userId: number) {
     return instance.put("dialogs/" + userId);
   },
 
   getAllMessages(userId: number, page: number = 1, count: number = 10) {
-    return instance.get(
-      `dialogs/${userId}/messages?page=${page}&count=${count}`
-    ).then((response)=>response.data);
+    return instance
+      .get(`dialogs/${userId}/messages?page=${page}&count=${count}`)
+      .then((response) => response.data.items);
   },
 
   sendMessage(userId: number, body: IPost) {

@@ -10,15 +10,20 @@ import {
   usersOnPageCountSelector,
 } from "../../../utilities/selectors/messagesSelector";
 import { ChatItem } from "./ChatListItem/ChatItem";
-import { getChatUserId, getFollowedUserTC } from "../../../redux/messagesReducer";
+import {
+  getChatUserId,
+  getFollowedUserTC,
+  getUserMessagesTC,
+} from "../../../redux/messagesReducer";
 
 type MapStateToProps = {
   users: Array<IUser> | null;
   usersOnPageCount: number;
 };
-type MapDispatchToProps = { 
-  getFollowedUserTC: (usersOnPage: number) => void 
-  getChatUserId:(userId:number)=> void
+type MapDispatchToProps = {
+  getFollowedUserTC: (usersOnPage: number) => void;
+  getChatUserId: (userId: number) => void;
+  getUserMessagesTC: (userId: number) => void;
 };
 
 type OwnProps = {};
@@ -45,7 +50,7 @@ export const Chat: React.FC<Props> = (props): JSX.Element => {
         key={t.id}
         status={t.status}
         photos={t.photos.small!}
-        getChatUserId={props.getChatUserId}
+        getUserMessages={props.getUserMessagesTC}
       />
     ));
 
@@ -61,7 +66,7 @@ const mapStateToProps = (state: RootState): MapStateToProps => {
 export default compose(
   connect<MapStateToProps, MapDispatchToProps, OwnProps, RootState>(
     mapStateToProps,
-    { getFollowedUserTC, getChatUserId }
+    { getFollowedUserTC, getChatUserId, getUserMessagesTC }
   )
   // withAuthRedirect //TODO add TS to 'withAuthRedirect'
 )(ChatContainer);

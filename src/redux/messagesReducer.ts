@@ -5,15 +5,15 @@ import { dialogsAPI, usersAPI } from "../api/api";
 
 const ADD_MESSAGE = "messagePage/ADD-MESSAGE";
 const GET_FOLLOWED_USER = "messagePage/GET_FOLLOWED_USER";
-const GET_USER_MESSAGES = 'messagePage/GET_USER_MESSAGES';
-const GET_USER_ID = 'messagePage/GET_USER_ID';
+const GET_USER_MESSAGES = "messagePage/GET_USER_MESSAGES";
+const GET_USER_ID = "messagePage/GET_USER_ID";
 
 interface IState {
   followedUsers: Array<IUser> | null;
   messages: Array<IMessage>;
   usersOnPageCount: number;
-  currentUserId: number |null;
-};
+  currentUserId: number | null;
+}
 
 const initState: IState = {
   followedUsers: null,
@@ -38,7 +38,6 @@ const initState: IState = {
   ],
 };
 
-
 const messageReducer = (state = initState, action: ActionType): IState => {
   switch (action.type) {
     case ADD_MESSAGE: {
@@ -55,11 +54,18 @@ const messageReducer = (state = initState, action: ActionType): IState => {
       };
     }
 
+    case GET_USER_MESSAGES: {
+      return {
+        ...state,
+        messages: action.data,
+      };
+    }
+
     case GET_USER_ID: {
       return {
         ...state,
-        currentUserId: action.userId
-      }
+        currentUserId: action.userId,
+      };
     }
 
     case GET_FOLLOWED_USER: {
@@ -78,7 +84,11 @@ export default messageReducer;
 
 //! Actions
 
-type ActionType = AddMessageAction | GetFollowedUserAction | GetUserMessagesAction | GetChatUserIdAction;
+type ActionType =
+  | AddMessageAction
+  | GetFollowedUserAction
+  | GetUserMessagesAction
+  | GetChatUserIdAction;
 
 type AddMessageAction = {
   type: typeof ADD_MESSAGE;
@@ -93,14 +103,15 @@ type GetChatUserIdAction = {
   userId: number;
 };
 export const getChatUserId = (userId: number): GetChatUserIdAction => {
-  debugger
   return { type: GET_USER_ID, userId };
 };
 type GetUserMessagesAction = {
   type: typeof GET_USER_MESSAGES;
-  data: Array<string>;
+  data: Array<IMessage>;
 };
-export const getUserMessages = (data: Array<string>): GetUserMessagesAction => {
+export const getUserMessages = (
+  data: Array<IMessage>
+): GetUserMessagesAction => {
   return { type: GET_USER_MESSAGES, data };
 };
 
@@ -127,11 +138,14 @@ export const sendMessage =
     text && dispatch(addMessage(text));
   };
 
-  export const getUserMessagesTC = (userId:number):MessageThunkActionType =>async(dispatch)=>{
+export const getUserMessagesTC =
+  (userId: number): MessageThunkActionType =>
+  async (dispatch) => {
     const response = await dialogsAPI.getAllMessages(userId);
-    debugger;
+
+    // dispatch(addMessage(response));
     dispatch(getUserMessages(response));
-  }
+  };
 
 export const getFollowedUserTC =
   (usersOnPage: number): MessageThunkActionType =>
