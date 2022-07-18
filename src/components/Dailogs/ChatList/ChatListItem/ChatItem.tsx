@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
-//@ts-ignore
 import css from "./ChatItem.module.css";
+import cn from "classnames";
 //@ts-ignore
 import avatar from "../../../../assets/images/avatar.png";
-// import { IPhotos, IUser } from "../../../../types/types";
 
 type Props = {
   id: number;
+  currentActiveUserId: number | null;
   photos: string;
   name: string;
   status: string | null;
@@ -14,13 +14,18 @@ type Props = {
 };
 
 export const ChatItem: React.FC<Props> = (props): JSX.Element => {
+  const isActive = props.currentActiveUserId === props.id;
+
   const onClick = () => {
     return props.getUserMessages(props.id);
   };
 
   return (
-    <div onClick={onClick}>
-      <div className={css.chat__item}>
+    <>
+      <div
+        className={cn(isActive && css.chat__item_active, css.chat__item)}
+        onClick={onClick}
+      >
         {/* <NavLink to={"/messeges/" + props.id} className={css.chat__item}> */}
         <div className={css.avatar__block}>
           <img
@@ -39,6 +44,6 @@ export const ChatItem: React.FC<Props> = (props): JSX.Element => {
         {/* </NavLink> */}
       </div>
       <hr className={css.divider}></hr>
-    </div>
+    </>
   );
 };

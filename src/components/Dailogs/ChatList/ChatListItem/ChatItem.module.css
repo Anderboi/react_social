@@ -6,8 +6,11 @@
   gap: 1em;
   justify-content: space-between;
   text-decoration: none;
+  cursor: pointer;
+}
 
-  
+.chat__item_active {
+  background-color: rgb(250, 212, 218);
 }
 .avatar__block {
   position: relative;
@@ -39,9 +42,9 @@
 .chat__item_text_wrap {
   display: grid;
   grid-template-rows: 1fr 1fr;
- 
+
   width: 100%;
-text-overflow: ellipsis;
+  text-overflow: ellipsis;
   overflow: hidden;
 }
 

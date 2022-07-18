@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { RootState } from "../../../redux/reduxStore";
@@ -6,6 +6,7 @@ import { IUser } from "../../../types/types";
 import c from "./Chat.module.css";
 // import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import {
+  getCurrentChatUser,
   getFollowedUsers,
   usersOnPageCountSelector
 } from "../../../utilities/selectors/messagesSelector";
@@ -18,6 +19,7 @@ import {
 type MapStateToProps = {
   users: Array<IUser> | null;
   usersOnPageCount: number;
+  currentChatUserId: number | null;
 };
 type MapDispatchToProps = {
   getFollowedUserTC: (usersOnPage: number) => void;
@@ -43,6 +45,7 @@ export const Chat: React.FC<Props> = (props): JSX.Element => {
       <ChatItem
         name={t.name}
         id={t.id}
+        currentActiveUserId={props.currentChatUserId}
         key={t.id}
         status={t.status}
         photos={t.photos.small!}
@@ -56,7 +59,8 @@ export const Chat: React.FC<Props> = (props): JSX.Element => {
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
     users: getFollowedUsers(state),
-    usersOnPageCount: usersOnPageCountSelector(state)
+    usersOnPageCount: usersOnPageCountSelector(state),
+    currentChatUserId: getCurrentChatUser(state)
   };
 };
 export default compose(

@@ -3,11 +3,12 @@
   box-shadow: 4px 4px 4px 1px #21212110;
   max-width: 360px;
   word-wrap: break-word;
-  width: 80%;
+  width: 90%;
 }
 
 .item__date {
-  font-size: var(--fs-200);
+  font-size: var(--fs-300);
+  color: lightslategrey;
 }
 
 .message__item_own {
