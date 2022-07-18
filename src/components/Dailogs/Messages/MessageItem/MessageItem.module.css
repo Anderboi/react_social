@@ -1,26 +1,34 @@
-.message_item_own {
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 0.6em 0.6em 0.6em 0;
+.message__item {
   padding: 0.5em 1em;
   box-shadow: 4px 4px 4px 1px #21212110;
   max-width: 360px;
-  border: 1px solid var(--main-color);
   word-wrap: break-word;
-  /* overflow-wrap: break-word; */
+  width: 80%;
+}
 
+.item__date {
+  font-size: var(--fs-200);
+}
+
+.message__item_own {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0.6em 0.6em 0.6em 0;
+  border: 1px solid var(--main-color);
+  /* overflow-wrap: break-word; */
   align-self: flex-start;
 }
-.message_item_friend {
+.message__item_friend {
   background-color: var(--background-color);
   /* background-color: rgba(255, 255, 255, 0.8); */
   border-radius: 0.6em 0.6em 0 0.6em;
   border: 3px solid white;
-  max-width: 360px;
-  word-wrap: break-word;
-
-  padding: 0.5em 1em;
-  box-shadow: 4px 4px 4px 1px #21212110;
-  width: 80%;
-
   align-self: flex-end;
+}
+
+.message__checker {
+  float: right;
+  color: lightgrey;
+}
+.message__checker_viewed {
+  color: var(--main-color);
 }

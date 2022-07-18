@@ -1,19 +1,19 @@
 import axios from "axios";
-import { IPost, IUser, IUserInfo } from "../types/types";
+import { IUser, IUserInfo } from "../types/types";
 
 //! axios logic
 const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0",
   withCredentials: true,
-  headers: { "API-KEY": "28c503a8-69f0-4690-8b12-9458b04eb020" },
+  headers: { "API-KEY": "28c503a8-69f0-4690-8b12-9458b04eb020" }
 }); //! instance create base parameters for axios request
 
 export enum ResponseCodes {
   success = 0,
-  bad_response = 1,
+  bad_response = 1
 }
 export enum ResponseCodesForCaptcha {
-  captcha_needed = 10,
+  captcha_needed = 10
 }
 
 type GetUsersAPI = {
@@ -52,7 +52,7 @@ export const usersAPI = {
     return instance
       .delete<RespnseType>(`/follow/${userId}`)
       .then((response) => response.data);
-  },
+  }
 };
 
 type AuthResponse = {
@@ -88,14 +88,14 @@ export const authAPI = {
         email: data.email,
         password: data.password,
         rememberMe: data.rememberMe,
-        captcha: data.captcha,
+        captcha: data.captcha
       })
       .then((response) => response.data);
   },
 
   authLogout() {
     return instance.post<AuthLogoutResponse>("auth/logout");
-  },
+  }
 };
 
 export const dialogsAPI = {
@@ -109,13 +109,13 @@ export const dialogsAPI = {
       .then((response) => response.data.items);
   },
 
-  sendMessage(userId: number, body: IPost) {
-    return instance.post(`dialogs/${userId}/messages`, { body: body });
+  sendMessage(userId: number, body: string) {
+    return instance.post(`dialogs/${userId}/messages`, { body });
   },
 
   isMessageViewed(messageId: number) {
     return instance.get(`dialogs/messages/${messageId}/viewed`);
-  },
+  }
 };
 
 type GetCaptchaType = {
@@ -127,7 +127,7 @@ export const securityAPI = {
     return instance
       .get<GetCaptchaType>("security/get-captcha-url")
       .then((response) => response.data);
-  },
+  }
 };
 
 type RespnseType = {
@@ -166,8 +166,8 @@ export const profileAPI = {
         twitter: data.contacts!.twitter,
         website: data.contacts!.website,
         youtube: data.contacts!.youtube,
-        mainLink: data.contacts!.mainLink,
-      },
+        mainLink: data.contacts!.mainLink
+      }
     });
   },
 
@@ -181,8 +181,8 @@ export const profileAPI = {
 
     return instance
       .put<UploadPhotoType>("/profile/photo", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data" }
       })
       .then((response) => response.data);
-  },
+  }
 };

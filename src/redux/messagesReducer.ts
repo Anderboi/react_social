@@ -21,21 +21,16 @@ const initState: IState = {
   currentUserId: null,
   messages: [
     {
-      text: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, modi, ipsam nemo doloribus earum voluptatem blanditiis",
+      body: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sequi, modi, ipsam nemo doloribus earum voluptatem blanditiis",
       id: 1,
-      isOwn: true,
-    },
-    {
-      text: "Ipsam nemo doloribus earum voluptatem blanditiis",
-      id: 2,
-      isOwn: false,
-    },
-    {
-      text: "Repudiandae dolore corrupti doloremque voluptate eaque incidunt nostrum quibusdam amet quae aperiam sint sed.",
-      id: 3,
-      isOwn: true,
-    },
-  ],
+      addedAt: Date.now.toString(),
+      recipientId: 2,
+      senderId: 1,
+      senderName: "Anderboi",
+      translatedBody: null,
+      viewed: false
+    }
+  ]
 };
 
 const messageReducer = (state = initState, action: ActionType): IState => {
@@ -46,32 +41,31 @@ const messageReducer = (state = initState, action: ActionType): IState => {
         messages: [
           ...state.messages,
           {
-            text: action.data,
-            id: Math.random() * 100,
-            isOwn: true,
-          },
-        ],
+            body: action.data,
+            id: Math.random() * 100
+          }
+        ]
       };
     }
 
     case GET_USER_MESSAGES: {
       return {
         ...state,
-        messages: action.data,
+        messages: action.data
       };
     }
 
     case GET_USER_ID: {
       return {
         ...state,
-        currentUserId: action.userId,
+        currentUserId: action.userId
       };
     }
 
     case GET_FOLLOWED_USER: {
       return {
         ...state,
-        followedUsers: [...action.data],
+        followedUsers: [...action.data]
       };
     }
 
@@ -105,6 +99,8 @@ type GetChatUserIdAction = {
 export const getChatUserId = (userId: number): GetChatUserIdAction => {
   return { type: GET_USER_ID, userId };
 };
+
+//* Get all messages from User by Id
 type GetUserMessagesAction = {
   type: typeof GET_USER_MESSAGES;
   data: Array<IMessage>;
@@ -132,18 +128,21 @@ type MessageThunkActionType = ThunkAction<
   ActionType
 >;
 
+//! Send Post Thunk with API
 export const sendMessage =
-  (text: string): MessageThunkActionType =>
-  (dispatch) => {
-    text && dispatch(addMessage(text));
+  (userId: number, post: string): MessageThunkActionType =>
+  async (dispatch) => {
+    await dialogsAPI.sendMessage(userId, post);
+
+    // dispatch(addMessage(response.data.data.message.body));
+    dispatch(getUserMessagesTC(userId));
   };
 
 export const getUserMessagesTC =
   (userId: number): MessageThunkActionType =>
   async (dispatch) => {
     const response = await dialogsAPI.getAllMessages(userId);
-
-    // dispatch(addMessage(response));
+    dispatch(getChatUserId(userId));
     dispatch(getUserMessages(response));
   };
 

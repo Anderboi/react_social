@@ -7,13 +7,12 @@ import c from "./Chat.module.css";
 // import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import {
   getFollowedUsers,
-  usersOnPageCountSelector,
+  usersOnPageCountSelector
 } from "../../../utilities/selectors/messagesSelector";
 import { ChatItem } from "./ChatListItem/ChatItem";
 import {
-  getChatUserId,
   getFollowedUserTC,
-  getUserMessagesTC,
+  getUserMessagesTC
 } from "../../../redux/messagesReducer";
 
 type MapStateToProps = {
@@ -22,7 +21,6 @@ type MapStateToProps = {
 };
 type MapDispatchToProps = {
   getFollowedUserTC: (usersOnPage: number) => void;
-  getChatUserId: (userId: number) => void;
   getUserMessagesTC: (userId: number) => void;
 };
 
@@ -31,11 +29,9 @@ type OwnProps = {};
 type Props = OwnProps & MapStateToProps & MapDispatchToProps;
 
 const ChatContainer: React.FC<Props> = (props) => {
-  const [users, getUsers] = useState(props.users);
-
   useEffect(() => {
     props.getFollowedUserTC(props.usersOnPageCount);
-  }, [users]);
+  }, [props.users]);
 
   return <Chat {...props} />;
 };
@@ -60,13 +56,13 @@ export const Chat: React.FC<Props> = (props): JSX.Element => {
 const mapStateToProps = (state: RootState): MapStateToProps => {
   return {
     users: getFollowedUsers(state),
-    usersOnPageCount: usersOnPageCountSelector(state),
+    usersOnPageCount: usersOnPageCountSelector(state)
   };
 };
 export default compose(
   connect<MapStateToProps, MapDispatchToProps, OwnProps, RootState>(
     mapStateToProps,
-    { getFollowedUserTC, getChatUserId, getUserMessagesTC }
+    { getFollowedUserTC, getUserMessagesTC }
   )
   // withAuthRedirect //TODO add TS to 'withAuthRedirect'
 )(ChatContainer);

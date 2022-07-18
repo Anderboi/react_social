@@ -3,7 +3,7 @@ import {
   authAPI,
   ResponseCodes,
   ResponseCodesForCaptcha,
-  securityAPI,
+  securityAPI
 } from "../api/api";
 import { RootState } from "./reduxStore";
 
@@ -22,7 +22,7 @@ let initState = {
   isAuthorised: false as boolean,
   authMessage: null as string | null,
   captchaUrl: null as string | null,
-  errorMessage: null as string | null,
+  errorMessage: null as string | null
 };
 
 export type AuthState = typeof initState;
@@ -41,14 +41,14 @@ const authReducer = (state = initState, action: ActionType): AuthState => {
       return {
         ...state,
         ...action.payload,
-        isAuthorised: true,
+        isAuthorised: true
       };
     }
 
     case LOGIN_USER: {
       return {
         ...state,
-        authMessage: action.payload,
+        authMessage: action.payload
       };
     }
     case LOGOUT_USER: {
@@ -57,26 +57,26 @@ const authReducer = (state = initState, action: ActionType): AuthState => {
         id: null,
         login: null,
         email: null,
-        isAuthorised: false,
+        isAuthorised: false
       };
     }
 
     case GET_CAPTCHA: {
       return {
         ...state,
-        captchaUrl: action.url,
+        captchaUrl: action.url
       };
     }
     case SHOW_ERROR: {
       return {
         ...state,
-        errorMessage: action.message,
+        errorMessage: action.message
       };
     }
     case HIDE_ERROR: {
       return {
         ...state,
-        errorMessage: null,
+        errorMessage: null
       };
     }
 
@@ -106,7 +106,7 @@ type SetUserDataAction = {
 export const setUserData = ({
   id,
   login,
-  email,
+  email
 }: SetUserDataPayload): SetUserDataAction => {
   return { type: SET_USER_DATA, payload: { id, login, email } };
 };
@@ -174,23 +174,22 @@ type LoginType = {
 
 export const loginTC =
   (values: LoginType): AuthThunkActionType =>
-    async (dispatch) => {
-      try {
-        const response = await authAPI.authLogin(values);
-        if (response.resultCode === ResponseCodes.success) {
-          dispatch(loginUser("Success"));
-          dispatch(authData());
-        } else {
-          if (response.resultCode === ResponseCodesForCaptcha.captcha_needed) {
-            dispatch(getCaptchaTC());
-          }
-          dispatch(loginUser(response.messages[0]));
+  async (dispatch) => {
+    try {
+      const response = await authAPI.authLogin(values);
+      if (response.resultCode === ResponseCodes.success) {
+        dispatch(loginUser("Success"));
+        dispatch(authData());
+      } else {
+        if (response.resultCode === ResponseCodesForCaptcha.captcha_needed) {
+          dispatch(getCaptchaTC());
         }
-      } catch (error: any) {
-
-        dispatch(showErrorMessage(error));
+        dispatch(loginUser(response.messages[0]));
       }
-    };
+    } catch (error: any) {
+      dispatch(showErrorMessage(error));
+    }
+  };
 
 export const logoutTC = (): AuthThunkActionType => async (dispatch) => {
   const response = await authAPI.authLogout();
@@ -206,7 +205,7 @@ export const getCaptchaTC = (): AuthThunkActionType => async (dispatch) => {
 
 export const showErrorMessage =
   (message: string): AuthThunkActionType =>
-    async (dispatch) => {
-      dispatch(showError(message));
-      setTimeout(() => dispatch(hideError()), 3000);
-    };
+  async (dispatch) => {
+    dispatch(showError(message));
+    setTimeout(() => dispatch(hideError()), 3000);
+  };

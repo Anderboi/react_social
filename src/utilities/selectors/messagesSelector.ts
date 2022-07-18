@@ -10,4 +10,6 @@ export const usersOnPageCountSelector = (state: RootState) => {
   return state.messagesPage.usersOnPageCount;
 };
 
-
+export const getCurrentChatUser = (state: RootState) => {
+  return state.messagesPage.currentUserId;
+};

@@ -79,7 +79,7 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    errorMessage: getErrorMessage(state),
+    errorMessage: getErrorMessage(state)
   };
 };
 

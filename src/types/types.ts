@@ -35,7 +35,12 @@ export interface IUser {
 }
 
 export interface IMessage {
-  text: string;
+  body: string;
   id: number;
-  isOwn: boolean;
+  addedAt?: string;
+  recipientId?: number | null;
+  senderId?: number;
+  senderName?: string;
+  translatedBody?: string | null;
+  viewed?: boolean;
 }
